@@ -1,0 +1,29 @@
+{
+  "name": "babel-preset-crius",
+  "version": "0.0.1",
+  "description": "Babel preset for all Crius plugins.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "unadlib",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.0.0",
+    "@babel/plugin-transform-react-display-name": "^7.2.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/plugin-transform-react-jsx-self": "^7.2.0",
+    "@babel/plugin-transform-react-jsx-source": "^7.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/helper-plugin-test-runner": "^7.1.0",
+    "@babel/helper-transform-fixture-test-runner": "^7.5.5"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.5.5"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "version": "0.0.1",
+  "description": "A concise JavaScript library for building step processes",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "scripts": {
+    "test": "cross-env NODE_ENV=development jest --config ./scripts/jest/config.js",
+    "build:preset": "babel packages/babel-preset-crius/src --out-dir packages/babel-preset-crius/dist",
+    "test:preset": "jest packages/babel-preset-crius --config=scripts/jest/config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unadlib/crius.git"
+  },
+  "author": "unadlib",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unadlib/crius/issues"
+  },
+  "homepage": "https://github.com/unadlib/crius#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.8",
+    "babel-jest": "^24.8.0",
+    "cross-env": "^5.2.0",
+    "jest": "^24.8.0",
+    "lerna": "^3.15.0",
+    "typescript": "^3.5.3"
+  }
+}
