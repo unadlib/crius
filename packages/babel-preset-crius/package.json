@@ -19,9 +19,7 @@
     "@babel/plugin-transform-react-jsx-source": "^7.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/helper-plugin-test-runner": "^7.1.0",
-    "@babel/helper-transform-fixture-test-runner": "^7.5.5"
+    "@babel/core": "^7.5.5"
   },
   "peerDependencies": {
     "@babel/core": "^7.5.5"

@@ -1,24 +1,27 @@
 import Step from "./stepClass";
 
+type Key = string|undefined|null;
 interface IConfig {
   [P: string]: any;
+  key?: Key;
 }
 
 interface Props {
   [P: string]: any;
+  children: ReadonlyArray<IChildren>;
 }
 
 interface IOptions {
   step: Step;
-  key: string;
+  key: Key;
   props: Props;
 }
 
-type IChildren = (() => any) | Flow;
+type IChildren = ((...args: any[]) => any) | Flow;
 
 class Flow {
   private step: Step;
-  private key: string;
+  private key: Key;
   private props: Props;
 
   constructor({
@@ -37,7 +40,7 @@ function createFlow(
   config: IConfig,
   ...children: ReadonlyArray<IChildren>
 ): Flow {
-  const props = {
+  const props: Props = {
     children,
     ...config,
   };

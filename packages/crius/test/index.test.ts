@@ -1,17 +1,17 @@
-import { Step, createFlow } from '../src'; 
+import { Step, createFlow } from '../src';
 
 test('base Step', () => {
-  class Foo extends Step {}
+  class Foo extends Step { }
   const foo = createFlow(Foo, {});
   expect(foo).toEqual({
     key: undefined,
-    props: {children: []},
+    props: { children: [] },
     step: Foo,
   });
 });
 
 test('base import Step', () => {
-  class Foo extends Step {}
+  class Foo extends Step { }
   const foo = createFlow(Foo, {});
   class Bar extends Step {
     run() {
@@ -21,29 +21,33 @@ test('base import Step', () => {
   const bar = createFlow(Bar, {});
   expect(bar).toEqual({
     key: undefined,
-    props: {children: []},
+    props: { children: [] },
     step: Bar,
   });
 });
 
 test('base composition Step', () => {
-  class Foo extends Step {}
+  class Foo extends Step { }
   const foo = createFlow(Foo, {});
-  class Bar extends Step {}
-  const bar = createFlow(Bar, {}, createFlow(foo, {}));
+  class Bar extends Step { }
+  const dosomething = async () => void await new Promise(resolve => setTimeout(resolve));
+  const bar = createFlow(Bar, {}, createFlow(foo, {}), dosomething);
   expect(bar).toEqual({
     key: undefined,
-    props: {children: [
-      {
-        key: undefined,
-        props: {children: []},
-        step: {
+    props: {
+      children: [
+        {
           key: undefined,
-          props: {children: []},
-          step: Foo
+          props: { children: [] },
+          step: {
+            key: undefined,
+            props: { children: [] },
+            step: Foo
+          },
         },
-      }
-    ]},
+        dosomething
+      ]
+    },
     step: Bar,
   });
 });

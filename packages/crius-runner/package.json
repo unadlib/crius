@@ -10,5 +10,8 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "crius": "^0.0.1"
   }
 }
