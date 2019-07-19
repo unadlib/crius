@@ -14,7 +14,7 @@ interface IOptions {
   props: Props;
 }
 
-type IChildren = () => any | Step;
+type IChildren = (() => any) | Flow;
 
 class Flow {
   private step: Step;
@@ -35,8 +35,8 @@ class Flow {
 function createFlow(
   step: Step,
   config: IConfig,
-  children: ReadonlyArray<IChildren>
-) {
+  ...children: ReadonlyArray<IChildren>
+): Flow {
   const props = {
     children,
     ...config,
