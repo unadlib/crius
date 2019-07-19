@@ -7,8 +7,8 @@ import transformReactJSXSelf from "@babel/plugin-transform-react-jsx-self";
 export default declare((api, opts) => {
   api.assertVersion(7);
 
-  const pragma = opts.pragma || "Crius.createElement";
-  const pragmaFrag = opts.pragmaFrag || "Crius.Fragment";
+  const pragma = opts.pragma || "Crius.createFlow";
+  const pragmaFrag = opts.pragmaFrag || "Crius.Process";
   const throwIfNamespace =
     opts.throwIfNamespace === undefined ? true : !!opts.throwIfNamespace;
   const development = !!opts.development;

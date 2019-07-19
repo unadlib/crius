@@ -1,5 +1,11 @@
-import {add} from '../src'; 
+import { Step, createFlow } from '../src'; 
 
-test('add', () => {
-  expect(add).toBe(2);
+test('base Step', () => {
+  class Foo extends Step {}
+  const flow = createFlow(Foo, {}, []);
+  expect(flow).toEqual({
+    key: undefined,
+    props: {children: []},
+    step: Foo,
+  });
 });

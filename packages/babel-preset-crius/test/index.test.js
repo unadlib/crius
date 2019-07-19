@@ -17,7 +17,7 @@ describe('crius preset', () => {
     expect(actual).toEqual(
 `"use strict";
 
-Crius.createElement(Foo, {
+Crius.createFlow(Foo, {
   bar: "baz"
 });`
     );
@@ -32,7 +32,7 @@ Crius.createElement(Foo, {
     expect(actual).toEqual(
 `"use strict";
 
-Crius.createElement(Foo, {
+Crius.createFlow(Foo, {
   bar: "baz"
 });`
     );
@@ -49,7 +49,7 @@ Crius.createElement(Foo, {
 `"use strict";
 
 var _jsxFileName = "/fake/path/mock.js";
-Crius.createElement(Foo, {
+Crius.createFlow(Foo, {
   bar: "baz",
   __source: {
     fileName: _jsxFileName,
