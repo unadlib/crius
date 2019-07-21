@@ -2,8 +2,10 @@ import { CriusNode } from './flow';
 
 export type Key = string | undefined | null;
 
+export type Children<P> = ReadonlyArray<(CriusNode<P> | ((props: Props<P>) => Promise<CriusNode<P>>) | any)>;
+
 export type Props<P = {}> =
-  Readonly<P> & Readonly<{ children?: CriusNode<P>[] }> & { key?: Key };
+  Readonly<P> & Readonly<{ children?: Children<P> }> & { key?: Key };
 
 interface Params<P> {
   props: Props<P>;

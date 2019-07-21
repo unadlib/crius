@@ -1,4 +1,4 @@
-import { Props, Key } from './stepClass';
+import { Props, Key, Children } from './stepClass';
 
 type Config<P> = { key?: Key } & P;
 interface Options<S, P> {
@@ -29,7 +29,7 @@ class CriusNode<S extends EemptyStep<P>, P = {}>  {
 function createFlow<S extends EemptyStep<P>, P = {}>(
   step: S,
   config: Config<P>,
-  ...children: ReadonlyArray<CriusNode<S, P> | ((props: Props<P>) => Promise<CriusNode<S, P> | any>)>
+  ...children: Children<P>
 ): CriusNode<S, P> {
   const props: Props<P> = {
     children,
