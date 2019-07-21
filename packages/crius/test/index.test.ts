@@ -1,5 +1,17 @@
 import { Step, createFlow } from '../src';
 
+test('instance Step', () => {
+  class Foo extends Step { }
+  const foo = new Foo({
+    props: {
+      children: [],
+    },
+  });
+  expect(foo).toEqual({
+    props: { children: [] },
+  });
+});
+
 test('base Step', () => {
   class Foo extends Step { }
   const foo = createFlow(Foo, {});
@@ -12,10 +24,9 @@ test('base Step', () => {
 
 test('base import Step', () => {
   class Foo extends Step { }
-  const foo = createFlow(Foo, {});
   class Bar extends Step {
     run() {
-      return createFlow(foo, {})
+      return createFlow(Foo, {})
     }
   }
   const bar = createFlow(Bar, {});
@@ -28,25 +39,21 @@ test('base import Step', () => {
 
 test('base composition Step', () => {
   class Foo extends Step { }
-  const foo = createFlow(Foo, {});
   class Bar extends Step { }
   const dosomething = async () => void await new Promise(resolve => setTimeout(resolve));
-  const bar = createFlow(Bar, {}, createFlow(foo, {}), dosomething);
+  const bar = createFlow(Bar, { test: 1 }, createFlow(Foo, { test: 2 }), dosomething);
   expect(bar).toEqual({
     key: undefined,
     props: {
       children: [
         {
           key: undefined,
-          props: { children: [] },
-          step: {
-            key: undefined,
-            props: { children: [] },
-            step: Foo
-          },
+          props: { children: [], test: 2 },
+          step: Foo,
         },
         dosomething
-      ]
+      ],
+      test: 1
     },
     step: Bar,
   });

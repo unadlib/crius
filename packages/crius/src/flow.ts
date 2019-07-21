@@ -6,7 +6,7 @@ interface IConfig {
   key?: Key;
 }
 
-interface Props {
+export interface Props {
   [P: string]: any;
   children: ReadonlyArray<IChildren>;
 }
@@ -19,10 +19,15 @@ interface IOptions {
 
 type IChildren = ((...args: any[]) => any) | Flow;
 
-class Flow {
-  private step: Step;
-  private key: Key;
-  private props: Props;
+export interface IFlow {
+  step: Step;
+  key: Key;
+  props: Props;
+}
+class Flow implements IFlow {
+  public step: Step;
+  public key: Key;
+  public props: Props;
 
   constructor({
     step,

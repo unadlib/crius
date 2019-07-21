@@ -6,7 +6,7 @@ module.exports = {
   rootDir: process.cwd(),
   roots: ['<rootDir>/packages'],
   collectCoverageFrom: ['packages/**/*.js'],
-  timers: 'fake',
+  // timers: 'fake',
   setupFiles: [
     // require.resolve('./setupEnvironment.js'),
     // require.resolve('./setupHostConfigs.js'),

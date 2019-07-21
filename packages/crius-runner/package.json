@@ -11,7 +11,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
+  "dependencies": {
     "crius": "^0.0.1"
   }
 }

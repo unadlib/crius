@@ -1,5 +1,5 @@
 import Step from './StepClass';
-import { createFlow }  from './flow';
+import { createFlow, IFlow }  from './flow';
 
 const Crius = {
   Step,
@@ -9,4 +9,5 @@ export {
   Crius as default,
   Step,
   createFlow,
+  IFlow,
 }
