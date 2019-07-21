@@ -1,17 +1,24 @@
 import { CriusNode } from 'crius';
 
-interface EemptyStep<P = {}> { }
+type Key = string | undefined | null;
+
+interface EemptyStep<P = {}> {}
 
 async function run<S extends EemptyStep<P>, P = {}>({
   step: Step,
+  key: Key,
   props
 }: CriusNode<S, P>) {
   if (typeof Step === 'function') {
-    // TODO: handle function step.
-    const step = new (Step as any)({
-      props
-    });
-    const nextStep = await step.run();
+    let nextStep;
+    if (Step.prototype.isCriusStep) {
+      const step = new (Step as any)({
+        props
+      });
+      nextStep = await step.run();
+    } else {
+      nextStep = await Step(props);
+    }
     if (nextStep) {
       if (typeof nextStep === 'function') {
         await nextStep();

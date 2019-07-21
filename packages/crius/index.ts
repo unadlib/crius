@@ -2,6 +2,7 @@ import Crius, {
   Step,
   createFlow,
   CriusNode,
+  FunctionStep,
 } from './src';
 
 export {
@@ -9,4 +10,5 @@ export {
   Step,
   createFlow,
   CriusNode,
+  FunctionStep,
 }

@@ -19,6 +19,10 @@ class Step<P = {}> {
   }: Params<P>) {
     this.props = props;
   }
+
+  get isCriusStep() {
+    return true;
+  }
 }
 
 export {

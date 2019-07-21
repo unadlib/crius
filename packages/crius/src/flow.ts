@@ -1,4 +1,4 @@
-import { Props, Key } from "./stepClass";
+import { Props, Key } from './stepClass';
 
 type Config<P> = { key?: Key } & P;
 interface Options<S, P> {

@@ -1,8 +1,11 @@
-import Step from './StepClass';
+import Step from './stepClass';
 import { createFlow, CriusNode }  from './flow';
+import { FunctionStep } from './stepFunction';
 
 const Crius = {
   Step,
+  createFlow,
+  CriusNode,
 };
 
 export {
@@ -10,4 +13,5 @@ export {
   Step,
   createFlow,
   CriusNode,
+  FunctionStep
 }
