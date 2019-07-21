@@ -1,12 +1,12 @@
 import Crius, {
   Step,
   createFlow,
-  IFlow,
+  CriusNode,
 } from './src';
 
 export {
   Crius as default,
   Step,
   createFlow,
-  IFlow,
+  CriusNode,
 }

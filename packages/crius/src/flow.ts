@@ -1,56 +1,42 @@
-import Step from "./stepClass";
+import { Props, Key } from "./stepClass";
 
-type Key = string|undefined|null;
-interface IConfig {
-  [P: string]: any;
-  key?: Key;
-}
-
-export interface Props {
-  [P: string]: any;
-  children: ReadonlyArray<IChildren>;
-}
-
-interface IOptions {
-  step: Step;
+type Config<P> = { key?: Key } & P;
+interface Options<S, P> {
+  step: S;
   key: Key;
-  props: Props;
+  props: Props<P>;
 }
 
-type IChildren = ((...args: any[]) => any) | Flow;
+// TODU: use 'infer' derivation.
+interface EemptyStep<P = {}> { }
 
-export interface IFlow {
-  step: Step;
-  key: Key;
-  props: Props;
-}
-class Flow implements IFlow {
-  public step: Step;
+class CriusNode<S extends EemptyStep<P>, P = {}>  {
+  public step: S;
   public key: Key;
-  public props: Props;
+  public props: Props<P>;
 
   constructor({
     step,
     key,
     props
-  }: IOptions) {
+  }: Options<S, P>) {
     this.step = step;
     this.key = key;
     this.props = props;
   }
 }
 
-function createFlow(
-  step: Step,
-  config: IConfig,
-  ...children: ReadonlyArray<IChildren>
-): Flow {
-  const props: Props = {
+function createFlow<S extends EemptyStep<P>, P = {}>(
+  step: S,
+  config: Config<P>,
+  ...children: ReadonlyArray<CriusNode<S, P> | ((props: Props<P>) => Promise<CriusNode<S, P> | any>)>
+): CriusNode<S, P> {
+  const props: Props<P> = {
     children,
     ...config,
   };
   const key = config.key;
-  return new Flow({
+  return new CriusNode({
     step,
     key,
     props
@@ -59,4 +45,5 @@ function createFlow(
 
 export {
   createFlow,
+  CriusNode,
 }

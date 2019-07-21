@@ -1,20 +1,22 @@
-import { Props } from './flow';
+import { CriusNode } from './flow';
 
-interface IStep {
-  props: Props;
-  run?(...args:[]): any; 
+export type Key = string | undefined | null;
+
+export type Props<P = {}> =
+  Readonly<P> & Readonly<{ children?: CriusNode<P>[] }> & { key?: Key };
+
+interface Params<P> {
+  props: Props<P>;
+}
+interface Step<P> {
+  props: Props<P>;
+  run(...args: any[]): Promise<CriusNode<P> | any> | any;
 }
 
-interface IProps {
-  props: Props;
-}
-
-class Step implements IStep {
-  public props: Props;
-
+class Step<P = {}> {
   constructor({
     props,
-  }: IProps) {
+  }: Params<P>) {
     this.props = props;
   }
 }

@@ -1,14 +1,14 @@
-import { Step, createFlow } from 'crius/src';
+import { Step } from 'crius';
 import { run } from '../src';
 
 test('test run for step', async () => {
   const result: string[] = [];
-  class Foo extends Step {
+  class Foo extends Step<{foo: string}> {
     run() {
       result.push(this.props.foo);
     }
   }
-  class Bar extends Step {
+  class Bar extends Step<{ bar: string }> {
     run() {
       result.push(this.props.bar);
       return this.props.children;

@@ -1,27 +1,5 @@
 import { Step, createFlow } from '../src';
 
-test('instance Step', () => {
-  class Foo extends Step { }
-  const foo = new Foo({
-    props: {
-      children: [],
-    },
-  });
-  expect(foo).toEqual({
-    props: { children: [] },
-  });
-});
-
-test('base Step', () => {
-  class Foo extends Step { }
-  const foo = createFlow(Foo, {});
-  expect(foo).toEqual({
-    key: undefined,
-    props: { children: [] },
-    step: Foo,
-  });
-});
-
 test('base import Step', () => {
   class Foo extends Step { }
   class Bar extends Step {
