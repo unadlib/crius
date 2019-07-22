@@ -22,11 +22,11 @@ test('test run for step', async () => {
   //   {dosomething}
   // </Bar>
   const caseStep = {
-    key: undefined,
+    key: 'Bar',
     props: {
       children: [
         {
-          key: undefined,
+          key: 'Foo',
           props: { children: [], foo: 'foo' },
           step: Foo,
         },

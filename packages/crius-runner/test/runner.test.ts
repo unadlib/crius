@@ -9,7 +9,7 @@ test('base runner without return value', async () => {
     }
   }
   const caseStep = {
-    key: undefined,
+    key: 'Test',
     props: {
       foobar: 'foobar',
     },
@@ -28,7 +28,7 @@ test('function step', async () => {
     result.push(props.bar);
   };
   await run({
-    key: undefined,
+    key: 'Bar',
     props: {
       bar: 'bar'
     },
@@ -47,7 +47,7 @@ test('base runner with return function', async () => {
     }
   }
   const caseStep = {
-    key: undefined,
+    key: 'Test',
     props: {
       foobar: 'foobar',
     },
@@ -75,7 +75,7 @@ test('base runner with return async function', async () => {
     }
   }
   const caseStep = {
-    key: undefined,
+    key: 'Test',
     props: {
       foobar: 'foobar',
       foo: 'foo',

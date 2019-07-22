@@ -9,7 +9,7 @@ test('base import Step', () => {
   }
   const bar = createFlow(Bar, {});
   expect(bar).toEqual({
-    key: undefined,
+    key: 'Bar',
     props: { children: [] },
     step: Bar,
   });
@@ -21,11 +21,11 @@ test('base composition Step', () => {
   const dosomething = async () => void await new Promise(resolve => setTimeout(resolve));
   const bar = createFlow(Bar, { test: 1 }, createFlow(Foo, { test: 2 }), dosomething);
   expect(bar).toEqual({
-    key: undefined,
+    key: 'Bar',
     props: {
       children: [
         {
-          key: undefined,
+          key: 'Foo',
           props: { children: [], test: 2 },
           step: Foo,
         },

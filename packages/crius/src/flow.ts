@@ -35,7 +35,15 @@ function createFlow<S extends EemptyStep<P>, P = {}>(
     children,
     ...config,
   };
-  const key = config ? config.key : '';
+  let key = '';
+  if (typeof step === 'function') {
+    if (step.prototype.isCriusStep) {
+      key = step.name || step.prototype.constructor.name;
+    } else {
+      key = step.name || ( step.prototype ? step.prototype.constructor.name : 'anonymous' );
+    }
+  }
+  key = config && config.key ? config.key : key;
   return new CriusNode({
     step,
     key,
