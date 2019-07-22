@@ -7,7 +7,12 @@ export type Children<P> = ReadonlyArray<(CriusNode<P> | ((props: Props<P>) => Pr
 export type Props<P = {}> =
   Readonly<P> & Readonly<{ children?: Children<P> }> & { key?: Key };
 
-interface Step<P> {
+interface StepLifecycle<P> {
+  stepWillStart(): void;
+  stepDidEnd(): void;
+}
+
+interface Step<P> extends StepLifecycle<P> {
   props: Props<P>;
   run(...args: any[]): Promise<CriusNode<P> | any> | any;
 }

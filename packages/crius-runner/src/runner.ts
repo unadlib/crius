@@ -1,9 +1,10 @@
-import { CriusNode } from 'crius';
+import { CriusNode, Step as StepClass } from 'crius';
 import { isCriusNode } from 'crius-is';
+import { runWithLifecycle } from './lifecycle';
 
 type Key = string | undefined | null;
 
-interface EemptyStep<P = {}> {}
+interface EemptyStep<P = {}> {};
 
 /**
  * Run A CriusNode
@@ -17,10 +18,10 @@ async function run<S extends EemptyStep<P>, P = {}>({
   if (typeof Step === 'function') {
     let nextStep;
     if (Step.prototype.isCriusStep) {
-      const step = new (Step as any)( // Todo fix 'any' type
+      const step: StepClass = new (Step as any)(
         props
       );
-      nextStep = await step.run();
+      nextStep = await runWithLifecycle(step);
     } else {
       nextStep = await Step(props);
     }
