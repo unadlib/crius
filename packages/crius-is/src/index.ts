@@ -1,4 +1,4 @@
-export const isCriusStepClass = (target: any): boolean => {
+const isCriusStepClass = (target: any): boolean => {
   return (
     toString.call(target) === '[object Object]' &&
     target.step &&
@@ -7,7 +7,7 @@ export const isCriusStepClass = (target: any): boolean => {
   );
 }
 
-export const isCriusStepFunction = (target: any): boolean => {
+const isCriusStepFunction = (target: any): boolean => {
   return (
     toString.call(target) === '[object Object]' &&
     typeof target.step === 'function' && (
@@ -16,8 +16,9 @@ export const isCriusStepFunction = (target: any): boolean => {
   );
 }
 
-export const isCriusStepFragment =  (target: any): boolean => {
+const isCriusStepFragment =  (target: any): boolean => {
   return (
+    toString.call(target) === '[object Object]' &&
     target.key === '' &&
     target.props &&
     Array.isArray(target.props.children) &&
@@ -28,7 +29,7 @@ export const isCriusStepFragment =  (target: any): boolean => {
   )
 }
 
-export const isCriusStep = (target: any): boolean  => {
+const isCriusStep = (target: any): boolean  => {
   return (
     isCriusStepClass(target) ||
     isCriusStepFunction(target) || 
@@ -36,11 +37,18 @@ export const isCriusStep = (target: any): boolean  => {
   );
 }
 
-
-export const isCriusNode = (target: any): boolean  => {
+const isCriusNode = (target: any): boolean  => {
   return (
     toString.call(target) === '[object Object]' ?
     isCriusStep(target) :
     false
   );
+}
+
+export {
+  isCriusStepClass,
+  isCriusStepFunction,
+  isCriusStepFragment,
+  isCriusStep,
+  isCriusNode,
 }
