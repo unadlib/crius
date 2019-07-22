@@ -8,6 +8,10 @@ const Crius = {
   CriusNode,
 };
 
+if (global) {
+  (global as any).Crius = Crius;
+}
+
 export {
   Crius as default,
   Step,

@@ -127,5 +127,3 @@ test('runner deep step with JSX', async () => {
     'fooBar1',
   ]);
 });
-
-

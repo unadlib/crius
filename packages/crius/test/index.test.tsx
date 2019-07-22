@@ -1,8 +1,8 @@
-import Crius, { Step, createFlow } from '../src';
+import { Step, createFlow } from '../src';
 
 test('base import Step with JSX', () => {
-  class Foo extends Crius.Step { }
-  class Bar extends Crius.Step {
+  class Foo extends Step { }
+  class Bar extends Step {
     run() {
       return <Foo />
     }
@@ -16,8 +16,8 @@ test('base import Step with JSX', () => {
 });
 
 test('base Step fragment with JSX', () => {
-  class Foo extends Crius.Step { }
-  class Bar extends Crius.Step { }
+  class Foo extends Step { }
+  class Bar extends Step { }
   const bar = (
     <>
       <Bar />
