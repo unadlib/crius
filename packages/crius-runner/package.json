@@ -12,6 +12,7 @@
     "access": "public"
   },
   "dependencies": {
-    "crius": "^0.0.1"
+    "crius": "^0.0.1",
+    "crius-is": "^0.0.1"
   }
 }

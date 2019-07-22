@@ -1,4 +1,5 @@
 import { CriusNode } from 'crius';
+import { isCriusNode } from 'crius-is';
 
 type Key = string | undefined | null;
 
@@ -16,7 +17,7 @@ async function run<S extends EemptyStep<P>, P = {}>({
   if (typeof Step === 'function') {
     let nextStep;
     if (Step.prototype.isCriusStep) {
-      const step = new (Step as any)(
+      const step = new (Step as any)( // Todo fix 'any' type
         props
       );
       nextStep = await step.run();
@@ -26,16 +27,16 @@ async function run<S extends EemptyStep<P>, P = {}>({
     if (nextStep) {
       if (typeof nextStep === 'function') {
         await nextStep();
-      } else if (toString.call(nextStep) === '[object Object]') {  // TODO: check CriusNode
+      } else if (isCriusNode(nextStep)) {
         await run(nextStep);
       } else if (Array.isArray(nextStep)) {
         for (const child of nextStep) {
           if (typeof child === 'function') {
             await child();
-          } else if (toString.call(child) === '[object Object]') { // TODO: check CriusNode
+          } else if (isCriusNode(child)) {
             await run(child);
           } else {
-            throw new Error('error type');
+            throw new Error('Unexpected Error Crius Step Type.');
           }
         }
       }
@@ -71,10 +72,10 @@ async function run<S extends EemptyStep<P>, P = {}>({
     for (const child of props.children) {
       if (typeof child === 'function') {
         await child();
-      } else if (toString.call(child) === '[object Object]') { // TODO: check CriusNode
+      } else if (isCriusNode(child)) {
         await run(child);
       } else {
-        throw new Error('error type');
+        throw new Error('Unexpected Error Crius Step Type.');
       }
     }
   }
