@@ -11,7 +11,7 @@ describe('crius preset', () => {
     const actual = transform(
       '<Foo bar="baz" />',
       {
-        presets: [[require.resolve('../dist/index'), {}]]
+        presets: [[require.resolve('../dist'), {}]]
       }
     ).code;
     expect(actual).toEqual(
@@ -26,7 +26,7 @@ Crius.createFlow(Foo, {
     const actual = transform(
       '<Foo bar="baz" />',
       {
-        presets: [require.resolve('../dist/index')]
+        presets: [require.resolve('../dist')]
       }
     ).code;
     expect(actual).toEqual(
@@ -41,7 +41,7 @@ Crius.createFlow(Foo, {
     const actual = transform(
       '<Foo bar="baz" />',
       {
-        presets: [[require.resolve('../dist/index'), { development: true }]],
+        presets: [[require.resolve('../dist'), { development: true }]],
         filename: '/fake/path/mock.js'
       }
     ).code;

@@ -11,7 +11,8 @@
     "build:preset": "babel packages/babel-preset-crius/src --out-dir packages/babel-preset-crius/dist",
     "test:preset": "jest packages/babel-preset-crius/ --config=scripts/jest/config.js",
     "test:crius": "jest packages/crius/ --config=scripts/jest/config.js",
-    "test:crius-runner": "jest packages/crius-runner/ --config=scripts/jest/config.js"
+    "test:crius-runner": "jest packages/crius-runner/ --config=scripts/jest/config.js",
+    "check-type": "tsc --noEmit"
   },
   "repository": {
     "type": "git",

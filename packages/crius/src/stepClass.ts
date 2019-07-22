@@ -7,18 +7,15 @@ export type Children<P> = ReadonlyArray<(CriusNode<P> | ((props: Props<P>) => Pr
 export type Props<P = {}> =
   Readonly<P> & Readonly<{ children?: Children<P> }> & { key?: Key };
 
-interface Params<P> {
-  props: Props<P>;
-}
 interface Step<P> {
   props: Props<P>;
   run(...args: any[]): Promise<CriusNode<P> | any> | any;
 }
 
 class Step<P = {}> {
-  constructor({
-    props,
-  }: Params<P>) {
+  constructor(
+    props: Props<P>
+  ) {
     this.props = props;
   }
 

@@ -12,9 +12,9 @@ async function run<S extends EemptyStep<P>, P = {}>({
   if (typeof Step === 'function') {
     let nextStep;
     if (Step.prototype.isCriusStep) {
-      const step = new (Step as any)({
+      const step = new (Step as any)(
         props
-      });
+      );
       nextStep = await step.run();
     } else {
       nextStep = await Step(props);

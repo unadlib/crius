@@ -1,4 +1,4 @@
-import { Step, FunctionStep } from 'crius';
+import Crius, { Step, FunctionStep } from 'crius';
 import { run } from '../src';
 import { resolve } from 'path';
 
@@ -59,4 +59,4 @@ test('function step', async () => {
   expect(result).toEqual([
     'bar',
   ]);
-})
+});
