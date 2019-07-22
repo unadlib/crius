@@ -4,6 +4,10 @@ type Key = string | undefined | null;
 
 interface EemptyStep<P = {}> {}
 
+/**
+ * Run A CriusNode
+ * @param CriusNode 
+ */
 async function run<S extends EemptyStep<P>, P = {}>({
   step: Step,
   key: Key,
@@ -34,6 +38,43 @@ async function run<S extends EemptyStep<P>, P = {}>({
             throw new Error('error type');
           }
         }
+      }
+    }
+  } else if (Array.isArray(props.children)) {
+    /*
+      Run flow with Crius Fragment.
+      For example: 
+      <>
+        <Bar bar='bar' />
+        <FooBar fooBar='fooBar' />
+      </>
+      It will parser to:
+      {
+        key: '',
+        props: {
+          children: [
+            {
+              key: '',
+              props: { children: [], bar: 'bar' },
+              step: Bar
+            },
+            {
+              key: '',
+              props: { children: [], fooBar: 'fooBar' },
+              step: FooBar
+            }
+          ]
+        }
+        step: undefined
+      }
+    */
+    for (const child of props.children) {
+      if (typeof child === 'function') {
+        await child();
+      } else if (toString.call(child) === '[object Object]') { // TODO: check CriusNode
+        await run(child);
+      } else {
+        throw new Error('error type');
       }
     }
   }

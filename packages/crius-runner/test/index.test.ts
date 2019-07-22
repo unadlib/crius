@@ -1,4 +1,4 @@
-import Crius, { Step, FunctionStep } from 'crius';
+import Crius, { Step } from 'crius';
 import { run } from '../src';
 import { resolve } from 'path';
 
@@ -43,20 +43,3 @@ test('test run for step', async () => {
   ]);
 });
 
-test('function step', async () => {
-  const result: string[] = [];
-  const Bar: FunctionStep<{bar: string}> = async (props) => {
-    await new Promise(resolve => setTimeout(resolve));
-    result.push(props.bar);
-  };
-  await run({
-    key: undefined,
-    props: {
-      bar: 'bar'
-    },
-    step: Bar
-  });
-  expect(result).toEqual([
-    'bar',
-  ]);
-});
