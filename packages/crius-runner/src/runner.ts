@@ -1,10 +1,22 @@
-import { CriusNode, Step as StepClass } from 'crius';
+import { CriusNode, Step as StepClass, Children } from 'crius';
 import { isCriusNode } from 'crius-is';
 import { runWithLifecycle } from './lifecycle';
 
 type Key = string | undefined | null;
 
 interface EemptyStep<P = {}> {};
+
+async function iterateChildren<P>(children: Children<P>): Promise<void>{
+  for (const child of children) {
+    if (typeof child === 'function') {
+      await child();
+    } else if (isCriusNode(child)) {
+      await run(child as CriusNode<P>);
+    } else {
+      throw new Error('Unexpected Error Crius Step Type.');
+    }
+  }
+}
 
 /**
  * Run A CriusNode
@@ -31,15 +43,7 @@ async function run<S extends EemptyStep<P>, P = {}>({
       } else if (isCriusNode(nextStep)) {
         await run(nextStep);
       } else if (Array.isArray(nextStep)) {
-        for (const child of nextStep) {
-          if (typeof child === 'function') {
-            await child();
-          } else if (isCriusNode(child)) {
-            await run(child);
-          } else {
-            throw new Error('Unexpected Error Crius Step Type.');
-          }
-        }
+        await iterateChildren(nextStep);
       }
     }
   } else if (Array.isArray(props.children)) {
@@ -70,15 +74,7 @@ async function run<S extends EemptyStep<P>, P = {}>({
         step: undefined
       }
     */
-    for (const child of props.children) {
-      if (typeof child === 'function') {
-        await child();
-      } else if (isCriusNode(child)) {
-        await run(child);
-      } else {
-        throw new Error('Unexpected Error Crius Step Type.');
-      }
-    }
+    await iterateChildren(props.children);
   }
 }
 

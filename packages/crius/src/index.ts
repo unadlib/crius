@@ -1,4 +1,4 @@
-import Step from './stepClass';
+import Step, { Children } from './stepClass';
 import { createFlow, CriusNode }  from './flow';
 import { FunctionStep } from './stepFunction';
 
@@ -13,5 +13,6 @@ export {
   Step,
   createFlow,
   CriusNode,
-  FunctionStep
+  FunctionStep,
+  Children,
 }
