@@ -1,6 +1,7 @@
-import Step, { Children } from './stepClass';
+import Step from './stepClass';
+import { Children, Context, Step as StepType } from './step';
 import { createFlow, CriusNode }  from './flow';
-import { FunctionStep } from './stepFunction';
+import { StepFunction } from './stepFunction';
 
 const Crius = {
   Step,
@@ -8,6 +9,10 @@ const Crius = {
   CriusNode,
 };
 
+/**
+ * Todo Check if a global environment is introduced.
+ * Avoid cumbersome file headers.
+ */
 if (global) {
   (global as any).Crius = Crius;
 }
@@ -17,6 +22,8 @@ export {
   Step,
   createFlow,
   CriusNode,
-  FunctionStep,
+  StepFunction,
   Children,
+  Context,
+  StepType,
 }

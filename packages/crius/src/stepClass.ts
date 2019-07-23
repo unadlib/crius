@@ -1,27 +1,24 @@
 import { CriusNode } from './flow';
+import { Step, Props, Context } from './step';
 
-export type Key = string | undefined | null;
-
-export type Children<P> = ReadonlyArray<(CriusNode<P> | ((props: Props<P>) => Promise<CriusNode<P>>) | any)>;
-
-export type Props<P = {}> =
-  Readonly<P> & Readonly<{ children?: Children<P> }> & { key?: Key };
-
-interface StepLifecycle<P> {
+interface StepLifecycle<P, C> {
   stepWillStart(): void;
   stepDidEnd(): void;
 }
 
-interface Step<P> extends StepLifecycle<P> {
-  props: Props<P>;
-  run(...args: any[]): Promise<CriusNode<P> | any> | any;
+interface StepClass<P, C> extends StepLifecycle<P, C> {
+  props: Props<P, C>;
+  context: Context<C>;
+  run(...args: any[]): Promise<CriusNode<Step<P, C>, P, C> | any> | any;
 }
 
-class Step<P = {}> {
+class StepClass<P = {}, C = {}> {
   constructor(
-    props: Props<P>
+    props: Props<P, C>,
+    context: Context<C>
   ) {
     this.props = props;
+    this.context = context;
   }
 
   get isCriusStep() {
@@ -30,5 +27,5 @@ class Step<P = {}> {
 }
 
 export {
-  Step as default,
+  StepClass as default,
 }

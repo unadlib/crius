@@ -1,6 +1,5 @@
 import Crius, { Step } from 'crius';
 import { run } from '../src';
-import { resolve } from 'path';
 
 test('test run for step', async () => {
   const result: string[] = [];

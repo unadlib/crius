@@ -12,7 +12,7 @@
     "test:preset": "jest packages/babel-preset-crius/ --config=scripts/jest/config.js",
     "test:crius": "jest packages/crius/ --config=scripts/jest/config.js",
     "test:crius-runner": "jest packages/crius-runner/ --config=scripts/jest/config.js",
-    "check": "tsc --noEmit"
+    "check-type": "tsc --noEmit"
   },
   "repository": {
     "type": "git",

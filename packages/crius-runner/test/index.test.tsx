@@ -1,4 +1,4 @@
-import Crius, { FunctionStep } from 'crius';
+import Crius, { StepFunction } from 'crius';
 import { run } from '../src';
 
 test('runner with JSX', async () => {
@@ -16,7 +16,7 @@ test('runner with JSX', async () => {
       return this.props.children;
     }
   }
-  const FooBar: FunctionStep<{ fooBar: string }> = async (props) => result.push(props.fooBar);
+  const FooBar: StepFunction<{ fooBar: string }, {aa: string}> = async (props) => result.push(props.fooBar);
   await run(
     <Bar bar='bar'>
       <Foo foo='foo' />
@@ -39,7 +39,7 @@ test('runner with JSX', async () => {
       return this.props.children;
     }
   }
-  const FooBar: FunctionStep<{ fooBar: string }> = (props) => result.push(props.fooBar);
+  const FooBar: StepFunction<{ fooBar: string }> = (props) => result.push(props.fooBar);
   await run(
     <Bar bar='bar'>
       {async () => result.push('foo')}
@@ -62,7 +62,7 @@ test('runner fragment with JSX', async () => {
       return this.props.children;
     }
   }
-  const FooBar: FunctionStep<{ fooBar: string }> = (props) => result.push(props.fooBar);
+  const FooBar: StepFunction<{ fooBar: string }> = (props) => result.push(props.fooBar);
   const testcase = (
     <>
       <Bar bar='bar'>
@@ -97,7 +97,7 @@ test('runner fragment with JSX', async () => {
 
 test('runner deep step with JSX', async () => {
   const result: string[] = [];
-  const FooBar: FunctionStep<{ fooBar: string }> = (props) => result.push(props.fooBar);
+  const FooBar: StepFunction<{ fooBar: string }> = (props) => result.push(props.fooBar);
   class Foo extends Crius.Step<{ foo: string }> {
     async run() {
       await new Promise(resolve => setTimeout(resolve));

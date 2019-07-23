@@ -1,4 +1,4 @@
-import { Step, FunctionStep } from 'crius';
+import { Step, StepFunction } from 'crius';
 import { run } from '../src';
 
 test('base runner without return value', async () => {
@@ -23,7 +23,7 @@ test('base runner without return value', async () => {
 
 test('function step', async () => {
   const result: string[] = [];
-  const Bar: FunctionStep<{bar: string}> = async (props) => {
+  const Bar: StepFunction<{bar: string}> = async (props) => {
     await new Promise(resolve => setTimeout(resolve));
     result.push(props.bar);
   };
@@ -157,7 +157,7 @@ test('base runner for crius fragment with crius step class', async () => {
 test('base runner for crius fragment with crius step function', async () => {
   const result: string[] = [];
 
-  const Bar: FunctionStep<{bar: string}> = async (props) => {
+  const Bar: StepFunction<{bar: string}> = async (props) => {
     await new Promise(resolve => setTimeout(resolve));
     result.push(props.bar);
   };
