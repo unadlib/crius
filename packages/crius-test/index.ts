@@ -1,4 +1,5 @@
 export {
+  Scenario,
   Given,
   When,
   Then,

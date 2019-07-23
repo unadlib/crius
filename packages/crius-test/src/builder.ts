@@ -1,24 +1,37 @@
-import { Step } from 'crius';
+import { Step, StepType } from 'crius';
 
-class Given extends Step {
+type BaseProps<P, C> = { desc: string, action?: StepType<P, C> };
+
+class Scenario<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
-
+    console.log(this.props.desc);
+    return this.props.children;
   }
 }
 
-class When extends Step {
+class Given<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
-    
+    console.log(this.props.desc);
+    // return this.props.children;
   }
 }
 
-class Then extends Step {
+class When<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
-    
+    console.log(this.props.desc);
+    // return this.props.children;
+  }
+}
+
+class Then<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
+  run() {
+    console.log(this.props.desc);
+    // return this.props.children;
   }
 }
 
 export {
+  Scenario,
   Given,
   When,
   Then,
