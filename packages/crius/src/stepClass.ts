@@ -9,6 +9,7 @@ interface StepLifecycle<P, C> {
 interface StepClass<P, C> extends StepLifecycle<P, C> {
   props: Props<P, C>;
   context: Context<C>;
+  params: any;
   run(...args: any[]): Promise<CriusNode<Step<P, C>, P, C> | any> | any;
 }
 

@@ -1,7 +1,6 @@
-import { Step } from 'crius';
-import { autorun, title, examples, Scenario, Given, When, Then } from '../';
+import { Step, autorun, title, examples, Scenario, Given, When, Then } from '../';
 
-@autorun()
+@autorun(test)
 @title('Send text message on compose text page')
 class SMS extends Step {
   @examples`

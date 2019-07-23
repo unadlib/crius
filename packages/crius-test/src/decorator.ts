@@ -1,9 +1,7 @@
 import { run } from 'crius-runner';
 import { Step } from './step';
 
-const test = (global as any).test;
-
-function autorun(): any {
+function autorun(test: (...args:any[]) => void): any {
   return function(target: Step) {
     test(target.title, async () => {
       await run({
@@ -20,7 +18,7 @@ function title(title: string): any {
     target.title = title; 
   }
 }
-// TODO parser `TemplateStringsArray` to `object` and compatible with object parameter.
+// TODO parser `TemplateStringsArray` to `object` and compatible with object or string parameters.
 function examples(params: TemplateStringsArray) {
   return function(target: Step, name: string, descriptor: TypedPropertyDescriptor<any>) {
     target.params = params;
