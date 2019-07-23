@@ -38,6 +38,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
   if (typeof Step === 'function') {
     let nextStep;
     if (Step.prototype.isCriusStep) {
+      // TODO fix type
       const step: StepClass = new (Step as any)(
         props,
         context,

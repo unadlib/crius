@@ -1,5 +1,7 @@
 # crius-test
 
+
+## Example
 ```jsx
 @title('Send text message on compose text page')
 @tags('widgets')
@@ -23,3 +25,9 @@ class SMS extends Step {
   }
 }
 ```
+
+## Support Testing Framework
+
+* Jest
+* Mocha
+* Jasmine
