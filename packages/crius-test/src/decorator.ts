@@ -1,13 +1,13 @@
-import { Step } from 'crius';
 import { run } from 'crius-runner';
+import { Step } from './step';
 
 const test = (global as any).test;
 
 function autorun(): any {
   return function(target: Step) {
-    test('test =====', async () => {
+    test(target.title, async () => {
       await run({
-        key: (target as any).name,
+        key: target.name,
         props: { children: [] },
         step: target
       }, {});
@@ -17,13 +17,13 @@ function autorun(): any {
 
 function title(title: string): any {
   return function(target: Step) {
-    console.log(title)
+    target.title = title; 
   }
 }
-
+// TODO parser `TemplateStringsArray` to `object` and compatible with object parameter.
 function examples(params: TemplateStringsArray) {
   return function(target: Step, name: string, descriptor: TypedPropertyDescriptor<any>) {
-    console.log(params[0])
+    target.params = params;
     return descriptor;
   }
 }

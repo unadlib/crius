@@ -5,5 +5,6 @@ export {
   Then,
   autorun,
   title,
-  examples
+  examples,
+  Step,
 } from './src';

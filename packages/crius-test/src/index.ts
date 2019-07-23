@@ -10,3 +10,7 @@ export {
   title,
   examples
 } from './decorator';
+
+export {
+  Step
+} from './step';

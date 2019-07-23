@@ -12,21 +12,21 @@ class Scenario<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
 class Given<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
     console.log(this.props.desc);
-    // return this.props.children;
+    return this.props.children;
   }
 }
 
 class When<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
     console.log(this.props.desc);
-    // return this.props.children;
+    return this.props.children;
   }
 }
 
 class Then<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
     console.log(this.props.desc);
-    // return this.props.children;
+    return this.props.children;
   }
 }
 
