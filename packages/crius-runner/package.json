@@ -14,5 +14,8 @@
   "dependencies": {
     "crius": "^0.0.1",
     "crius-is": "^0.0.1"
+  },
+  "peerDependencies": {
+    "crius": "^0.0.1"
   }
 }

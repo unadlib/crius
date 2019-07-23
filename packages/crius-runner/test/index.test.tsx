@@ -30,6 +30,40 @@ test('runner with JSX', async () => {
   ]);
 });
 
+
+test('runner with JSX fragment', async () => {
+  const result: string[] = [];
+  class Foo extends Crius.Step<{foo: string}> {
+    async run() {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      result.push(this.props.foo);
+    }
+  }
+  class Bar extends Crius.Step<{ bar: string }> {
+    async run() {
+      await new Promise(resolve => setTimeout(resolve));
+      result.push(this.props.bar);
+      const A = <>{this.props.children}<>{async () => {
+        await new Promise(resolve => setTimeout(resolve));
+        result.push(this.props.bar);
+      }}{this.props.children}{this.props.children}</></>;
+      return A;
+    }
+  }
+  await run(
+    <Bar bar='bar'>
+      <Foo foo='foo'/>
+    </Bar>
+  );
+  expect(result).toEqual([
+    'bar',
+    'foo',
+    'bar',
+    'foo',
+    'foo'
+  ]);
+});
+
 test('runner with JSX', async () => {
   const result: string[] = [];
   class Bar extends Crius.Step<{ bar: string }> {

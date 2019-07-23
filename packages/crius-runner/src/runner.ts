@@ -15,6 +15,8 @@ async function iterateChildren<S, P, C>(
       await child();
     } else if (isCriusNode(child)) {
       await run(child as CriusNode<S, P, C>, context as Context<C>);
+    } else if (Array.isArray(child)) {
+      await iterateChildren(child, context);
     } else {
       throw new Error('Unexpected Error Crius Step Type.');
     }
