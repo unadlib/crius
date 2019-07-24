@@ -26,56 +26,7 @@ class SendSMS1 extends Step {
     | ca           | all         | xxx        |
   `
   run() {
-    return (
-      <Scenario desc='user enter entrypoint' action={EntryPoint}>
-        <Given desc='user navigate to compose text page' action={NavigateToComposeText} />
-        <When desc='user type ${smsMessage} in input field' action={TextSmsMessage} />
-        <Then desc='user should see that input field text is ${smsMessage}' action={CheckSmsMessage} />
-      </Scenario>
-    )
-  }
-}
-
-@autorun(test)
-@title('Send text message on compose text page')
-class SendSMS extends Step {
-  // static beforeHook() {
-  //   console.log('beforeHook ====')
-  // }
-
-  // static afterHook() {
-  //   console.log('afterHook ====')
-  // }
-
-  // get plugins() {
-  //   return [
-  //     {
-  //       // beforeHook() {
-  //       //   console.log('plugins beforeHook1');
-  //       // },
-  //       afterHook() {
-  //         console.log('plugins afterHook1');
-  //       },
-  //     },
-  //     {
-  //       beforeHook() {
-  //         console.log('plugins beforeHook2');
-  //       },
-  //       // afterHook() {
-  //       //   console.log('plugins afterHook2');
-  //       // },
-  //     }
-  //   ]
-  // }
-
-  @examples`
-    | accountTag   | contactType | smsMessage |
-    | us           | personal    | aaa        |
-    | uk           | company     | bbb        |
-    | ca           | all         | xxx        |
-  `
-  run() {
-    console.log('=============')
+    debugger;
     return (
       <Scenario desc='user enter entrypoint' action={EntryPoint}>
         <Given desc='user navigate to compose text page' action={NavigateToComposeText} />
