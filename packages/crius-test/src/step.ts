@@ -13,6 +13,7 @@ export interface BaseContext<P = {}, C = {}> extends Hooks<P, C> {
 export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext<P, C>> {
   static title?: string;
   static params?: any;
+  static context?: any;
   static test?(...args: any[]): void;
   static skip?(...args: any[]): void;
   static beforeHook?(...args: any[]): void;

@@ -9,17 +9,24 @@ import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then
 @afterHook((props, context, step) => {
   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'afterHook');
 })
-@plugins([
+@plugins<{}, {s: string}>([
   {
     beforeHook(props, context, step) {
       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeHook');
     },
     afterHook(props, context, step) {
+      console.log(context.s, '=======')
       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterHook');
     }
   }
 ])
-class Step<P = {}, C = {}> extends BaseStep<P, C> {}
+class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
+  static get context(): {s: string} {
+    return {
+      s: '1'
+    };
+  }
+}
 
 
 

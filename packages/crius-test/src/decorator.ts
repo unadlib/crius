@@ -31,7 +31,7 @@ function autorun(test: Function): any {
         key: target.name,
         props: { children: [] },
         step: target
-      }, baseContext);
+      }, Object.assign(baseContext, target.context));
     });
   }
 }
