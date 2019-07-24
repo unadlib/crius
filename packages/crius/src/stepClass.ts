@@ -8,7 +8,7 @@ interface StepLifecycle<P, C> {
 
 interface StepClass<P, C> extends StepLifecycle<P, C> {
   props: Props<P, C>;
-  context: Context<C>;
+  context: Context<P, C>;
   params: any;
   run(...args: any[]): Promise<CriusNode<Step<P, C>, P, C> | any> | any;
 }
@@ -16,7 +16,7 @@ interface StepClass<P, C> extends StepLifecycle<P, C> {
 class StepClass<P = {}, C = {}> {
   constructor(
     props: Props<P, C>,
-    context: Context<C>
+    context: Context<P, C>
   ) {
     this.props = props;
     this.context = context;

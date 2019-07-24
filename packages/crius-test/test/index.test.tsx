@@ -47,26 +47,26 @@ class SendSMS extends Step {
   //   console.log('afterHook ====')
   // }
 
-  static get plugins() {
-    return [
-      {
-        // beforeHook() {
-        //   console.log('plugins beforeHook1');
-        // },
-        afterHook() {
-          console.log('plugins afterHook1');
-        },
-      },
-      {
-        beforeHook() {
-          console.log('plugins beforeHook2');
-        },
-        // afterHook() {
-        //   console.log('plugins afterHook2');
-        // },
-      }
-    ]
-  }
+  // get plugins() {
+  //   return [
+  //     {
+  //       // beforeHook() {
+  //       //   console.log('plugins beforeHook1');
+  //       // },
+  //       afterHook() {
+  //         console.log('plugins afterHook1');
+  //       },
+  //     },
+  //     {
+  //       beforeHook() {
+  //         console.log('plugins beforeHook2');
+  //       },
+  //       // afterHook() {
+  //       //   console.log('plugins afterHook2');
+  //       // },
+  //     }
+  //   ]
+  // }
 
   @examples`
     | accountTag   | contactType | smsMessage |

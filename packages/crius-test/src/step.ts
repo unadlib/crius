@@ -1,6 +1,6 @@
 import { Step as BaseStep, Hooks } from 'crius';
 
-export interface BaseContext extends Hooks {
+export interface BaseContext<P = {}, C = {}> extends Hooks<P, C> {
   title?: string;
   params?: any;
 }
@@ -10,7 +10,7 @@ interface Plugin {
   afterHook?(): void;
 }
 
-export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext> {
+export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext<P, C>> {
   static title?: string;
   static params?: any;
   static test?(...args: any[]): void;
@@ -19,3 +19,4 @@ export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext> {
   static afterHook?(): void;
   static readonly plugins?: Plugin[];
 }
+

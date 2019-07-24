@@ -1,7 +1,7 @@
 import { run } from 'crius-runner';
 import { Step, BaseContext } from './step';
 
-function autorun(test: Function): any {
+function autorun(test: Function) {
   return function(target: typeof Step) {
     // TODO support callback(assert) for tape and ava: (t) => {}
     const baseContext: BaseContext = {
@@ -35,7 +35,7 @@ function autorun(test: Function): any {
   }
 }
 
-function title(title: string): any {
+function title(title: string) {
   if (typeof title === 'undefined' || title === null) {
     throw new Error('Test case title is required.');
   }

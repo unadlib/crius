@@ -9,13 +9,13 @@ interface EemptyStep<P = {}, C = {}> {};
 
 async function iterateChildren<S, P, C>(
   children: Children<P, C>,
-  context?: Context<C>
+  context?: Context<P, C>
 ): Promise<void>{
   for (const child of children) {
     if (typeof child === 'function') {
       await child();
     } else if (isCriusNode(child)) {
-      await run(child as CriusNode<S, P, C>, context as Context<C>);
+      await run(child as CriusNode<S, P, C>, context as Context<P, C>);
     } else if (Array.isArray(child)) {
       await iterateChildren(child, context);
     } else {
@@ -59,23 +59,27 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
     key: Key,
     props
   }: CriusNode<S, P, C>,
-  _context?: Context<C>
+  _context?: Context<P, C>
 ) {
   const context = handleContext(_context as Context);
   if (typeof Step === 'function') {
     let nextStep;
-    await context._beforeHook!();
     if (Step.prototype.isCriusStep) {
       // TODO fix type
       const step: StepClass = new (Step as any)(
         props,
         context,
       );
+      await context._beforeHook!(props, context, step);
       nextStep = await runWithLifecycle(step);
+      await context._afterHook!(props, context, step);
     } else {
+      // TODO fix type
+      await context._beforeHook!(props, context, Step as any);
       nextStep = await Step(props, context);
+      // TODO fix type
+      await context._afterHook!(props, context, Step as any);
     }
-    await context._afterHook!();
     if (nextStep) {
       if (typeof nextStep === 'function') {
         await nextStep();
