@@ -12,7 +12,13 @@ export type Children<P, C> = ReadonlyArray<(CriusNode<Step<P, C>, P, C> | ((prop
 export type Props<P, C> =
   Readonly<P> & Readonly<{ children?: Children<P, C> }> & { key?: Key };
 
-export type Context<C = {}> = C & {
+export interface Hooks {
+  _beforeHook?(): void;
+  _afterHook?(): void;
+  beforeHook?(): void;
+  afterHook?(): void;
+}
+
+export type Context<C = {}> = C & Hooks & {
   // TODO
 };
-

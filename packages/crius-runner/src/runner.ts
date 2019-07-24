@@ -1,6 +1,7 @@
 import { CriusNode, Step as StepClass, Children, Context } from 'crius';
 import { isCriusNode } from 'crius-is';
 import { runWithLifecycle } from './lifecycle';
+import { handleContext } from './context';
 
 type Key = string | undefined | null;
 
@@ -25,6 +26,31 @@ async function iterateChildren<S, P, C>(
 
 /**
  * Run A CriusNode
+  Run flow with Crius Fragment.
+  For example: 
+  <>
+    <Bar bar='bar' />
+    <FooBar fooBar='fooBar' />
+  </>
+  It will parser to:
+  {
+    key: '',
+    props: {
+      children: [
+        {
+          key: '',
+          props: { children: [], bar: 'bar' },
+          step: Bar
+        },
+        {
+          key: '',
+          props: { children: [], fooBar: 'fooBar' },
+          step: FooBar
+        }
+      ]
+    }
+    step: undefined
+  }
  * @param CriusNode 
  */
 async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
@@ -33,10 +59,12 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
     key: Key,
     props
   }: CriusNode<S, P, C>,
-  context?: Context<C>
+  _context?: Context<C>
 ) {
+  const context = handleContext(_context as Context);
   if (typeof Step === 'function') {
     let nextStep;
+    await context._beforeHook!();
     if (Step.prototype.isCriusStep) {
       // TODO fix type
       const step: StepClass = new (Step as any)(
@@ -47,6 +75,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
     } else {
       nextStep = await Step(props, context);
     }
+    await context._afterHook!();
     if (nextStep) {
       if (typeof nextStep === 'function') {
         await nextStep();
@@ -57,33 +86,6 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
       }
     }
   } else if (Array.isArray(props.children)) {
-    /*
-      Run flow with Crius Fragment.
-      For example: 
-      <>
-        <Bar bar='bar' />
-        <FooBar fooBar='fooBar' />
-      </>
-      It will parser to:
-      {
-        key: '',
-        props: {
-          children: [
-            {
-              key: '',
-              props: { children: [], bar: 'bar' },
-              step: Bar
-            },
-            {
-              key: '',
-              props: { children: [], fooBar: 'fooBar' },
-              step: FooBar
-            }
-          ]
-        }
-        step: undefined
-      }
-    */
     await iterateChildren(props.children, context);
   }
 }

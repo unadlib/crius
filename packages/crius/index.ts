@@ -6,6 +6,7 @@ import Crius, {
   Children,
   Context,
   StepType,
+  Hooks
 } from './src';
 
 export {
@@ -17,4 +18,5 @@ export {
   Children,
   Context,
   StepType,
+  Hooks,
 }

@@ -6,7 +6,24 @@ function autorun(test: Function): any {
     // TODO support callback(assert) for tape and ava: (t) => {}
     const baseContext: BaseContext = {
       title: target.title,
-      params: target.params
+      params: target.params,
+      async beforeHook() {
+        target.beforeHook && await target.beforeHook();
+        if (target.plugins) {
+          for (const plugin of target.plugins) {
+            plugin.beforeHook && await plugin.beforeHook();
+          }
+        }
+      },
+      async afterHook() {
+        if (target.plugins) {
+          // TODO think about `reverse` plugins?
+          for (const plugin of target.plugins) {
+            plugin.afterHook && await plugin.afterHook();
+          }
+        }
+        target.afterHook && await target.afterHook();
+      }
     }
     test(target.title, async () => {
       await run({
