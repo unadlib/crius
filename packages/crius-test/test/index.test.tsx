@@ -1,24 +1,35 @@
-import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, } from '../';
+import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterHook, beforeHook, plugins } from '../';
 
-// @afterHook()
-// @beforeHook()
-// @plugins()
+
 // class Step<P = {}, C = {}> extends BaseStep<P, C> {}
-class Step<P = {}, C = {}> extends BaseStep<P, C> {
-  // static beforeHook() {
-  //   console.log('beforeHook')
-  // }
 
-  // static afterHook() {
-  //   console.log('afterHook')
-  // }
+@beforeHook((props, context, step) => {
+  console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeHook');
+})
+@afterHook((props, context, step) => {
+  console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'afterHook');
+})
+@plugins([
+  {
+    beforeHook(props, context, step) {
+      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeHook');
+    },
+    afterHook(props, context, step) {
+      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterHook');
+    }
+  }
+])
+class Step<P = {}, C = {}> extends BaseStep<P, C> {}
 
-  
-}
+
 
 @autorun(test)
 @title('Send text message on compose text page')
 class SendSMS1 extends Step {
+  // static afterHook(a) {
+  //   a
+  // }
+
   @examples`
     | accountTag   | contactType | smsMessage |
     | us           | personal    | aaa        |

@@ -8,7 +8,10 @@ export {
 export {
   autorun,
   title,
-  examples
+  examples,
+  beforeHook,
+  afterHook,
+  plugins,
 } from './decorator';
 
 export {

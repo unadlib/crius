@@ -2,6 +2,8 @@ import { Step } from './step';
 
 type BaseProps<P, C> = { desc: string, action?: any }; // TODO fix type
 
+
+
 class Scenario<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   run() {
     console.log(this.props.desc);
