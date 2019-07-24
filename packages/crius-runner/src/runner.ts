@@ -61,7 +61,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
   }: CriusNode<S, P, C>,
   _context?: Context<P, C>
 ) {
-  const context = handleContext(_context as Context);
+  const context = handleContext<P, C>(_context as Context);
   if (typeof Step === 'function') {
     let nextStep;
     if (Step.prototype.isCriusStep) {
