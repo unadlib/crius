@@ -43,9 +43,9 @@ class SendSMS extends Step {
   //   console.log('beforeHook ====')
   // }
 
-  static afterHook() {
-    console.log('afterHook')
-  }
+  // static afterHook() {
+  //   console.log('afterHook ====')
+  // }
 
   static get plugins() {
     return [
