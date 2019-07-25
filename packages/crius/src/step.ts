@@ -10,7 +10,7 @@ export type Key = string | undefined | null;
 export type Children<P, C> = ReadonlyArray<(CriusNode<Step<P, C>, P, C> | ((props: Props<P, C>) => Promise<CriusNode<Step<P, C>, P, C>>) | any)>;
 
 export type Props<P, C> =
-  Readonly<P> & Readonly<{ children?: Children<P, C> }> & { key?: Key };
+  Readonly<P> & Readonly<{ children?: Children<P, C>; key?: Key} >;
 
 export interface Hooks<P = {}, C = {}> {
   _beforeHook?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
@@ -20,5 +20,5 @@ export interface Hooks<P = {}, C = {}> {
 }
 
 export type Context<P = {}, C = {}> = C & Hooks<P, C> & {
-  // TODO
+  // TODO private properties?
 };

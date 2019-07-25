@@ -1,8 +1,6 @@
 import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterHook, beforeHook, plugins } from '../';
 
 
-// class Step<P = {}, C = {}> extends BaseStep<P, C> {}
-
 @beforeHook((props, context, step) => {
   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeHook');
 })
@@ -15,7 +13,16 @@ import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then
       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeHook');
     },
     afterHook(props, context, step) {
-      console.log(context.s, '=======')
+      console.log(context.s, '22222=======')
+      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterHook');
+    }
+  },
+  {
+    beforeHook(props, context, step) {
+      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeHook');
+    },
+    afterHook(props, context, step) {
+      console.log(context.s, '111111=======')
       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterHook');
     }
   }

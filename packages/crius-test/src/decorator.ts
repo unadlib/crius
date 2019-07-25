@@ -18,8 +18,7 @@ function autorun(test: Function): any {
       },
       async afterHook(props, context, step) {
         if (target.plugins) {
-          // TODO think about `reverse` plugins?
-          for (const plugin of target.plugins) {
+          for (const plugin of [...target.plugins].reverse()) {
             plugin.afterHook && await plugin.afterHook(props, context, step);
           }
         }
@@ -56,7 +55,7 @@ type HookCallback<P, C> = (props: Props<P, C>, context: Context<P, C>, step: Ste
 
 function beforeHook<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
   return function(target: typeof Step) {
-    target.afterHook = hookCallback;
+    target.beforeHook = hookCallback;
   }
 }
 

@@ -1,4 +1,4 @@
-import { Step, StepFunction } from 'crius';
+import { Step, StepFunction, Props, Context, StepType } from 'crius';
 import { run } from '../src';
 
 test('base runner without return value', async () => {
@@ -180,5 +180,62 @@ test('base runner for crius fragment with crius step function', async () => {
     'bar',
   ])
 });
+
+
+test('base runner for crius fragment hooks and context with crius step function', async () => {
+  const result: string[] = [];
+  const beforeHook = <P = {}, C = {}>(props: Props<P, C>, context: Context<P, C>, step: StepType<P, C>) => {
+    result.push(`beforeHook ${typeof step === 'object' ? step.constructor.name : step.name}`);
+  };
+  const afterHook = <P = {}, C = {}>(props: Props<P, C>, context: Context<P, C>, step: StepType<P, C>) => {
+    result.push(`afterHook ${typeof step === 'object' ? step.constructor.name : step.name}`);
+  };
+  const Bar: StepFunction<{}, {bar: string}> = async (props, context) => {
+    await new Promise(resolve => setTimeout(resolve));
+    result.push(`Bar ${context.bar}`);
+    return props.children;
+  };
+
+  class Foo extends Step<{}, {bar: string}> {
+    run() {
+      result.push(`Foo ${this.context.bar}`);
+      return this.props.children;
+    }
+  }
+
+  const caseStep = {
+    key: '',
+    props: {
+      children: [
+        {
+          key: 'Bar',
+          props: { children: [
+            {
+              key: 'Foo',
+              props: { children: [] },
+              step: Foo,
+            }
+          ] },
+          step: Bar,
+        }
+      ],
+    },
+    step: undefined,
+  };
+  await run(caseStep as any, {
+    bar: 'bar',
+    beforeHook,
+    afterHook,
+  } as any); // Todo fix type
+  expect(result).toEqual([
+    'beforeHook Bar',
+    'Bar bar',
+    'beforeHook Foo',
+    'Foo bar',
+    'afterHook Foo',
+    'afterHook Bar'
+  ]);
+});
+
 
 

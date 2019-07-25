@@ -5,11 +5,6 @@ export interface BaseContext<P = {}, C = {}> extends Hooks<P, C> {
   params?: any;
 }
 
-// interface Plugin {
-//   beforeHook?(...args: any[]): void;
-//   afterHook?(...args: any[]): void;
-// }
-
 export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext<P, C>> {
   static title?: string;
   static params?: any;
