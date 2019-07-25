@@ -2,7 +2,9 @@
   "name": "crius-test",
   "version": "0.0.1",
   "description": "A new generation testing tools for BDD",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
