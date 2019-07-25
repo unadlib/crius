@@ -1,0 +1,12 @@
+{
+  "name": "crius-example",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Just a Crius example with Jest.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "unadlib",
+  "license": "MIT"
+}

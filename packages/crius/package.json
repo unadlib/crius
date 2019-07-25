@@ -13,8 +13,5 @@
     "processes"
   ],
   "author": "unadlib",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  }
+  "license": "MIT"
 }

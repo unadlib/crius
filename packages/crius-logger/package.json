@@ -10,9 +10,6 @@
   },
   "author": "unadlib",
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
     "crius-test": "^0.0.1"
   },
