@@ -7,7 +7,7 @@ export {
   title,
   examples,
   Step,
-  beforeHook,
-  afterHook,
+  beforeEach,
+  afterEach,
   plugins,
 } from './src';

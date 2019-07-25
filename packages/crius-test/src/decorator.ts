@@ -8,21 +8,21 @@ function autorun(test: Function): any {
     const baseContext: BaseContext = {
       title: target.title,
       params: target.params,
-      async beforeHook(props, context, step) {
-        target.beforeHook && await target.beforeHook(props, context, step);
+      async beforeEach(props, context, step) {
+        target.beforeEach && await target.beforeEach(props, context, step);
         if (target.plugins) {
           for (const plugin of target.plugins) {
-            plugin.beforeHook && await plugin.beforeHook(props, context, step);
+            plugin.beforeEach && await plugin.beforeEach(props, context, step);
           }
         }
       },
-      async afterHook(props, context, step) {
+      async afterEach(props, context, step) {
         if (target.plugins) {
           for (const plugin of [...target.plugins].reverse()) {
-            plugin.afterHook && await plugin.afterHook(props, context, step);
+            plugin.afterEach && await plugin.afterEach(props, context, step);
           }
         }
-        target.afterHook && await target.afterHook(props, context, step);
+        target.afterEach && await target.afterEach(props, context, step);
       }
     }
     test(target.title, async () => {
@@ -53,21 +53,21 @@ function examples(params: TemplateStringsArray) {
 
 type HookCallback<P, C> = (props: Props<P, C>, context: Context<P, C>, step: StepType<P, C>) => void;
 
-function beforeHook<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
+function beforeEach<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
   return function(target: typeof Step) {
-    target.beforeHook = hookCallback;
+    target.beforeEach = hookCallback;
   }
 }
 
-function afterHook<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
+function afterEach<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
   return function(target: typeof Step) {
-    target.afterHook = hookCallback;
+    target.afterEach = hookCallback;
   }
 }
 
 type Plugins<P = {}, C = {}> = {
-  beforeHook?: HookCallback<P, C>;
-  afterHook?: HookCallback<P, C>;
+  beforeEach?: HookCallback<P, C>;
+  afterEach?: HookCallback<P, C>;
 }
 
 function plugins<P = {}, C = {}>(plugins: Array<Plugins<P, C>>) {
@@ -80,7 +80,7 @@ export {
   autorun,
   title,
   examples,
-  beforeHook,
-  afterHook,
+  beforeEach,
+  afterEach,
   plugins
 }

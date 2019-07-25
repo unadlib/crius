@@ -5,29 +5,29 @@ export function handleContext<P, C>(context: Context): Context {
   if (toString.call(context) !== '[object Object]') {
     (context as Context) = {};
   }
-  if (typeof context._beforeHook !== 'function') {
+  if (typeof context._beforeEach !== 'function') {
     Object.defineProperties(context, {
-      _beforeHook: {
+      _beforeEach: {
         configurable: false,
         enumerable: false,
         writable: false,
-        value: async function _beforeHook(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>) {
-          if (typeof this.beforeHook === 'function') {
-            await this.beforeHook(props, context, step);
+        value: async function _beforeEach(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>) {
+          if (typeof this.beforeEach === 'function') {
+            await this.beforeEach(props, context, step);
           }
         }
       }
     })
   }
-  if (typeof context._afterHook !== 'function') {
+  if (typeof context._afterEach !== 'function') {
     Object.defineProperties(context, {
-      _afterHook: {
+      _afterEach: {
         configurable: false,
         enumerable: false,
         writable: false,
-        value: async function _afterHook(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>) {
-          if (typeof this.afterHook === 'function') {
-            await this.afterHook(props, context, step);
+        value: async function _afterEach(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>) {
+          if (typeof this.afterEach === 'function') {
+            await this.afterEach(props, context, step);
           }
         }
       },

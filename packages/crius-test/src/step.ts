@@ -11,7 +11,7 @@ export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext<P, C>> {
   static context?: any;
   static test?(...args: any[]): void;
   static skip?(...args: any[]): void;
-  static beforeHook?(...args: any[]): void;
-  static afterHook?(...args: any[]): void;
+  static beforeEach?(...args: any[]): void;
+  static afterEach?(...args: any[]): void;
   static plugins?: any[];
 }

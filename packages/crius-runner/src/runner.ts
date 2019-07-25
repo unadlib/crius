@@ -72,12 +72,12 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
         props,
         context,
       );
-      await context._beforeHook!(props, context, step);
+      await context._beforeEach!(props, context, step);
       [nextStep, afterLifecycleAction] = await runWithLifecycle(step);
       stepAction = step;
     } else {
       // TODO fix type
-      await context._beforeHook!(props, context, Step as any);
+      await context._beforeEach!(props, context, Step as any);
       nextStep = await Step(props, context);
       stepAction = Step;
     }
@@ -94,7 +94,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
       await afterLifecycleAction();
     }
     // TODO fix type
-    await context._afterHook!(props, context, stepAction as any);
+    await context._afterEach!(props, context, stepAction as any);
   } else if (Array.isArray(props.children)) {
     await iterateChildren(props.children, context);
   }

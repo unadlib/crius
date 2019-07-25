@@ -13,10 +13,10 @@ export type Props<P, C> =
   Readonly<P> & Readonly<{ children?: Children<P, C>; key?: Key} >;
 
 export interface Hooks<P = {}, C = {}> {
-  _beforeHook?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
-  _afterHook?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
-  beforeHook?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
-  afterHook?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
+  _beforeEach?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
+  _afterEach?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
+  beforeEach?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
+  afterEach?(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>): void;
 }
 
 export type Context<P = {}, C = {}> = C & Hooks<P, C> & {
