@@ -10,5 +10,11 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "crius-test": "^0.0.1"
+  },
+  "peerDependencies": {
+    "crius-test": "^0.0.1"
   }
 }

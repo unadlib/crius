@@ -12,6 +12,7 @@ export {
   beforeEach,
   afterEach,
   plugins,
+  Plugins,
 } from './decorator';
 
 export {

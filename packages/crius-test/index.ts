@@ -10,4 +10,5 @@ export {
   beforeEach,
   afterEach,
   plugins,
+  Plugins,
 } from './src';

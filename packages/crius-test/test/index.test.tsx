@@ -1,32 +1,32 @@
 import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterEach, beforeEach, plugins } from '../';
 
 
-@beforeEach((props, context, step) => {
-  console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
-})
-@afterEach((props, context, step) => {
-  console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'afterEach');
-})
-@plugins<{}, {s: string}>([
-  {
-    beforeEach(props, context, step) {
-      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
-    },
-    afterEach(props, context, step) {
-      console.log(context.s, '22222=======')
-      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
-    }
-  },
-  {
-    beforeEach(props, context, step) {
-      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
-    },
-    afterEach(props, context, step) {
-      console.log(context.s, '111111=======')
-      console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
-    }
-  }
-])
+// @beforeEach((props, context, step) => {
+//   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
+// })
+// @afterEach((props, context, step) => {
+//   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'afterEach');
+// })
+// @plugins<{}, {s: string}>([
+//   {
+//     beforeEach(props, context, step) {
+//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
+//     },
+//     afterEach(props, context, step) {
+//       console.log(context.s, '22222=======')
+//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
+//     }
+//   },
+//   {
+//     beforeEach(props, context, step) {
+//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
+//     },
+//     afterEach(props, context, step) {
+//       console.log(context.s, '111111=======')
+//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
+//     }
+//   }
+// ])
 class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
   static get context(): {s: string} {
     return {
@@ -38,7 +38,7 @@ class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
 
 
 @autorun(test)
-@title('Send text message on compose text page')
+@title('Send ${smsMessage} message on compose text page')
 class SendSMS1 extends Step {
   // static afterEach(a) {
   //   a
@@ -50,7 +50,7 @@ class SendSMS1 extends Step {
     | uk           | company     | bbb        |
     | ca           | all         | xxx        |
   `
-  run() {
+  run({ smsMessage }: {  smsMessage: string }) {
     debugger;
     return (
       <Scenario desc='user enter entrypoint' action={EntryPoint}>
