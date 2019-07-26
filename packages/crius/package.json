@@ -13,8 +13,5 @@
     "processes"
   ],
   "author": "unadlib",
-  "license": "MIT",
-  "dependencies": {
-    "crius-graph": "^0.0.1"
-  }
+  "license": "MIT"
 }

@@ -12,7 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "crius": "^0.0.1",
-    "crius-graph": "^0.0.1",
     "crius-runner": "^0.0.1"
   }
 }
