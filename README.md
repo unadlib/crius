@@ -32,7 +32,7 @@ class SendSMS extends Step {
 * Mocha
 * Jasmine
 
-TODO
+## TODO
 
  - [x] import `context` for crius step
  - [x] logger and parering steps for step runner
