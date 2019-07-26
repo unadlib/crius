@@ -2,9 +2,12 @@ import { Step } from './step';
 
 type BaseProps<P, C> = { desc: string, action?: any }; // TODO fix type
 
-class Scenario<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
+class Builder<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
+  get __isBuilder() {
+    return true;
+  }
+
   run() {
-    console.log(this.props.desc);
     const Action = this.props.action;
     return (
       <>
@@ -15,44 +18,13 @@ class Scenario<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
   }
 }
 
-class Given<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
-  run() {
-    console.log(this.props.desc);
-    const Action = this.props.action;
-    return (
-      <>
-        <Action />
-        {this.props.children}
-      </>
-    );
-  }
-}
+class Scenario<P = {}, C = {}> extends Builder<P, C> {}
 
-class When<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
-  run() {
-    console.log(this.props.desc);
-    const Action = this.props.action;
-    return (
-      <>
-        <Action />
-        {this.props.children}
-      </>
-    );
-  }
-}
+class Given<P = {}, C = {}> extends Builder<P, C> {}
 
-class Then<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
-  run() {
-    console.log(this.props.desc);
-    const Action = this.props.action;
-    return (
-      <>
-        <Action />
-        {this.props.children}
-      </>
-    );
-  }
-}
+class When<P = {}, C = {}> extends Builder<P, C> {}
+
+class Then<P = {}, C = {}> extends Builder<P, C> {}
 
 export {
   Scenario,

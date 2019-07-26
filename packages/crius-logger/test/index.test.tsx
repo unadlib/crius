@@ -14,7 +14,7 @@ import {
 import logger from '../';
 
 
-@plugins([logger])
+@plugins([logger()])
 class Step<P = {}, C = {}> extends BaseStep<P, C> {}
 
 

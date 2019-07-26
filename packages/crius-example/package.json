@@ -8,5 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "unadlib",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "crius-graph": "^0.0.1",
+    "crius-logger": "^0.0.1",
+    "crius-test": "^0.0.1"
+  }
 }

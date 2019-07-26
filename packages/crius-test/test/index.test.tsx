@@ -1,9 +1,9 @@
 import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterEach, beforeEach, plugins } from '../';
 
 
-// @beforeEach((props, context, step) => {
-//   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
-// })
+@beforeEach((props, context, step) => {
+  console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
+})
 // @afterEach((props, context, step) => {
 //   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'afterEach');
 // })
@@ -40,18 +40,13 @@ class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
 @autorun(test)
 @title('Send ${smsMessage} message on compose text page')
 class SendSMS1 extends Step {
-  // static afterEach(a) {
-  //   a
-  // }
-
   @examples`
     | accountTag   | contactType | smsMessage |
     | us           | personal    | aaa        |
     | uk           | company     | bbb        |
     | ca           | all         | xxx        |
   `
-  run({ smsMessage }: {  smsMessage: string }) {
-    debugger;
+  run() {
     return (
       <Scenario desc='user enter entrypoint' action={EntryPoint}>
         <Given desc='user navigate to compose text page' action={NavigateToComposeText} />
@@ -76,43 +71,19 @@ class EntryPoint extends Step {
   }
 }
 
-class NavigateToComposeText extends Step {
-  run() {
-    console.log('Prepare');
-  }
-}
+class NavigateToComposeText extends Step {}
 
-class TextSmsMessage extends Step<{}, {inputText: string}> {
-  run() {
-    this.context.inputText = 'inputText';
-  }
-}
+class TextSmsMessage extends Step<{}, {inputText: string}> {}
 
-class CheckSmsMessage extends Step<{}, {inputText: string}> {
-  run() {
-    expect(this.context.inputText).toEqual('inputText');
-  }
-}
+class CheckSmsMessage extends Step<{}, {inputText: string}> {}
 
-class Prepare extends Step {
-  run() {
-    console.log('Prepare');
-  }
-}
+class Prepare extends Step {}
 class Entry extends Step {
-  static UT() {
-    console.log('Entry.UT')
-  }
+  static UT() {}
   
-  static IT() {
-    console.log('Entry.IT');
-  }
-
-  run() {
-    console.log('Entry');
-  }
+  static IT() {}
 }
-const Login = () => console.log('Login');
+const Login = () => {};
 
 
 // [
