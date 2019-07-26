@@ -55,7 +55,9 @@ class EntryPoint extends Step {
 const Login = () => {};
 
 class PickList extends Step {
-  static UT() {}
+  static UT() {
+
+  }
 }
 
 class InputText extends Step {
@@ -73,6 +75,7 @@ class TextSmsMessage extends Step {
 class CheckSmsMessage extends Step {}
 
 class PickSmsReceiver extends Step {
+  
   run() {
     return <><PickList/><PickList.UT/></>
   }

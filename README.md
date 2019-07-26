@@ -1,9 +1,42 @@
 # crius
-A concise JavaScript library for building step processes.
+A testing tool for behavior-driven development.
+
+## Example
+```jsx
+@title('Send text message on compose text page')
+@tags('widgets')
+@drivers('ut', 'e2e.puppeteer')
+@level('p0')
+class SendSMS extends Step {
+  @examples`
+    | accountTag   | contactType | smsMessage |
+    | us           | personal    | aaa        |
+    | uk           | company     | bbb        |
+    | ca           | all         | xxx        |
+  `
+  run() {
+    return (
+      <Scenario desc='user enter entrypoint' action={EntryPoint}>
+        <Given desc='user navigate to compose text page' action={NavigateToComposeText} />
+        <When desc='user type ${smsMessage} in input field' action={TextSmsMessage} />
+        <Then desc='user should see that input field text is ${smsMessage}' action={CheckSmsMessage} />
+      </Scenario>
+    )
+  }
+}
+```
+
+## Support Testing Framework
+
+* Jest
+* Mocha
+* Jasmine
 
 TODO
 
- - [x] import `context` for crius step.
- - [ ] implement `componentDidCatch(error, info)` .
- - [ ] logger and parering steps for step runner.
+ - [x] import `context` for crius step
+ - [x] logger and parering steps for step runner
+ - [ ] implement `stepDidCatch(error, info)`
+ - [ ] crius graph
+ - [ ] crius cli
  
