@@ -37,6 +37,7 @@ class SendSMS extends Step {
  - [x] import `context` for crius step
  - [x] logger and parering steps for step runner
  - [ ] implement `stepDidCatch(error, info)`
- - [ ] crius graph
- - [ ] crius cli
+ - [ ] crius graph enhancement
+ - [ ] implement crius cli for view AC text, etc.
+ - [ ] CI/CD
  
