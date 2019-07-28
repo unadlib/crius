@@ -47,7 +47,11 @@ const logger = (config?: Config): Plugins<{ desc?: string }, {__logger?: Log[]}>
         key === 'Scenario'
       ) {
         const file = path.join(process.cwd(), config.path, `${context.__logger[0].key}.json`)
-        fs.writeFileSync(file, JSON.stringify(context.__logger, null, 2), 'ascii');
+        try {
+          fs.writeFileSync(file, JSON.stringify(context.__logger, null, 2), 'ascii');
+        } catch(e) {
+          console.error(`Log failure in ${file}`);
+        }
       }
     }
   }

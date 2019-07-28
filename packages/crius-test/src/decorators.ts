@@ -65,8 +65,10 @@ function examples(params: TemplateStringsArray | object[] | string | string[]) {
     if (Array.isArray(params)) {
       if (typeof params[0] === 'string') {
         (target.constructor as typeof Step).params = parserString(params[0] as string);
-      } else {
+      } else if (toString.call(params[0]) === '[object Object]') {
         (target.constructor as typeof Step).params = params as object[];
+      } else {
+        throw new Error('"@example" argument error, it must be an object or a string.');
       }
     } else if (typeof params === 'string') {
       (target.constructor as typeof Step).params = parserString(params);
@@ -80,12 +82,18 @@ function examples(params: TemplateStringsArray | object[] | string | string[]) {
 type HookCallback<P, C> = (props: Props<P, C>, context: Context<P, C>, step: StepType<P, C>) => void;
 
 function beforeEach<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
+  if (typeof hookCallback !== 'function') {
+    throw new Error('"@beforeEach" argument error, it must be a function.');
+  }
   return function (target: typeof Step) {
     target.beforeEach = hookCallback;
   }
 }
 
 function afterEach<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
+  if (typeof hookCallback !== 'function') {
+    throw new Error('"@afterEach" argument error, it must be a function.');
+  }
   return function (target: typeof Step) {
     target.afterEach = hookCallback;
   }
@@ -95,7 +103,7 @@ export type Plugins<P = {}, C = {}> = {
   beforeEach?: HookCallback<P, C>;
   afterEach?: HookCallback<P, C>;
 }
-
+// TODO check type in run time.
 function plugins<P = {}, C = {}>(plugins: Array<Plugins<P, C>>) {
   return function (target: typeof Step) {
     target.plugins = plugins;
