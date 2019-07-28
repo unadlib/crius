@@ -3,7 +3,7 @@ import { Props, Context, StepType } from 'crius';
 import { Step, BaseContext } from './step';
 import { parserString, compileString } from './utils';
 
-function autorun(test: Function): any {
+function autorun(_test: Function): any {
   return function (target: typeof Step) {
     // TODO support callback(assert) for tape and ava: (t) => {}
     if (typeof target.params === 'undefined' || target.params === null) {
@@ -40,7 +40,7 @@ function autorun(test: Function): any {
           }
         }
       }
-      test(title, async () => {
+      _test(title, async () => {
         await run({
           key: target.name,
           props: { children: [] },

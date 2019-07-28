@@ -13,7 +13,7 @@ export {
   afterEach,
   plugins,
   Plugins,
-} from './decorator';
+} from './decorators';
 
 export {
   Step

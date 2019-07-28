@@ -1,32 +1,30 @@
 import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterEach, beforeEach, plugins } from '../';
 
-
+const result: string[] = [];
 @beforeEach((props, context, step) => {
-  console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
+  result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
 })
-// @afterEach((props, context, step) => {
-//   console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'afterEach');
-// })
-// @plugins<{}, {s: string}>([
-//   {
-//     beforeEach(props, context, step) {
-//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
-//     },
-//     afterEach(props, context, step) {
-//       console.log(context.s, '22222=======')
-//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
-//     }
-//   },
-//   {
-//     beforeEach(props, context, step) {
-//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
-//     },
-//     afterEach(props, context, step) {
-//       console.log(context.s, '111111=======')
-//       console.log(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
-//     }
-//   }
-// ])
+@afterEach((props, context, step) => {
+  result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'afterEach');
+})
+@plugins<{}, {s: string}>([
+  {
+    beforeEach(props, context, step) {
+      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
+    },
+    afterEach(props, context, step) {
+      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
+    }
+  },
+  {
+    beforeEach(props, context, step) {
+      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
+    },
+    afterEach(props, context, step) {
+      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
+    }
+  }
+])
 class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
   static get context(): {s: string} {
     return {
@@ -36,15 +34,185 @@ class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
 }
 
 
-
+const mockTest = async (title: string, cb: (...args:any[]) => void) => await cb(); 
 @autorun(test)
 @title('Send ${smsMessage} message on compose text page')
 class SendSMS1 extends Step {
+  async stepDidEnd() {
+    expect(result).toEqual([
+      "SendSMS1",
+      "beforeEach",
+      "SendSMS1",
+      "plugins beforeEach",
+      "SendSMS1",
+      "plugins beforeEach",
+      "Scenario",
+      "beforeEach",
+      "Scenario",
+      "plugins beforeEach",
+      "Scenario",
+      "plugins beforeEach",
+      "EntryPoint",
+      "beforeEach",
+      "EntryPoint",
+      "plugins beforeEach",
+      "EntryPoint",
+      "plugins beforeEach",
+      "Prepare",
+      "beforeEach",
+      "Prepare",
+      "plugins beforeEach",
+      "Prepare",
+      "plugins beforeEach",
+      "run Prepare",
+      "Prepare",
+      "plugins afterEach",
+      "Prepare",
+      "plugins afterEach",
+      "Prepare",
+      "afterEach",
+      "Entry",
+      "beforeEach",
+      "Entry",
+      "plugins beforeEach",
+      "Entry",
+      "plugins beforeEach",
+      "Entry",
+      "plugins afterEach",
+      "Entry",
+      "plugins afterEach",
+      "Entry",
+      "afterEach",
+      "UT",
+      "beforeEach",
+      "UT",
+      "plugins beforeEach",
+      "UT",
+      "plugins beforeEach",
+      "run UT 1",
+      "UT",
+      "plugins afterEach",
+      "UT",
+      "plugins afterEach",
+      "UT",
+      "afterEach",
+      "IT",
+      "beforeEach",
+      "IT",
+      "plugins beforeEach",
+      "IT",
+      "plugins beforeEach",
+      "run IT",
+      "IT",
+      "plugins afterEach",
+      "IT",
+      "plugins afterEach",
+      "IT",
+      "afterEach",
+      "Login",
+      "beforeEach",
+      "Login",
+      "plugins beforeEach",
+      "Login",
+      "plugins beforeEach",
+      "run Login",
+      "Login",
+      "plugins afterEach",
+      "Login",
+      "plugins afterEach",
+      "Login",
+      "afterEach",
+      "EntryPoint",
+      "plugins afterEach",
+      "EntryPoint",
+      "plugins afterEach",
+      "EntryPoint",
+      "afterEach",
+      "Given",
+      "beforeEach",
+      "Given",
+      "plugins beforeEach",
+      "Given",
+      "plugins beforeEach",
+      "NavigateToComposeText",
+      "beforeEach",
+      "NavigateToComposeText",
+      "plugins beforeEach",
+      "NavigateToComposeText",
+      "plugins beforeEach",
+      "NavigateToComposeText",
+      "plugins afterEach",
+      "NavigateToComposeText",
+      "plugins afterEach",
+      "NavigateToComposeText",
+      "afterEach",
+      "Given",
+      "plugins afterEach",
+      "Given",
+      "plugins afterEach",
+      "Given",
+      "afterEach",
+      "When",
+      "beforeEach",
+      "When",
+      "plugins beforeEach",
+      "When",
+      "plugins beforeEach",
+      "TextSmsMessage",
+      "beforeEach",
+      "TextSmsMessage",
+      "plugins beforeEach",
+      "TextSmsMessage",
+      "plugins beforeEach",
+      "TextSmsMessage",
+      "plugins afterEach",
+      "TextSmsMessage",
+      "plugins afterEach",
+      "TextSmsMessage",
+      "afterEach",
+      "When",
+      "plugins afterEach",
+      "When",
+      "plugins afterEach",
+      "When",
+      "afterEach",
+      "Then",
+      "beforeEach",
+      "Then",
+      "plugins beforeEach",
+      "Then",
+      "plugins beforeEach",
+      "CheckSmsMessage",
+      "beforeEach",
+      "CheckSmsMessage",
+      "plugins beforeEach",
+      "CheckSmsMessage",
+      "plugins beforeEach",
+      "run CheckSmsMessage test",
+      "CheckSmsMessage",
+      "plugins afterEach",
+      "CheckSmsMessage",
+      "plugins afterEach",
+      "CheckSmsMessage",
+      "afterEach",
+      "Then",
+      "plugins afterEach",
+      "Then",
+      "plugins afterEach",
+      "Then",
+      "afterEach",
+      "Scenario",
+      "plugins afterEach",
+      "Scenario",
+      "plugins afterEach",
+      "Scenario",
+      "afterEach"
+    ]);
+  }
+
   @examples`
     | accountTag   | contactType | smsMessage |
     | us           | personal    | aaa        |
-    | uk           | company     | bbb        |
-    | ca           | all         | xxx        |
   `
   run() {
     return (
@@ -73,34 +241,30 @@ class EntryPoint extends Step {
 
 class NavigateToComposeText extends Step {}
 
-class TextSmsMessage extends Step<{}, {inputText: string}> {}
-
-class CheckSmsMessage extends Step<{}, {inputText: string}> {}
-
-class Prepare extends Step {}
-class Entry extends Step {
-  static UT() {}
-  
-  static IT() {}
+class TextSmsMessage extends Step<{}, {inputText: string}> {
+  run() {
+    this.context.inputText = 'test'
+  }
 }
-const Login = () => {};
 
+class CheckSmsMessage extends Step<{}, {inputText: string}> {
+  run() {
+    result.push(`run CheckSmsMessage ${this.context.inputText}`)
+  }
+}
 
-// [
-//   {
-//     key: 'EntryPoint',
-//     desc: 'sss',
-//     type: 'builder',
-//     status: 'start',
-//     time: 12312
-//   },
-//   {
-//     key: 'EntryPoint',
-//     desc: '',
-//     type: 'step',
-//     status: 'end',
-//     time: 123123,
-//   },
-// ]
-
-
+class Prepare extends Step {
+  run() {
+    result.push('run Prepare');
+  }
+}
+class Entry extends Step {
+  static UT(props: any, context: any) {
+    result.push(`run UT ${context.s}`);
+  }
+  
+  static IT() {
+    result.push('run IT');
+  }
+}
+const Login = () => result.push('run Login');
