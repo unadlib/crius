@@ -268,3 +268,59 @@ class Entry extends Step {
   }
 }
 const Login = () => result.push('run Login');
+
+
+@autorun(test)
+@title('run pure AC text')
+class Test extends Step {
+  run() {
+    <Scenario desc='user enter entrypoint' >
+      <Given desc='user navigate to compose text page' />
+      <When desc='user type ${smsMessage} in input field' />
+      <Then desc='user should see that input field text is ${smsMessage}' />
+    </Scenario>
+  }
+}
+
+autorun(test)(() => 
+  <Scenario desc='user enter entrypoint' >
+    <Given desc='user navigate to compose text page' />
+    <When desc='user type smsMessage in input field' />
+    <Then desc='user should see that input field text is smsMessage' />
+  </Scenario>
+)
+
+@autorun(test.skip)
+@title('run pure AC text')
+class TestSkip extends Step {
+  run() {
+    <Scenario desc='user enter entrypoint' >
+      <Given desc='user navigate to compose text page' />
+      <When desc='user type ${smsMessage} in input field' />
+      <Then desc='user should see that input field text is ${smsMessage}' />
+    </Scenario>
+  }
+}
+
+@autorun(test)
+class TestWithoutTitle extends Step {
+  run() {
+    <Scenario desc='user enter entrypoint' >
+      <Given desc='user navigate to compose text page' />
+      <When desc='user type ${smsMessage} in input field' />
+      <Then desc='user should see that input field text is ${smsMessage}' />
+    </Scenario>
+  }
+}
+
+
+
+class TestStep extends Step {
+  run() {
+    <Scenario desc='user enter entrypoint' >
+      <Given desc='user navigate to compose text page' />
+      <When desc='user type ${smsMessage} in input field' />
+      <Then desc='user should see that input field text is ${smsMessage}' />
+    </Scenario>
+  }
+}
