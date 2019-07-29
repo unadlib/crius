@@ -31,10 +31,10 @@ module.exports = {
 };
 ```
 
-If you use `jest`, you can set up a test file, for example `index.test.jsx`:
+If you use `jest`, you can set up a test file, for example `index.test.js`:
 
-```jsx
-@autorun(test)
+```js
+@autorun(it)
 @title('Test user add todo item')
 class TestTodoList extends Step {
   run() {
@@ -46,6 +46,23 @@ class TestTodoList extends Step {
       </Scenario>
     )
   }
+}
+```
+
+If you use mocha v6, you can install `@babel/register`, you can set the following command & code:
+
+```bash
+mocha --require @babel/register
+```
+
+If you use jasmine, you can add the following config in `jasmine.json`:
+
+```json
+{
+  "helpers": [
+    "../node_modules/@babel/register/lib/node.js",
+    // ...
+  ]
 }
 ```
 
