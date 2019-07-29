@@ -60,7 +60,7 @@ function title(title: string) {
     (target as typeof Step).title = title;
   }
 }
-// TODO parser `TemplateStringsArray` to `object` and compatible with object or string parameters.
+
 function examples(params: TemplateStringsArray | object[] | string | string[]) {
   return function (target: Object, name: string, descriptor: TypedPropertyDescriptor<any>) {
     if (Array.isArray(params)) {
@@ -104,7 +104,7 @@ export type Plugins<P = {}, C = {}> = {
   beforeEach?: HookCallback<P, C>;
   afterEach?: HookCallback<P, C>;
 }
-// TODO check type in run time.
+
 function plugins<P = {}, C = {}>(plugins: Array<Plugins<P, C>>) {
   return function (target: typeof Step) {
     target.plugins = plugins;
