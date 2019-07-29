@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
