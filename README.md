@@ -49,7 +49,7 @@ class TestTodoList extends Step {
 }
 ```
 
-If you use mocha v6, you can install `@babel/register`, you can set the following command & code:
+If you use mocha v6, you can install `@babel/register`, you can set the following command:
 
 ```bash
 mocha --require @babel/register
