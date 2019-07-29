@@ -12,18 +12,18 @@ import {
 import logger from '../';
 
 
-@plugins([logger()])
+@plugins([logger({ path: 'packages/crius-logger' })])
 class Step<P = {}, C = {}> extends BaseStep<P, C> {}
 
 
 @autorun(test)
 @title('Send text message on compose text page')
-class SendSMS extends Step<{}, {__logger: object[]}> {
+class Test extends Step<{}, {__logger: object[]}> {
   async stepDidEnd() {
     expect(this.context.__logger.filter(({ time }: any) => typeof time !== 'number').length).toEqual(0);
-    expect(this.context.__logger.map(({time, ...args}: any) => args)).toEqual([
+    expect(JSON.parse(JSON.stringify(this.context.__logger.map(({time, ...args}: any) => args)))).toEqual([
       {
-        "key": "SendSMS",
+        "key": "Test",
         "type": "step",
         "status": "start",
       },

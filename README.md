@@ -1,4 +1,8 @@
 # crius
+
+[![Travis](https://img.shields.io/travis/unadlib/crius.svg)](https://travis-ci.org/unadlib/crius)
+[![npm](https://img.shields.io/npm/v/crius.svg)](https://www.npmjs.com/package/crius)
+
 A testing tool for behavior-driven development.
 
 ## Example
