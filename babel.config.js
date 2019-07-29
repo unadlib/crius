@@ -2,7 +2,7 @@ module.exports = {
   "presets": [
     ["@babel/preset-env"],
     ["@babel/preset-typescript", { "isTSX": true, "allExtensions": true }],
-    [require.resolve('./packages/babel-preset-crius/dist')]
+    [require.resolve('./packages/babel-preset-crius/lib')]
   ],
   "plugins": [
     ["@babel/plugin-syntax-jsx"],
