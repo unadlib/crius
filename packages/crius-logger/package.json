@@ -1,7 +1,7 @@
 {
   "name": "crius-logger",
   "version": "0.0.1",
-  "description": "A logger plugin for Crius",
+  "description": "A logger plugin for Crius Test",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",

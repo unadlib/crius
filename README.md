@@ -3,23 +3,15 @@ A testing tool for behavior-driven development.
 
 ## Example
 ```jsx
-@title('Send text message on compose text page')
-@tags('widgets')
-@drivers('ut', 'e2e.puppeteer')
-@level('p0')
-class SendSMS extends Step {
-  @examples`
-    | accountTag   | contactType | smsMessage |
-    | us           | personal    | aaa        |
-    | uk           | company     | bbb        |
-    | ca           | all         | xxx        |
-  `
+@autorun(test)
+@title('Test user add todo item')
+class TestTodoList extends Step {
   run() {
     return (
-      <Scenario desc='user enter entrypoint' action={EntryPoint}>
-        <Given desc='user navigate to compose text page' action={NavigateToComposeText} />
-        <When desc='user type ${smsMessage} in input field' action={TextSmsMessage} />
-        <Then desc='user should see that input field text is ${smsMessage}' action={CheckSmsMessage} />
+      <Scenario desc='user login website' action={Login}>
+        <Given desc='user navigate to list page' action={NavigateToList} />
+        <When desc='user type "read book" in input field and click "add" button' action={AddTodo} />
+        <Then desc='user should see "read book" todo item in todo list' action={CheckTodo} />
       </Scenario>
     )
   }
