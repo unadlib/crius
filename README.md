@@ -26,10 +26,10 @@ class TestTodoList extends Step {
 
 ## TODO
 
- - [x] import `context` for crius step
- - [x] logger and parering steps for step runner
- - [ ] implement `stepDidCatch(error, info)`
- - [ ] crius graph enhancement
- - [ ] implement crius cli for view AC text, etc.
- - [ ] CI/CD
- 
+- [x] import `context` for crius step
+- [x] logger and parering steps for step runner
+- [ ] CI/CD
+- [ ] implement `stepDidCatch(error, info)`
+- [ ] crius graph enhancement
+- [ ] implement crius cli for view AC text, etc
+- [ ] crius steps viewer enhancement
