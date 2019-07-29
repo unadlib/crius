@@ -1,5 +1,5 @@
 import { transform } from '@babel/core';
-import crius from '../dist';
+import crius from '../lib';
 
 describe('crius preset', () => {
   test('does throw clear error when no options passed for Babel 6', () => {
@@ -11,7 +11,7 @@ describe('crius preset', () => {
     const actual = transform(
       '<Foo bar="baz" />',
       {
-        presets: [[require.resolve('../dist'), {}]]
+        presets: [[require.resolve('../lib'), {}]]
       }
     ).code;
     expect(actual).toEqual(
@@ -26,7 +26,7 @@ Crius.createFlow(Foo, {
     const actual = transform(
       '<Foo bar="baz" />',
       {
-        presets: [require.resolve('../dist')]
+        presets: [require.resolve('../lib')]
       }
     ).code;
     expect(actual).toEqual(
@@ -41,7 +41,7 @@ Crius.createFlow(Foo, {
     const actual = transform(
       '<Foo bar="baz" />',
       {
-        presets: [[require.resolve('../dist'), { development: true }]],
+        presets: [[require.resolve('../lib'), { development: true }]],
         filename: '/fake/path/mock.js'
       }
     ).code;
