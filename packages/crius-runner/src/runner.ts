@@ -5,7 +5,7 @@ import { handleContext } from './context';
 
 type Key = string | undefined | null;
 
-interface EemptyStep<P = {}, C = {}> { };
+interface EemptyStep<P = {}, C = {}> { }; // TODO fix type
 
 async function iterateChildren<S, P, C>(
   children: Children<P, C>,
@@ -67,8 +67,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
     let stepAction;
     let afterLifecycleAction;
     if (Step.prototype.isCriusStep) {
-      // TODO fix type
-      const step: StepClass = new (Step as any)(
+      const step: StepClass = new (Step as any)( // TODO fix type
         props,
         context,
       );
@@ -76,8 +75,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
       [nextStep, afterLifecycleAction] = await runWithLifecycle(step);
       stepAction = step;
     } else {
-      // TODO fix type
-      await context._beforeEach!(props, context, Step as any);
+      await context._beforeEach!(props, context, Step as any);       // TODO fix type
       nextStep = await Step(props, context);
       stepAction = Step;
     }
@@ -90,11 +88,10 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
         await iterateChildren(nextStep, context);
       }
     }
-    if (Step.prototype.isCriusStep) {
+    if (Step.prototype.isCriusStep && typeof afterLifecycleAction === 'function') {
       await afterLifecycleAction();
     }
-    // TODO fix type
-    await context._afterEach!(props, context, stepAction as any);
+    await context._afterEach!(props, context, stepAction as any); // TODO fix type
   } else if (Array.isArray(props.children)) {
     await iterateChildren(props.children, context);
   }

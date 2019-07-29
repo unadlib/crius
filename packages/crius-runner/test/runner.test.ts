@@ -147,7 +147,7 @@ test('base runner for crius fragment with crius step class', async () => {
     },
     step: undefined,
   };
-  await run(caseStep as any); // Todo fix type
+  await run(caseStep as any);
   expect(result).toEqual([
     'foo',
   ])
@@ -175,7 +175,7 @@ test('base runner for crius fragment with crius step function', async () => {
     },
     step: undefined,
   };
-  await run(caseStep as any); // Todo fix type
+  await run(caseStep as any);
   expect(result).toEqual([
     'bar',
   ])
@@ -226,7 +226,7 @@ test('base runner for crius fragment hooks and context with crius step function'
     bar: 'bar',
     beforeEach,
     afterEach,
-  } as any); // Todo fix type
+  } as any);
   expect(result).toEqual([
     'beforeEach Bar',
     'Bar bar',

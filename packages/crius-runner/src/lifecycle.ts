@@ -1,6 +1,6 @@
 import { Step } from 'crius';
 
-export const runWithLifecycle = async <P, C>(step: Step<P, C>): Promise<any> => {
+export const runWithLifecycle = async <P, C>(step: Step<P, C>): Promise<[any, () => Promise<void>]> => {
   let nextStep;
   if (typeof step.stepWillStart == 'function') {
     await step.stepWillStart();

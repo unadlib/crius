@@ -3,8 +3,9 @@ import { Props, Context, StepType } from 'crius';
 import { Step, BaseContext } from './step';
 import { parserString, compileString } from './utils';
 
-function autorun(_test: Function): any {
-  return function (target: typeof Step) {
+function autorun(_test: Function) {
+  return function (_target: Object) {
+    const target = _target as  typeof Step;
     // TODO support callback(assert) for tape and ava: (t) => {}
     if (typeof target.params === 'undefined' || target.params === null) {
       target.params = [{}];
@@ -51,12 +52,12 @@ function autorun(_test: Function): any {
   }
 }
 
-function title(title: string): any {
+function title(title: string) {
   if (typeof title === 'undefined' || title === null) {
     throw new Error('Test case title is required.');
   }
-  return function (target: typeof Step) {
-    target.title = title;
+  return function (target: Object) {
+    (target as typeof Step).title = title;
   }
 }
 // TODO parser `TemplateStringsArray` to `object` and compatible with object or string parameters.
