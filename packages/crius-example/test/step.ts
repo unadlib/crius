@@ -5,5 +5,5 @@ import {
 import logger from 'crius-logger';
 
 
-// @plugins([logger({ path: 'packages/crius-example/dist/log' })])
+// @plugins([logger({ path: 'packages/crius-example/lib/log' })])
 export default class Step<P = {}, C = {}> extends BaseStep<P, C> {} 

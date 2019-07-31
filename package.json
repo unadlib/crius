@@ -21,6 +21,7 @@
     "test:preset": "jest packages/babel-preset-crius/ --config=scripts/jest/config.js",
     "test:crius": "jest packages/crius/ --config=scripts/jest/config.js",
     "test:crius-runner": "jest packages/crius-runner/ --config=scripts/jest/config.js",
+    "clean": "lerna exec -- rm -rf ./dist",
     "type-check": "tsc --noEmit"
   },
   "repository": {
