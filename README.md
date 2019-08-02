@@ -5,6 +5,25 @@
 
 A testing tool for behavior-driven development.
 
+- [Features](#features)
+- [Install](#install)
+- [Usage](#usage)
+- [Tutorial](#tutorial)
+- [Examples](#examples)
+- [APIs](#apis)
+- [FAQ](#faq)
+- [Support](#support)
+- [License](#license)
+
+## Features
+
+* Expression Based on JSX
+* Integration with AC, UT, IT & E2E
+* Composition Step
+* Pluggable
+* Progressive Agile Tools
+
+
 ## Install
 ```bash
 npm install --seve-dev crius-test
@@ -66,18 +85,17 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 }
 ```
 
-## Support Testing Framework
+## Examples
+
+## APIs
+
+## FAQ
+
+## Support
 
 * Jest
 * Mocha
 * Jasmine
 
-## TODO
-
-- [x] import `context` for crius step
-- [x] logger and parering steps for step runner
-- [ ] CI/CD
-- [ ] implement `stepDidCatch(error, info)`
-- [ ] crius graph enhancement
-- [ ] implement crius cli for view AC text, etc
-- [ ] crius steps viewer enhancement
+## License
+MIT
