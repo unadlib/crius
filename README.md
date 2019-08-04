@@ -91,6 +91,62 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 
 ## FAQ
 
+1. How to use crius test React?
+
+```js
+import React from 'react';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
+
+import MyComponent from './MyComponent';
+import Foo from './Foo';
+
+it('renders three <Foo /> components', () => {
+  const wrapper = shallow(<MyComponent />);
+  expect(wrapper.find(Foo)).to.have.lengthOf(3);
+});
+```
+
+You have to use the following writing instead.
+
+```js
+import React from 'react';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
+
+it('renders three <Foo /> components', () => {
+  const myComponent = React.createElement(eval(transformFileSync('./MyComponent.tsx').code));
+  const wrapper = shallow(myComponent);
+  const foo = eval(transformFileSync('./Foo.tsx').code);
+  expect(wrapper.find(Foo)).to.have.lengthOf(3);
+});
+```
+
+And set up a babel config file for Crius: 
+
+For example `babel-crius.js`: 
+
+```js
+module.exports = require('babel-jest').createTransformer({
+  "presets": [
+    ["@babel/preset-env"],
+    ["babel-preset-crius"]
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+  ]
+});
+```
+
+Finally, set up jest transform:
+
+```
+"transform": {
+  "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/babel-crius.js",
+},
+```
+
+
 ## Support
 
 * Jest
