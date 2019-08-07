@@ -1,6 +1,6 @@
 {
   "name": "crius-example",
-  "version": "1.0.1-1.0.0-alpha.1.0",
+  "version": "1.0.0-alpha.1",
   "private": true,
   "description": "Just a Crius example with Jest.",
   "main": "index.js",
@@ -10,8 +10,8 @@
   "author": "unadlib",
   "license": "MIT",
   "dependencies": {
-    "crius-graph": "^1.0.0-alpha.0",
-    "crius-logger": "^1.0.1-1.0.0-alpha.1.0",
-    "crius-test": "^1.0.1-1.0.0-alpha.1.0"
+    "crius-graph": "^1.0.0-alpha.1",
+    "crius-logger": "^1.0.0-alpha.1",
+    "crius-test": "^1.0.0-alpha.1"
   }
 }
