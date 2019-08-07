@@ -3,6 +3,7 @@ export {
   Given,
   When,
   Then,
+  And,
   autorun,
   title,
   examples,

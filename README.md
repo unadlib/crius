@@ -114,12 +114,12 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-it('renders three <Foo /> components', () => {
+const checkMyComponent = () => {
   const myComponent = React.createElement(eval(transformFileSync('./MyComponent.tsx').code));
   const wrapper = shallow(myComponent);
   const foo = eval(transformFileSync('./Foo.tsx').code);
   expect(wrapper.find(Foo)).to.have.lengthOf(3);
-});
+}
 ```
 
 And set up a babel config file for Crius: 
@@ -138,7 +138,7 @@ module.exports = require('babel-jest').createTransformer({
 });
 ```
 
-Finally, set up jest transform:
+Finally, set up jest `transform`:
 
 ```
 "transform": {

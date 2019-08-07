@@ -3,6 +3,7 @@ export {
   Given,
   When,
   Then,
+  And
 } from './builder';
 
 export {

@@ -26,9 +26,12 @@ class When<P = {}, C = {}> extends Builder<P, C> {}
 
 class Then<P = {}, C = {}> extends Builder<P, C> {}
 
+class And<P = {}, C = {}> extends Builder<P, C> {}
+
 export {
   Scenario,
   Given,
   When,
   Then,
+  And
 }
