@@ -23,7 +23,9 @@
     "test:crius-runner": "jest packages/crius-runner/ --config=scripts/jest/config.js",
     "clean": "lerna exec -- rm -rf ./dist",
     "type-check": "tsc --noEmit",
-    "commit": "yarn git-cz"
+    "commit": "yarn git-cz",
+    "start:example": "lerna run start --scope=crius-example",
+    "test:example": "yarn test packages/crius-example/test/index.test.tsx"
   },
   "repository": {
     "type": "git",

@@ -5,7 +5,7 @@
   "description": "Just a Crius example with Jest.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server lib -o"
   },
   "author": "unadlib",
   "license": "MIT",
@@ -13,5 +13,8 @@
     "crius-graph": "^1.0.0-alpha.2",
     "crius-logger": "^1.0.0-alpha.2",
     "crius-test": "^1.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
   }
 }
