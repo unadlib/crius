@@ -4,7 +4,7 @@ export function compileString(template: string, params: object): string {
 }
 
 export function parserString(text: string): Array<{ [K: string]: string }> {
-  const rawArray = text.replace(/\s+/g, '').split('|');
+  const rawArray = text.split('|').map(text => text.trim());
   const dataArray = rawArray.filter(i => i);
   const length = rawArray.length - dataArray.length - 1;
   const keyLength = dataArray.length / length;

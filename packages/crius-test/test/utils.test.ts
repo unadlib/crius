@@ -8,7 +8,7 @@ test('test `parserString`', () => {
     | accountTag   | contactType | smsMessage |
     | us           | personal    | aaa        |
     | uk           | company     | bbb        |
-    | ca           | all         | xxx        |
+    | ca           | all         | xxx yyy    |
   `);
   expect(object).toEqual([
     {
@@ -22,7 +22,7 @@ test('test `parserString`', () => {
       "accountTag": "uk"
     },
     {
-      "smsMessage": "xxx",
+      "smsMessage": "xxx yyy",
       "contactType": "all",
       "accountTag": "ca"
     }
