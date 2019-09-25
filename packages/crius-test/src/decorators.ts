@@ -41,12 +41,13 @@ function autorun(_test: Function) {
           }
         }
       }
+      Object.defineProperties(baseContext, Object.getOwnPropertyDescriptors(target.context || {}));
       _test(title, async () => {
         await run({
           key: target.name,
           props: { children: [] },
           step: target
-        }, Object.assign(baseContext, target.context));
+        }, baseContext);
       });
     }
   }

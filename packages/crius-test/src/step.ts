@@ -17,7 +17,7 @@ export class Step<P = {}, C = {}> extends BaseStep<P & { desc?: string }, C & Ba
   static plugins?: any[];
 
   constructor(props: P & { desc?: string }, context: C & BaseContext<P, C>) {
-    super(props, context);
+    super(props as any, context);
     if (
       typeof this.props.desc === 'string' &&
       typeof this.context.params === 'object'

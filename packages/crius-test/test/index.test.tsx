@@ -25,14 +25,16 @@ const result: string[] = [];
     }
   }
 ])
-class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string }> {
-  static get context(): {s: string} {
+class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string; readonly a: number }> {
+  static get context(): {s: string, readonly a: number} {
     return {
-      s: '1'
+      s: '1',
+      get a() {
+        return 2;
+      }
     };
   }
 }
-
 
 const mockTest = async (title: string, cb: (...args:any[]) => void) => await cb(); 
 @autorun(test)
@@ -90,6 +92,7 @@ class SendSMS1 extends Step {
       "UT",
       "plugins beforeEach",
       "run UT 1",
+      "run UT 2",
       "UT",
       "plugins afterEach",
       "UT",
@@ -261,6 +264,7 @@ class Prepare extends Step {
 class Entry extends Step {
   static UT(props: any, context: any) {
     result.push(`run UT ${context.s}`);
+    result.push(`run UT ${context.a}`);
   }
   
   static IT() {
@@ -274,7 +278,7 @@ const Login = () => result.push('run Login');
 @title('run pure AC text')
 class Test extends Step {
   run() {
-    <Scenario desc='user enter entrypoint' >
+    <Scenario desc='user enter entrypoint'>
       <Given desc='user navigate to compose text page' />
       <When desc='user type ${smsMessage} in input field' />
       <Then desc='user should see that input field text is ${smsMessage}' />
@@ -290,7 +294,7 @@ autorun(test)(() =>
   </Scenario>
 )
 
-@autorun(test.skip)
+@autorun(test)
 @title('run pure AC text')
 class TestSkip extends Step {
   run() {
