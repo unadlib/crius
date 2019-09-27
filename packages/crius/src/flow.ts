@@ -31,19 +31,23 @@ function createFlow<S extends EemptyStep<P, C>, P = {}, C = {}>(
   config: Config<P>,
   ...children: Children<P, C>
 ): CriusNode<S, P, C> {
-  const props: Props<P, C> = {
-    children,
-    ...config,
-  };
+  let defaultProps;
   let key = '';
   if (typeof step === 'function') {
     if (step.prototype.isCriusStep) {
       key = step.name || step.prototype.constructor.name;
+      defaultProps = step.prototype.defaultProps;
     } else {
       key = step.name || (step.prototype ? step.prototype.constructor.name : 'anonymous');
+      defaultProps = (step as any).defaultProps;
     }
   }
   key = config && config.key ? config.key : key;
+  const props: Props<P, C> = {
+    ...defaultProps,
+    children,
+    ...config,
+  };
   return new CriusNode({
     step,
     key,

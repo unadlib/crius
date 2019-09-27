@@ -7,6 +7,7 @@ interface StepLifecycle<P, C> {
 }
 
 interface StepClass<P, C> extends StepLifecycle<P, C> {
+  defaultProps?: Partial<P>;
   props: Props<P, C>;
   context: Context<P, C>;
   params: any;

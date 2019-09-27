@@ -3,146 +3,146 @@
     "key": "SelectReceiver",
     "type": "step",
     "status": "start",
-    "time": 1569430119015
+    "time": 1569599468857
   },
   {
     "key": "Scenario",
     "desc": "user enter entrypoint",
     "type": "builder",
     "status": "start",
-    "time": 1569430119016
+    "time": 1569599468857
   },
   {
     "key": "EntryPoint",
     "type": "step",
     "status": "start",
-    "time": 1569430119016
+    "time": 1569599468857
   },
   {
     "key": "Login",
     "type": "step",
     "status": "start",
-    "time": 1569430119016
+    "time": 1569599468857
   },
   {
     "key": "Login",
     "type": "step",
     "status": "end",
-    "time": 1569430119016
+    "time": 1569599468857
   },
   {
     "key": "EntryPoint",
     "type": "step",
     "status": "end",
-    "time": 1569430119016
+    "time": 1569599468857
   },
   {
     "key": "Given",
     "desc": "user navigate to compose text page",
     "type": "builder",
     "status": "start",
-    "time": 1569430119016
+    "time": 1569599468857
   },
   {
     "key": "NavigateToComposeText",
     "type": "step",
     "status": "start",
-    "time": 1569430119016
+    "time": 1569599468858
   },
   {
     "key": "NavigateToComposeText",
     "type": "step",
     "status": "end",
-    "time": 1569430119016
+    "time": 1569599468858
   },
   {
     "key": "Given",
     "desc": "user navigate to compose text page",
     "type": "builder",
     "status": "end",
-    "time": 1569430119016
+    "time": 1569599468858
   },
   {
     "key": "When",
     "desc": "user select yyy in input field",
     "type": "builder",
     "status": "start",
-    "time": 1569430119017
+    "time": 1569599468858
   },
   {
     "key": "PickSmsReceiver",
     "type": "step",
     "status": "start",
-    "time": 1569430119017
+    "time": 1569599468858
   },
   {
     "key": "PickList",
     "type": "step",
     "status": "start",
-    "time": 1569430119017
+    "time": 1569599468858
   },
   {
     "key": "PickList",
     "type": "step",
     "status": "end",
-    "time": 1569430119017
+    "time": 1569599468858
   },
   {
     "key": "UT",
     "type": "step",
     "status": "start",
-    "time": 1569430119017
+    "time": 1569599468858
   },
   {
     "key": "UT",
     "type": "step",
     "status": "end",
-    "time": 1569430119017
+    "time": 1569599468858
   },
   {
     "key": "PickSmsReceiver",
     "type": "step",
     "status": "end",
-    "time": 1569430119017
+    "time": 1569599468859
   },
   {
     "key": "When",
     "desc": "user select yyy in input field",
     "type": "builder",
     "status": "end",
-    "time": 1569430119017
+    "time": 1569599468859
   },
   {
     "key": "Then",
     "desc": "user should see that receiver field is yyy",
     "type": "builder",
     "status": "start",
-    "time": 1569430119017
+    "time": 1569599468859
   },
   {
     "key": "CheckSmsReceiver",
     "type": "step",
     "status": "start",
-    "time": 1569430119017
+    "time": 1569599468859
   },
   {
     "key": "CheckSmsReceiver",
     "type": "step",
     "status": "end",
-    "time": 1569430119017
+    "time": 1569599468859
   },
   {
     "key": "Then",
     "desc": "user should see that receiver field is yyy",
     "type": "builder",
     "status": "end",
-    "time": 1569430119018
+    "time": 1569599468859
   },
   {
     "key": "Scenario",
     "desc": "user enter entrypoint",
     "type": "builder",
     "status": "end",
-    "time": 1569430119018
+    "time": 1569599468859
   }
 ]
