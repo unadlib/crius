@@ -1,11 +1,11 @@
-import { Step as BaseStep, Hooks, Props, Context, StepType } from 'crius';
+import { Step as BaseStep, Hooks, Props, Context, StepFunction as BaseStepFunction } from 'crius';
 import { compileString } from './utils';
 
 export interface BaseContext<P = {}, C = {}> extends Hooks<P, C> {
   title?: string;
   params?: any;
 }
-
+// TODO should `desc` property be included  in base step ?
 export class Step<P = {}, C = {}> extends BaseStep<P & { desc?: string }, C & BaseContext<P, C>> {
   static title?: string;
   static params?: any[];
@@ -39,3 +39,5 @@ export class Step<P = {}, C = {}> extends BaseStep<P & { desc?: string }, C & Ba
   refs: any;
   // TODO ts ignore with non-react jsx
 }
+
+export interface StepFunction<P = {}, C = {}> extends BaseStepFunction<P & { desc?: string }, C & BaseContext<P, C>> {}

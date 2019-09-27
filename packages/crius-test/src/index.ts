@@ -17,5 +17,6 @@ export {
 } from './decorators';
 
 export {
-  Step
+  Step,
+  StepFunction,
 } from './step';

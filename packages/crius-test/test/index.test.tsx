@@ -1,4 +1,4 @@
-import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterEach, beforeEach, plugins } from '../';
+import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterEach, beforeEach, plugins, StepFunction } from '../';
 
 const result: string[] = [];
 @beforeEach((props, context, step) => {
@@ -118,6 +118,7 @@ class SendSMS1 extends Step {
       "plugins beforeEach",
       "Login",
       "plugins beforeEach",
+      "Send aaa message on compose text page",
       "run Login",
       "Login",
       "plugins afterEach",
@@ -271,7 +272,10 @@ class Entry extends Step {
     result.push('run IT');
   }
 }
-const Login = () => result.push('run Login');
+const Login: StepFunction = (props, context) => {
+  result.push(context.title!);
+  result.push('run Login');
+};
 
 
 @autorun(test)

@@ -8,6 +8,7 @@ export {
   title,
   examples,
   Step,
+  StepFunction,
   beforeEach,
   afterEach,
   plugins,

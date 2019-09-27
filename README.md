@@ -89,6 +89,10 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 
 ## APIs
 
+### Function Step
+
+### Class Step
+
 ## FAQ
 
 1. How to use crius test React?
@@ -152,11 +156,6 @@ Finally, set up jest `transform`:
 * Jest
 * Mocha
 * Jasmine
-
-## TODO
-
-- [ ] Supplement `StepFunction` interface in crius-test
-- [ ] Formatting plug-ins about `@example` Template text
 
 ## License
 MIT
