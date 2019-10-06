@@ -245,11 +245,16 @@ class EntryPoint extends Step {
 
 class NavigateToComposeText extends Step {}
 
-class TextSmsMessage extends Step<{}, {inputText: string}> {
+class TextSmsMessage extends Step<{ text?: string }, {inputText: string}> {
   run() {
+    result.push(`run CheckSmsMessage ${this.props.text}`);
     this.context.inputText = 'test'
   }
 }
+
+TextSmsMessage.prototype.defaultProps = {
+  text: 'TextSmsMessageProps'
+};
 
 class CheckSmsMessage extends Step<{}, {inputText: string}> {
   run() {
