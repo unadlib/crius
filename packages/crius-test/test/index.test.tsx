@@ -168,6 +168,7 @@ class SendSMS1 extends Step {
       "plugins beforeEach",
       "TextSmsMessage",
       "plugins beforeEach",
+      "run CheckSmsMessage TextSmsMessageProps",
       "TextSmsMessage",
       "plugins afterEach",
       "TextSmsMessage",
