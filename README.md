@@ -91,6 +91,18 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 
 ## APIs
 
+* `@autorun`
+
+* `@title`
+
+* `@examples`
+
+* `@beforeEach`
+
+* `@afterEach`
+
+* `@plugins`
+
 ### Function Step
 
 ### Class Step
