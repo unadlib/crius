@@ -31,6 +31,14 @@ export class Step<P = {}, C = {}> extends BaseStep<P & { desc?: string }, C & Ba
       });
     }
   }
+
+  // TODO ts ignore with non-react jsx
+  render() { return null };
+  setState() {};
+  forceUpdate() {};
+  state: any;
+  refs: any;
+  // TODO ts ignore with non-react jsx
 }
 
 export interface StepFunction<P = {}, C = {}> extends BaseStepFunction<P & { desc?: string }, C & BaseContext<P, C>> {}
