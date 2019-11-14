@@ -5,6 +5,7 @@ import {
   beforeEach,
   afterEach,
   plugins,
+  params
 } from '../src/decorators';
 import { Step } from '../src/step';
 
@@ -31,30 +32,30 @@ test('test @title', () => {
 test('test @examples', () => {
   class Bar extends Step {
     @examples`
-      | accountTag   | contactType | smsMessage |
-      | us           | personal    | aaa        |
+      | accountTag     | contactType   | smsMessage   |
+      | 'us'           | false         | 1            |
     `
     run() {}
   }
   
   expect(Bar.params).toEqual([{
     accountTag: 'us',
-    contactType: 'personal',
-    smsMessage: 'aaa'
+    contactType: false,
+    smsMessage: 1,
   }]);
 
   class Foo extends Step {
     @examples(`
-    | accountTag   | contactType | smsMessage |
-    | us           | personal    | aaa        |
+    | accountTag | contactType   | smsMessage |
+    | ['2']      | {a:undefined} | null       |
   `)
     run() {}
   }
   
   expect(Foo.params).toEqual([{
-    accountTag: 'us',
-    contactType: 'personal',
-    smsMessage: 'aaa'
+    accountTag: ['2'],
+    contactType: {a:undefined},
+    smsMessage: null
   }]);
 
   class FooBar extends Step {
@@ -153,4 +154,21 @@ test('test @plugins', () => {
   
   expect(FooBar.plugins![0].beforeEach).toEqual(callback);
   expect(FooBar.plugins![0].afterEach).toEqual(callback);
+});
+
+
+test('test @params', () => {
+  const callback = (paramsList: any[]) => paramsList;
+  @params(callback)
+  class Bar extends Step {}
+
+  expect(Bar.handleParams).toEqual(callback);
+  for (const item of [null, undefined, 1, {}, [], true, '', 'foo']) {
+    try {
+      @params(item as any)
+      class Bar extends Step {}
+    } catch(e) {
+      expect(e.toString()).toEqual('Error: "@params" argument error, it must be a function.');
+    }
+  }
 });

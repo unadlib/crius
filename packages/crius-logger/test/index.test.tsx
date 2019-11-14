@@ -169,8 +169,8 @@ class Test extends Step<{}, {__logger: object[]}> {
   }
 
   @examples`
-    | accountTag   | contactType | smsMessage |
-    | us           | personal    | aaa        |
+    | accountTag     | contactType   | smsMessage   |
+    | 'us'           | 'personal'    | 'aaa'        |
   `
   run() {
     return (

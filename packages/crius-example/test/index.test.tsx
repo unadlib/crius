@@ -6,10 +6,10 @@ import Step from './step';
 @title('Send ${sms} with ${contactType} on compose text page')
 class SendSMS extends Step {
   @examples`
-    | accountTag   | contactType    | sms     |
-    | us           | personal       | aaa     |
-    | uk           | company        | bbb     |
-    | ca           | all            | xxx     |
+    | accountTag     | contactType      | sms       |
+    | 'us'           | 'personal'       | 'aaa'     |
+    | 'uk'           | 'company'        | 'bbb'     |
+    | 'ca'           | 'all'            | 'xxx'     |
   `
   run() {
     return (
@@ -27,10 +27,10 @@ class SendSMS extends Step {
 @title('Select a ${receiver} with ${contactType} on compose text page')
 class SelectReceiver extends Step {
   @examples`
-    | accountTag   | contactType    | receiver  |
-    | us           | personal       | fff       |
-    | uk           | company        | ddd       |
-    | ca           | all            | yyy       |
+    | accountTag     | contactType      | receiver    |
+    | 'us'           | 'personal'       | 'fff'       |
+    | 'uk'           | 'company'        | 'ddd'       |
+    | 'ca'           | 'all'            | 'yyy'       |
   `
   run() {
     return (

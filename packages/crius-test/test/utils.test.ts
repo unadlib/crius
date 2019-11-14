@@ -1,36 +1,47 @@
 import {
   parserString,
-  compileString
+  compileString,
+  errerMessage
 } from '../src/utils';
 
 test('test `parserString`', () => {
   const object = parserString(`
-    | accountTag   | contactType | smsMessage |
-    | us           | personal    | aaa        |
-    | uk           | company     | bbb        |
-    | ca           | all         | xxx yyy    |
+    | accountTag   | isContactType | smsMessage          | sum          |
+    | 'us'         | false         | {a:1}               | 1            |
+    | 'uk'         | true          | {}                  | 1234         |
+    | 'ca'         | null          | {b:{e:undefined}}   | -1.234       |
+    | 'ca'         | undefined     | [{b:{e:undefined}}] | 0.1          |
   `);
   expect(object).toEqual([
     {
-      "smsMessage": "aaa",
-      "contactType": "personal",
-      "accountTag": "us"
+      "smsMessage": {a:1},
+      "isContactType": false,
+      "accountTag": "us",
+      "sum": 1,
     },
     {
-      "smsMessage": "bbb",
-      "contactType": "company",
-      "accountTag": "uk"
+      "smsMessage": {},
+      "isContactType": true,
+      "accountTag": "uk",
+      "sum": 1234,
     },
     {
-      "smsMessage": "xxx yyy",
-      "contactType": "all",
-      "accountTag": "ca"
+      "smsMessage": {b:{e:undefined}},
+      "isContactType": null,
+      "accountTag": "ca",
+      "sum": -1.234,
+    },
+    {
+      "smsMessage": [{b:{e:undefined}}],
+      "isContactType": undefined,
+      "accountTag": "ca",
+      "sum": 0.1,
     }
   ]);
 });
 
 test('test `parserString` with Error', () => {
-  for (const item of [
+  const samples = [
     `
       | accountTag   | contactType | smsMessage |
       | us           | personal    | aaa        |
@@ -47,30 +58,23 @@ test('test `parserString` with Error', () => {
       | accountTag  | contactType | smsMessage |
       | us           | personal    | aaa        |
       | uk           | company     | bbb        |
-      | ca      ||   |  all         | xxx        |
+      | ca      ||   |  all         | aaa        |
+    `,
     `
-  ]) {
+      | accountTag  | contactType | smsMessage |
+      | us           | personal    | aaa        |
+    `,
+  ];
+  for (const item of samples) {
+    const index =  samples.indexOf(item);
     try {
-      const object = parserString(item);
+      parserString(item);
     } catch(e) {
-      expect(e.toString().replace(/\s+/g, '')).toEqual(new Error(`
-      Unexpected string formats, for example:
-        \`
-        | fooField  | barField  |
-        | test_a    | test_c    |
-        | test_b    | test_d    |
-        \`
-        Parse to:
-        [
-          {
-            fooField: 'test_a',
-            barField: 'test_c'
-          },
-          {
-            fooField: 'test_b',
-            barField: 'test_d'
-          }
-        ]`).toString().replace(/\s+/g, ''));
+      if (index < 2) {
+        expect(e.toString().replace(/\s+/g, '')).toEqual(new Error(errerMessage).toString().replace(/\s+/g, ''));
+      } else {
+        expect(e.toString()).toEqual(`ReferenceError: aaa is not defined`);
+      }
     }
   }
 });

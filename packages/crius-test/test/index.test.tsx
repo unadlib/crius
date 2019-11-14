@@ -1,34 +1,69 @@
-import { Step as BaseStep, autorun, title, examples, Scenario, Given, When, Then, afterEach, beforeEach, plugins, StepFunction } from '../';
+import {
+  Step as BaseStep,
+  autorun,
+  title,
+  examples,
+  Scenario,
+  Given,
+  When,
+  Then,
+  afterEach,
+  beforeEach,
+  plugins,
+  StepFunction
+} from "../";
+import { params } from "../src/decorators";
 
 const result: string[] = [];
 @beforeEach((props, context, step) => {
-  result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'beforeEach');
+  result.push(
+    typeof step === "object" ? step.constructor.name : step.name,
+    "beforeEach"
+  );
 })
 @afterEach((props, context, step) => {
-  result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'afterEach');
+  result.push(
+    typeof step === "object" ? step.constructor.name : step.name,
+    "afterEach"
+  );
 })
-@plugins<{}, {s: string}>([
+@plugins<{}, { s: string }>([
   {
     beforeEach(props, context, step) {
-      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
+      result.push(
+        typeof step === "object" ? step.constructor.name : step.name,
+        "plugins beforeEach"
+      );
     },
     afterEach(props, context, step) {
-      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
+      result.push(
+        typeof step === "object" ? step.constructor.name : step.name,
+        "plugins afterEach"
+      );
     }
   },
   {
     beforeEach(props, context, step) {
-      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins beforeEach');
+      result.push(
+        typeof step === "object" ? step.constructor.name : step.name,
+        "plugins beforeEach"
+      );
     },
     afterEach(props, context, step) {
-      result.push(typeof step === 'object' ?  step.constructor.name: step.name, 'plugins afterEach');
+      result.push(
+        typeof step === "object" ? step.constructor.name : step.name,
+        "plugins afterEach"
+      );
     }
   }
 ])
-class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string; readonly a: number }> {
-  static get context(): {s: string, readonly a: number} {
+class Step<P = {}, C = {}> extends BaseStep<
+  P,
+  C & { s: string; readonly a: number }
+> {
+  static get context(): { s: string; readonly a: number } {
     return {
-      s: '1',
+      s: "1",
       get a() {
         return 2;
       }
@@ -36,9 +71,11 @@ class Step<P = {}, C = {}> extends BaseStep<P, C & { s: string; readonly a: numb
   }
 }
 
-const mockTest = async (title: string, cb: (...args:any[]) => void) => await cb(); 
+const mockTest = async (title: string, cb: (...args: any[]) => void) =>
+  await cb();
 @autorun(test)
-@title('Send ${smsMessage} message on compose text page')
+@params((params) => params.slice(0, 1))
+@title("Send ${smsMessage} message on compose text page")
 class SendSMS1 extends Step {
   async stepDidEnd() {
     expect(result).toEqual([
@@ -216,17 +253,27 @@ class SendSMS1 extends Step {
   }
 
   @examples`
-    | accountTag   | contactType | smsMessage |
-    | us           | personal    | aaa        |
+    | accountTag     | contactType   | smsMessage |
+    | 'us'           | 'personal'    | 'aaa'      |
+    | 'us_1'         | 'personal_1'  | 'aaa_1'    |
   `
   run() {
     return (
-      <Scenario desc='user enter entrypoint' action={EntryPoint}>
-        <Given desc='user navigate to compose text page' action={NavigateToComposeText} />
-        <When desc='user type ${smsMessage} in input field' action={TextSmsMessage} />
-        <Then desc='user should see that input field text is ${smsMessage}' action={CheckSmsMessage} />
+      <Scenario desc="user enter entrypoint" action={EntryPoint}>
+        <Given
+          desc="user navigate to compose text page"
+          action={NavigateToComposeText}
+        />
+        <When
+          desc="user type ${smsMessage} in input field"
+          action={TextSmsMessage}
+        />
+        <Then
+          desc="user should see that input field text is ${smsMessage}"
+          action={CheckSmsMessage}
+        />
       </Scenario>
-    )
+    );
   }
 }
 
@@ -246,26 +293,26 @@ class EntryPoint extends Step {
 
 class NavigateToComposeText extends Step {}
 
-class TextSmsMessage extends Step<{ text?: string }, {inputText: string}> {
+class TextSmsMessage extends Step<{ text?: string }, { inputText: string }> {
   run() {
     result.push(`run CheckSmsMessage ${this.props.text}`);
-    this.context.inputText = 'test'
+    this.context.inputText = "test";
   }
 }
 
 TextSmsMessage.prototype.defaultProps = {
-  text: 'TextSmsMessageProps'
+  text: "TextSmsMessageProps"
 };
 
-class CheckSmsMessage extends Step<{}, {inputText: string}> {
+class CheckSmsMessage extends Step<{}, { inputText: string }> {
   run() {
-    result.push(`run CheckSmsMessage ${this.context.inputText}`)
+    result.push(`run CheckSmsMessage ${this.context.inputText}`);
   }
 }
 
 class Prepare extends Step {
   run() {
-    result.push('run Prepare');
+    result.push("run Prepare");
   }
 }
 class Entry extends Step {
@@ -273,68 +320,65 @@ class Entry extends Step {
     result.push(`run UT ${context.s}`);
     result.push(`run UT ${context.a}`);
   }
-  
+
   static IT() {
-    result.push('run IT');
+    result.push("run IT");
   }
 }
 const Login: StepFunction = (props, context) => {
   result.push(context.title!);
-  result.push('run Login');
+  result.push("run Login");
 };
 
-
 @autorun(test)
-@title('run pure AC text')
+@title("run pure AC text")
 class Test extends Step {
   run() {
-    <Scenario desc='user enter entrypoint'>
-      <Given desc='user navigate to compose text page' />
-      <When desc='user type ${smsMessage} in input field' />
-      <Then desc='user should see that input field text is ${smsMessage}' />
-    </Scenario>
+    <Scenario desc="user enter entrypoint">
+      <Given desc="user navigate to compose text page" />
+      <When desc="user type ${smsMessage} in input field" />
+      <Then desc="user should see that input field text is ${smsMessage}" />
+    </Scenario>;
   }
 }
 
-autorun(test)(() => 
-  <Scenario desc='user enter entrypoint' >
-    <Given desc='user navigate to compose text page' />
-    <When desc='user type smsMessage in input field' />
-    <Then desc='user should see that input field text is smsMessage' />
+autorun(test)(() => (
+  <Scenario desc="user enter entrypoint">
+    <Given desc="user navigate to compose text page" />
+    <When desc="user type smsMessage in input field" />
+    <Then desc="user should see that input field text is smsMessage" />
   </Scenario>
-)
+));
 
 @autorun(test)
-@title('run pure AC text')
+@title("run pure AC text")
 class TestSkip extends Step {
   run() {
-    <Scenario desc='user enter entrypoint' >
-      <Given desc='user navigate to compose text page' />
-      <When desc='user type ${smsMessage} in input field' />
-      <Then desc='user should see that input field text is ${smsMessage}' />
-    </Scenario>
+    <Scenario desc="user enter entrypoint">
+      <Given desc="user navigate to compose text page" />
+      <When desc="user type ${smsMessage} in input field" />
+      <Then desc="user should see that input field text is ${smsMessage}" />
+    </Scenario>;
   }
 }
 
 @autorun(test)
 class TestWithoutTitle extends Step {
   run() {
-    <Scenario desc='user enter entrypoint' >
-      <Given desc='user navigate to compose text page' />
-      <When desc='user type ${smsMessage} in input field' />
-      <Then desc='user should see that input field text is ${smsMessage}' />
-    </Scenario>
+    <Scenario desc="user enter entrypoint">
+      <Given desc="user navigate to compose text page" />
+      <When desc="user type ${smsMessage} in input field" />
+      <Then desc="user should see that input field text is ${smsMessage}" />
+    </Scenario>;
   }
 }
 
-
-
 class TestStep extends Step {
   run() {
-    <Scenario desc='user enter entrypoint' >
-      <Given desc='user navigate to compose text page' />
-      <When desc='user type ${smsMessage} in input field' />
-      <Then desc='user should see that input field text is ${smsMessage}' />
-    </Scenario>
+    <Scenario desc="user enter entrypoint">
+      <Given desc="user navigate to compose text page" />
+      <When desc="user type ${smsMessage} in input field" />
+      <Then desc="user should see that input field text is ${smsMessage}" />
+    </Scenario>;
   }
 }
