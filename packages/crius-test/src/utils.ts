@@ -44,6 +44,7 @@ export function parserString(text: string): Array<{ [K: string]: string }> {
       try {
         value = eval(`(${dataArray[l * keyLength + k]})`);
       } catch (e) {
+        console.error(`Eval Error: (${dataArray[l * keyLength + k]})`);
         throw e;
       }
       arr[l - 1][dataArray[k]] = value;
