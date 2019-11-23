@@ -6,7 +6,7 @@ export const runWithLifecycle = async <P, C>(step: Step<P, C>): Promise<[any, ()
     await step.stepWillStart();
   }
   if (typeof step.run === 'function') {
-    nextStep = await step.run(step.params);
+    nextStep = await step.run();
   }
   return [
     nextStep,

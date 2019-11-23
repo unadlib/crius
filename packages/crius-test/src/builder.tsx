@@ -1,8 +1,27 @@
-import { Step } from './step';
+import { Step, StepFunction } from './step';
+import { compileString } from './utils';
 
-type BaseProps<P, C> = { desc: string, action?: any }; // TODO fix type
+interface BuilderProps {
+  desc: string;
+  action?: any; // TODO fix jsx element type error.
+}
 
-class Builder<P = {}, C = {}> extends Step<P & BaseProps<P, C>, C> {
+class Builder<P = {}, C = {}> extends Step<P & BuilderProps, C> {
+  constructor(props: P & BuilderProps, context: C) {
+    super(props, context);
+    if (
+      typeof this.props.desc === 'string' &&
+      typeof this.context.example === 'object'
+    ) {
+      Object.defineProperty(this.props, 'desc', {
+        configurable: true,
+        enumerable: true,
+        writable: false,
+        value: compileString(this.props.desc, this.context.example)
+      });
+    }
+  }
+  
   get __isBuilder() {
     return true;
   }

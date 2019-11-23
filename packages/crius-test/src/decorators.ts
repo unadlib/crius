@@ -7,19 +7,18 @@ function autorun(_test: Function) {
   return function(_target: Object) {
     const target = _target as typeof Step;
     // TODO support callback(assert) for tape and ava: (t) => {}
-    if (typeof target.params === "undefined" || target.params === null) {
-      target.params = [{}];
+    if (typeof target.examples === "undefined" || target.examples === null) {
+      target.examples = [{}];
     }
     const testParams =
       typeof target.handleParams === "function"
-        ? target.handleParams(target.params)
-        : target.params;
-    for (const params of testParams) {
-      const title = compileString(target.title || "", params);
-      target.prototype.params = params;
+        ? target.handleParams(target.examples)
+        : target.examples;
+    for (const example of testParams) {
+      const title = compileString(target.title || "", example);
       const baseContext: BaseContext = {
         title,
-        params,
+        example,
         async beforeEach(props, context, step) {
           if (typeof target.beforeEach === "function") {
             await target.beforeEach(props, context, step);
@@ -80,21 +79,21 @@ function examples(params: TemplateStringsArray | object[] | string | string[]) {
   ) {
     if (Array.isArray(params)) {
       if (typeof params[0] === "string") {
-        (target.constructor as typeof Step).params = parserString(
+        (target.constructor as typeof Step).examples = parserString(
           params[0] as string
         );
       } else if (toString.call(params[0]) === "[object Object]") {
-        (target.constructor as typeof Step).params = params as object[];
+        (target.constructor as typeof Step).examples = params as object[];
       } else {
         throw new Error(
-          '"@example" argument error, it must be an object or a string.'
+          '"@examples" argument error, it must be an object or a string.'
         );
       }
     } else if (typeof params === "string") {
-      (target.constructor as typeof Step).params = parserString(params);
+      (target.constructor as typeof Step).examples = parserString(params);
     } else {
       throw new Error(
-        '"@example" argument error, it must be an object or a string.'
+        '"@examples" argument error, it must be an object or a string.'
       );
     }
     return descriptor;

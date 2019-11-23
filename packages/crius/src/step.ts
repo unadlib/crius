@@ -3,6 +3,20 @@ import { CriusNode } from './flow';
 import StepClass from './stepClass';
 import { StepFunction } from './stepFunction';
 
+export type OptionalKeyOf<T> = Exclude<{
+  [K in keyof T]: T extends Record<K, T[K]>
+    ? never
+    : K
+}[keyof T], undefined>
+
+export type ExcludeRequired<T> = {
+  [K in keyof T]-?: T extends Record<K, T[K]>
+    ? never
+    : T[K]
+}
+
+export type PickOptional<T> = Pick<ExcludeRequired<T>, OptionalKeyOf<T>>;
+
 export type Step<P, C> = StepClass<P, C> | StepFunction<P, C>;
 
 export type Key = string | undefined | null;

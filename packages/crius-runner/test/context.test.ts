@@ -151,9 +151,7 @@ test('handleContext fix beforeEach &  afterEach context', () => {
     'afterEach',
   ]);
   const step1 = () => {};
-  const step2 = new Step({
-    children: [],
-  }, {});
+  const step2 = new Step({}, {});
   context._beforeEach!({children: []}, {}, step1);
   context._afterEach!({children: []}, {}, step2);
   expect(beforeEach.mock.calls[0]).toEqual([{children: []}, {}, step1]);

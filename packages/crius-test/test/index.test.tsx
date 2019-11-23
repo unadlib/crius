@@ -379,6 +379,6 @@ class TestStep extends Step {
       <Given desc="user navigate to compose text page" />
       <When desc="user type ${smsMessage} in input field" />
       <Then desc="user should see that input field text is ${smsMessage}" />
-    </Scenario>;
+    </Scenario>
   }
 }

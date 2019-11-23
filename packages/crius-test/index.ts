@@ -13,4 +13,5 @@ export {
   afterEach,
   plugins,
   Plugins,
+  params,
 } from './src';

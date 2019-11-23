@@ -1,5 +1,5 @@
 import { CriusNode } from './flow';
-import { Step, Props, Context } from './step';
+import { Step, Props, Context, PickOptional } from './step';
 
 interface StepLifecycle<P, C> {
   stepWillStart(): void;
@@ -7,10 +7,9 @@ interface StepLifecycle<P, C> {
 }
 
 interface StepClass<P, C> extends StepLifecycle<P, C> {
-  defaultProps?: Partial<P>;
+  defaultProps?: PickOptional<P>;
   props: Props<P, C>;
   context: Context<P, C>;
-  params: any;
   run(...args: any[]): Promise<CriusNode<Step<P, C>, P, C> | any> | any;
 }
 

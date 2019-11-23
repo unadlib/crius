@@ -14,6 +14,7 @@ export {
   afterEach,
   plugins,
   Plugins,
+  params,
 } from './decorators';
 
 export {

@@ -8,10 +8,21 @@ import {
   params
 } from '../src/decorators';
 import { Step } from '../src/step';
+import { resolve } from 'dns';
 
-test('test @autorun', () => {
+test('test @autorun', async () => {
+  const testFn = jest.fn();
   const _test = (title: string, callback: (...args: any[]) => void) => callback();
-  const Bar = autorun(_test)(class extends Step {});
+  await new Promise(resolve => {
+    autorun(_test)(class extends Step {
+      run() {
+        testFn();
+        resolve();
+      }
+    });
+  }).then(() => {
+    expect(testFn.mock.calls.length).toBe(1);
+  })
 });
 
 test('test @title', () => {
@@ -38,7 +49,7 @@ test('test @examples', () => {
     run() {}
   }
   
-  expect(Bar.params).toEqual([{
+  expect(Bar.examples).toEqual([{
     accountTag: 'us',
     contactType: false,
     smsMessage: 1,
@@ -52,7 +63,7 @@ test('test @examples', () => {
     run() {}
   }
   
-  expect(Foo.params).toEqual([{
+  expect(Foo.examples).toEqual([{
     accountTag: ['2'],
     contactType: {a:undefined},
     smsMessage: null
@@ -67,7 +78,7 @@ test('test @examples', () => {
     run() {}
   }
   
-  expect(FooBar.params).toEqual([{
+  expect(FooBar.examples).toEqual([{
     accountTag: 'us',
     contactType: 'personal',
     smsMessage: 'aaa'
@@ -89,7 +100,7 @@ test('test @examples', () => {
         run() {}
       }
     } catch(e) {
-      expect(e.toString()).toEqual('Error: "@example" argument error, it must be an object or a string.');
+      expect(e.toString()).toEqual('Error: "@examples" argument error, it must be an object or a string.');
     }
   }
 });
