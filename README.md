@@ -5,6 +5,8 @@
 
 A testing tool for behavior-driven development.
 
+> If you want to introduce **BDD** and need good **Step** reusability, **Crius** is the BDD building tool you want. 
+
 - [Features](#features)
 - [Install](#install)
 - [Usage](#usage)
@@ -91,21 +93,120 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 
 ## APIs
 
-* `@autorun`
+* `@autorun` - class decorator
 
-* `@title`
+It is used to pass test runner, such as `@autorun(test)` in Jest, if you need to skip `@autorun(test.skip)`
 
-* `@examples`
+* `@title` - class decorator
 
-* `@beforeEach`
+`@title` is used to set the test name, it also supports parameter templates from the `@examles` definition.
 
-* `@afterEach`
+```
+@title('User add ${todo} item in todo list page')
+```
 
-* `@plugins`
+* `@examples` - property descriptor
 
-### Function Step
+`@examples` are used to set up different test cases.
+
+It can only define the 'run' property of Class Step, and it supports `Table` in Markdown and `Array` in JavaScript.
+
+`Table` in Markdown:
+
+```js
+class TestTodoList extends Step {
+  @examples`
+    | addText               | completed |
+    | 'Learning TypeScript' | true      |
+    | 'Swimming'            | false     |
+  `
+  run() {}
+}    
+```
+
+`Array` in JavaScript:
+
+```js
+class TestTodoList extends Step {
+  @examples([
+    {
+      addText: 'Learning TypeScript',
+      completed: true,
+    },
+    {
+      addText: 'Swimming',
+      completed: false,
+    },
+  ])
+  run() {}
+}    
+```
+
+* `@beforeEach` - class descriptor
+
+It is used to set up functions that need to be executed **before** execution of step.
+
+```js
+@beforeEach((props, context, step) => {})
+```
+
+* `@afterEach` - class descriptor
+
+It is used to set up functions that need to be executed **after** execution of step.
+
+```js
+@beforeEach((props, context, step) => {})
+```
+
+* `@plugins` - class descriptor
+
+`@plugins` are used to set up plug-ins that are differently encapsulated by abstraction.
+
+```js
+@plugins([{
+  beforeEach: (props, context, step) => {},
+  afterEach: (props, context, step) => {},
+}])
+```
 
 ### Class Step
+In **Class Step**, you can access the props value by using the Step parameter by `this.props` and you can access any value defined in the context by `this.context`. The asynchronous `run` property in **Class Step** is used to define the running step script.
+
+**Class Step** also provides `stepStart` and `stepDidEnd` lifecycles, it supports asynchronous too.
+
+```jsx
+class TypeTodo extends Step {
+  async run() {
+    await this.context.page.type('.input', this.props.todo);
+  }
+}
+```
+
+### Function Step
+```jsx
+const SimpleStep = aysnc (props, context) => {};
+```
+**Function Step** supports asynchronous too. Its first argument is `props`, and the second argument is `context`.
+
+For example:
+
+```jsx
+const TypeTodo = async ({ text }, { page }) => {
+  await page.type('.input', text);
+}
+```
+
+### Step Usage
+
+You can define some steps, and it's like using it as follows:
+
+```jsx
+const AddTodo = () => 
+  <>
+    <TypeTodo text='Learning TypeScript' />
+    <SubmitTodo />
+  </>
+```
 
 ## FAQ
 
@@ -164,6 +265,49 @@ Finally, set up jest `transform`:
 },
 ```
 
+2. How to use crius for building E2E test with Puppeteer?
+
+Yes, and the example is simple.
+
+```jsx
+const OpenBrowser = async (_, context) => {
+  context.browser = await puppeteer.launch();
+  context.page = await browser.newPage();
+}
+
+const GotoPage = async (_, { page }) => {
+  await page.goto('http://todo-example.com');
+}
+
+const AddTodo = async (_, { page, example }) => {
+  await page.type('.input', example.todo);
+  await page.click('.addButton');
+}
+
+const CheckTodo = async (_, { browser, page, example }) => {
+  const todoText = await page.$eval('.item', element => element.innerText);
+  expect(todoText).toBe(example.todo);
+  await browser.close();
+}
+
+@autorun(test)
+@title('User add ${todo} item in todo list page')
+class CheckingAddTodo extends Step {
+  @examples`
+    | todo           |
+    | 'Learning C++' |
+  `
+  run() {
+    return (
+      <Scenario desc='User open the browser and create new page' action={OpenBrowser}>
+        <Given desc='User go to the todo list page' action={GotoPage} />
+        <When desc='User type ${todo} text and clicks "add" button' action={AddTodo} />
+        <Then desc='User should see the new ${todo} item in list' action={CheckTodo} />
+      </Scenario>
+    )
+  }
+}
+```
 
 ## Support
 
