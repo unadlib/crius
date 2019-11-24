@@ -202,6 +202,10 @@ class TypeTodo extends Step {
     await this.context.page.type('.input', this.props.todo);
   }
 }
+
+TypeTodo.prototype.defaultProps = {
+  todo: '',
+};
 ```
 
 ### Function Step
@@ -216,6 +220,10 @@ For example:
 const TypeTodo = async ({ text }, { page }) => {
   await page.type('.input', text);
 }
+
+TypeTodo.defaultProps = {
+  todo: '',
+};
 ```
 
 ### Step Usage

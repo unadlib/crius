@@ -16,10 +16,13 @@ test('base flow for Step class with default props', () => {
 });
 
 test('base flow for Step class with overriding props', () => {
-  class Foo extends Step<{ bar?: number }> { }
-  Foo.prototype.defaultProps = {
-    bar: 1
-  };
+  class Foo extends Step<{ bar?: number }> {
+    get defaultProps() {
+      return {
+        bar: 1
+      };
+    }
+  }
   const foo = createFlow(Foo, { bar: 2 });
   expect(foo).toEqual({
     key: 'Foo',
