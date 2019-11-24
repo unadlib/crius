@@ -169,6 +169,28 @@ It is used to set up functions that need to be executed **after** execution of s
 }])
 ```
 
+* `@params` - class descriptor
+
+It helps to process `examples` parameters.
+
+```js
+@params((examples) => examples)
+```
+
+* `context` - class static property
+
+```js
+import { Step as BaseStep } from 'crius-test';
+
+class Step extends BaseStep {
+  static get context() {
+    return {
+      // Define context
+    };
+  }
+}
+```
+
 ### Class Step
 In **Class Step**, you can access the props value by using the Step parameter by `this.props` and you can access any value defined in the context by `this.context`. The asynchronous `run` property in **Class Step** is used to define the running step script.
 
