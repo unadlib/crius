@@ -1,6 +1,6 @@
 {
   "name": "crius-runner",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "description": "Crius runner with Cirus's steps.",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "crius": "^1.0.0-alpha.10",
-    "crius-is": "^1.0.0-alpha.2"
+    "crius-is": "^1.0.0-alpha.11"
   },
   "peerDependencies": {
     "crius": "^1.0.0-alpha.1"
