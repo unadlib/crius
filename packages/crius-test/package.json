@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "crius": "^1.0.0-alpha.10",
+    "crius-is": "^1.0.0-alpha.2",
     "crius-runner": "^1.0.0-alpha.10"
   }
 }

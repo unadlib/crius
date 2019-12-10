@@ -1,11 +1,12 @@
 import { run } from "crius-runner";
 import { Props, Context, StepType } from "crius";
+import { isCriusFlow } from 'crius-is';
 import { Step, BaseContext } from "./step";
 import { parserString, compileString } from "./utils";
 
 function autorun(_test: Function) {
   return function(_target: Object) {
-    const target = _target as typeof Step;
+    const target = (isCriusFlow(_target) ? () => target : _target) as typeof Step;
     // TODO support callback(assert) for tape and ava: (t) => {}
     if (typeof target.examples === "undefined" || target.examples === null) {
       target.examples = [{}];

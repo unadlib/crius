@@ -333,12 +333,18 @@ const Login: StepFunction = (props, context) => {
 @autorun(test)
 @title("run pure AC text")
 class Test extends Step {
+  @examples`
+    | smsMessage |
+    | 'testFoo'  |
+  `
   run() {
-    <Scenario desc="user enter entrypoint">
-      <Given desc="user navigate to compose text page" />
-      <When desc="user type ${smsMessage} in input field" />
-      <Then desc="user should see that input field text is ${smsMessage}" />
-    </Scenario>;
+    return (
+      <Scenario desc="user enter entrypoint">
+        <Given desc="user navigate to compose text page" />
+        <When desc="user type ${smsMessage} in input field" />
+        <Then desc="user should see that input field text is ${smsMessage}" />
+      </Scenario>
+    );
   }
 }
 
@@ -353,32 +359,81 @@ autorun(test)(() => (
 @autorun(test)
 @title("run pure AC text")
 class TestSkip extends Step {
+  @examples`
+    | smsMessage |
+    | 'testFoo'  |
+  `
   run() {
-    <Scenario desc="user enter entrypoint">
-      <Given desc="user navigate to compose text page" />
-      <When desc="user type ${smsMessage} in input field" />
-      <Then desc="user should see that input field text is ${smsMessage}" />
-    </Scenario>;
+    return (
+      <Scenario desc="user enter entrypoint">
+        <Given desc="user navigate to compose text page" />
+        <When desc="user type ${smsMessage} in input field" />
+        <Then desc="user should see that input field text is ${smsMessage}" />
+      </Scenario>
+    );
   }
 }
 
 @autorun(test)
 class TestWithoutTitle extends Step {
   run() {
-    <Scenario desc="user enter entrypoint">
-      <Given desc="user navigate to compose text page" />
-      <When desc="user type ${smsMessage} in input field" />
-      <Then desc="user should see that input field text is ${smsMessage}" />
-    </Scenario>;
+    return (
+      <Scenario desc="user enter entrypoint">
+        <Given desc="user navigate to compose text page" />
+        <When desc="user type message in input field" />
+        <Then desc="user should see that input field text is message" />
+      </Scenario>
+    );
   }
 }
 
-class TestStep extends Step {
+autorun(test)(() => (
+  <Scenario desc="user enter entrypoint" action={A1}>
+    <Given desc="user navigate to compose text page" />
+    <When desc="user type smsMessage in input field" />
+    <Then desc="user should see that input field text is smsMessage" />
+  </Scenario>
+));
+
+const A1 = () => {
+  expect('A1').toEqual('A1');
+}
+
+@autorun(test)
+@title('test action with flow')
+class TestWithFlow extends Step {
+  @examples`
+    | smsMessage   |
+    | 777          |
+  `
   run() {
-    <Scenario desc="user enter entrypoint">
-      <Given desc="user navigate to compose text page" />
-      <When desc="user type ${smsMessage} in input field" />
-      <Then desc="user should see that input field text is ${smsMessage}" />
-    </Scenario>
+    return (
+      <Scenario desc="user enter entrypoint" action={<Entry1 url={'foobar.com'} />}>
+        <Given desc="user navigate to compose text page" action={<><Navigate1 /></>} />
+        <When desc="user type ${smsMessage} in input field" action={<Type1 {...this.context.example} />} />
+        <Then desc="user should see that input field text is ${smsMessage}" action={<CheckText1 />} />
+      </Scenario>
+    );
   }
+}
+
+const flowArr: string[] = [];
+
+const Entry1: StepFunction<{ url: string }> = (porps) => {
+  flowArr.push(porps.url);
+};
+
+const Navigate1 = () => {
+  flowArr.push('Navigate1');
+};
+
+const Type1: StepFunction<{ smsMessage: number }>  = ({ smsMessage }) => {
+  flowArr.push(`Type1 ${smsMessage}`);
+}
+
+const CheckText1: StepFunction = (_, { example }) => {
+  flowArr.push(`CheckText1 ${example.smsMessage}`);
+  expect(flowArr).toEqual([
+    'foobar.com', 'Navigate1', 'Type1 777', 'CheckText1 777'
+  ]);
 }

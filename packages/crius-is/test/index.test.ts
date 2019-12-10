@@ -229,7 +229,7 @@ describe('isCriusStep', () => {
       expect(is.isCriusStep(item)).toBeFalsy();
     }
   });
-  test('test target is a CriusStep call `isCriusStep`', () => {
+  test('test target is a CriusStep Flow call `isCriusFlow`', () => {
     for (const item of [
       {
         key: '',
@@ -257,7 +257,7 @@ describe('isCriusStep', () => {
         },
       }
     ]) {
-      expect(is.isCriusStep(item)).toBeTruthy();
+      expect(is.isCriusFlow(item)).toBeTruthy();
     }
   });
 });
@@ -274,37 +274,6 @@ describe('isCriusNode', () => {
       {},
     ]) {
       expect(is.isCriusNode(item)).toBeFalsy();
-    }
-  });
-  test('test target is a CriusNode call `isCriusNode`', () => {
-    for (const item of [
-      {
-        key: '',
-        props: {
-          children: [],
-        },
-        step: undefined,
-      },
-      {
-        key: '',
-        props: {
-          children: [],
-        },
-        step: () => {},
-      },
-      {
-        key: '',
-        props: {
-          children: [],
-        },
-        step: class Step {
-          get isCriusStep() {
-            return true
-          }
-        },
-      }
-    ]) {
-      expect(is.isCriusNode(item)).toBeTruthy();
     }
   });
 });

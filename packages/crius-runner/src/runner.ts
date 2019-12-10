@@ -1,5 +1,5 @@
 import { CriusNode, Step as StepClass, Children, Context } from 'crius';
-import { isCriusNode } from 'crius-is';
+import { isCriusFlow } from 'crius-is';
 import { runWithLifecycle } from './lifecycle';
 import { handleContext } from './context';
 
@@ -14,7 +14,7 @@ async function iterateChildren<S, P, C>(
   for (const child of children) {
     if (typeof child === 'function') {
       await child();
-    } else if (isCriusNode(child)) {
+    } else if (isCriusFlow(child)) {
       await run(child as CriusNode<S, P, C>, context as Context<P, C>);
     } else if (Array.isArray(child)) {
       await iterateChildren(child, context);
@@ -82,7 +82,7 @@ async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
     if (nextStep) {
       if (typeof nextStep === 'function') {
         await nextStep();
-      } else if (isCriusNode(nextStep)) {
+      } else if (isCriusFlow(nextStep)) {
         await run(nextStep, context);
       } else if (Array.isArray(nextStep)) {
         await iterateChildren(nextStep, context);

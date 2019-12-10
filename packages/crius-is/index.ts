@@ -1,24 +1,30 @@
 import {
   isCriusStepClass,
   isCriusStepFunction,
-  isCriusStepFragment,
   isCriusStep,
   isCriusNode,
+  isCriusFlow,
+  isCriusStepFragment,
+  isCriusStepFlow
 } from './src';
 
 const is = {
   isCriusStepClass,
   isCriusStepFunction,
-  isCriusStepFragment,
   isCriusStep,
   isCriusNode,
+  isCriusFlow,
+  isCriusStepFragment,
+  isCriusStepFlow
 };
 
 export {
   is as default,
   isCriusStepClass,
   isCriusStepFunction,
-  isCriusStepFragment,
   isCriusStep,
   isCriusNode,
+  isCriusFlow,
+  isCriusStepFragment,
+  isCriusStepFlow
 }

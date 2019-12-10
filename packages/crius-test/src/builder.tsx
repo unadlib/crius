@@ -1,4 +1,5 @@
-import { Step, StepFunction } from './step';
+import { isCriusFlow } from 'crius-is';
+import { Step } from './step';
 import { compileString } from './utils';
 
 interface BuilderProps {
@@ -30,7 +31,7 @@ class Builder<P = {}, C = {}> extends Step<P & BuilderProps, C> {
     const Action = this.props.action;
     return (
       <>
-        <Action />
+        {isCriusFlow(Action) ? Action : <Action />}
         {this.props.children}
       </>
     );
