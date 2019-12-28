@@ -19,14 +19,16 @@ A testing tool for behavior-driven development, inspired by [Cucumber](https://g
 
 ## Features
 
-* Expression Based on JSX
-* Integration with AC, UT, IT & E2E
-* Composition Step
-* Pluggable
-* Progressive Agile Tools
-
+* **Declarative and Expressive DSL** - By combining DSL characteristics of Cucumber and React
+* **Re-usable Step Definitions** - Provide better Step and Scenario composition
+* **Step Lifecycle** - Provide lifecycle hooks to have more control over tests
+* **Plugin Support** - Allow more custom features to be easily added
+* **Test Runner Agnostic** - Compatible to Jest, Mocha and Jasmine out of the box
+* **Use JavaScript Literals for Examples** - Easily define complex object in examples
+* **Lightweight** - Core source code is less than 17k
 
 ## Install
+
 ```bash
 npm install --seve-dev crius-test
 ```
