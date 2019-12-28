@@ -17,6 +17,8 @@ if (global) {
   (global as any).Crius = Crius;
 }
 
+import Crius from 'crius';
+
 export {
   Crius as default,
   Step,
