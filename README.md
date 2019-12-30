@@ -7,8 +7,6 @@ A testing tool for behavior-driven development, inspired by [Cucumber](https://g
 
 > If you want to introduce **BDD** and need good **Step** reusability, **Crius** is the BDD building tool you want. 
 
-![new BDD](bdd.png)
-
 - [Features](#features)
 - [Install](#install)
 - [Usage](#usage)
@@ -16,6 +14,7 @@ A testing tool for behavior-driven development, inspired by [Cucumber](https://g
 - [Examples](#examples)
 - [APIs](#apis)
 - [FAQ](#faq)
+- [Concept](#concept)
 - [Support](#support)
 - [License](#license)
 
@@ -350,6 +349,10 @@ class CheckingAddTodo extends Step {
   }
 }
 ```
+
+### Concept
+
+![new BDD](bdd.png)
 
 ## Support
 
