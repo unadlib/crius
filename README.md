@@ -7,6 +7,8 @@ A testing tool for behavior-driven development, inspired by [Cucumber](https://g
 
 > If you want to introduce **BDD** and need good **Step** reusability, **Crius** is the BDD building tool you want. 
 
+![new BDD](bdd.png)
+
 - [Features](#features)
 - [Install](#install)
 - [Usage](#usage)
@@ -57,19 +59,26 @@ module.exports = {
 If you use `jest`, you can set up a test file, for example `index.test.js`:
 
 ```js
+import { autorun, title, Scenario, Given, When, Then, Step } from 'crius-test';
+
 @autorun(it)
 @title('Test user add todo item')
 class TestTodoList extends Step {
   run() {
     return (
-      <Scenario desc='user login website'>
-        <Given desc='user navigate to list page' />
-        <When desc='user type "read book" in input field and click "add" button' />
-        <Then desc='user should see "read book" todo item in todo list' />
+      <Scenario desc='user login website' action={Login}>
+        <Given desc='user navigate to list page' action={Navigate} />
+        <When desc='user type "read book" in input field and click "add" button' action={AddTodo} />
+        <Then desc='user should see "read book" todo item in todo list' action={CheckTodo} />
       </Scenario>
     )
   }
 }
+
+const Login = () => console.log('Login');
+const Navigate = () => console.log('Navigate');
+const AddTodo = () => console.log('AddTodo');
+const CheckTodo = () => console.log('CheckTodo');
 ```
 
 If you use mocha v6, you can install `@babel/register`, you can set the following command:
@@ -92,6 +101,7 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 ## Examples
 
 [Using `crius-test` for initialized the project with `create-react-app`](https://github.com/unadlib/crius-react-example)
+[Crius Examples](https://github.com/unadlib/crius-examples)
 
 ## APIs
 
