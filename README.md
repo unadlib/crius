@@ -258,8 +258,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import MyComponent from './MyComponent';
-import Foo from './Foo';
+import MyComponent from '../src/MyComponent';
+import Foo from '../src/Foo';
 
 it('renders three <Foo /> components', () => {
   const wrapper = shallow(<MyComponent />);
@@ -274,10 +274,11 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
+import MyComponent from '../src/MyComponent';
+import Foo from '../src/Foo';
+
 const checkMyComponent = () => {
-  const myComponent = React.createElement(eval(transformFileSync('./MyComponent.tsx').code));
-  const wrapper = shallow(myComponent);
-  const foo = eval(transformFileSync('./Foo.tsx').code);
+  const wrapper = shallow(React.createElement(MyComponent));
   expect(wrapper.find(Foo)).to.have.lengthOf(3);
 }
 ```
@@ -294,7 +295,8 @@ module.exports = require('babel-jest').createTransformer({
   ],
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }]
-  ]
+  ],
+  "test": "./test" // Note: It's important, 'test' folder will only use `babel-preset-crius` and others will use `@babel/preset-react`.
 });
 ```
 
