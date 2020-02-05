@@ -296,7 +296,10 @@ module.exports = require('babel-jest').createTransformer({
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ],
-  "test": "./test" // Note: It's important, 'test' folder will only use `babel-preset-crius` and others will use `@babel/preset-react`.
+  "test": "./test"
+  // Note:
+  // It's important, 'test' folder will only use `babel-preset-crius`.
+  // And others will use `@babel/preset-react`.
 });
 ```
 
