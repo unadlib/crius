@@ -13,5 +13,7 @@ export {
   afterEach,
   plugins,
   Plugins,
-  params,
+  params,  
+  compileString,
+  BaseContext,
 } from './src';
