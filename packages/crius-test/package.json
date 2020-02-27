@@ -1,6 +1,6 @@
 {
   "name": "crius-test",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.12",
   "description": "A new generation testing tools for BDD",
   "main": "dist/index.js",
   "module": "dist/index.js",
