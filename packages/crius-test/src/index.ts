@@ -20,4 +20,9 @@ export {
 export {
   Step,
   StepFunction,
+  BaseContext,
 } from './step';
+
+export {
+  compileString,
+} from './utils';
