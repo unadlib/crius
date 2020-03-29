@@ -9,6 +9,7 @@ export {
 export {
   autorun,
   title,
+  priority,
   examples,
   beforeEach,
   afterEach,

@@ -6,6 +6,7 @@ export {
   And,
   autorun,
   title,
+  priority,
   examples,
   Step,
   StepFunction,

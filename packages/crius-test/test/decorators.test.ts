@@ -5,7 +5,8 @@ import {
   beforeEach,
   afterEach,
   plugins,
-  params
+  params,
+  priority
 } from '../src/decorators';
 import { Step } from '../src/step';
 import { resolve } from 'dns';
@@ -27,17 +28,43 @@ test('test @autorun', async () => {
 
 test('test @title', () => {
   @title('bar title')
-  class Bar extends Step {}
+  class Bar extends Step { }
 
   expect(Bar.title).toEqual('bar title');
   for (const item of [null, undefined]) {
     try {
       @title(item as any)
-      class Bar extends Step {}
-    } catch(e) {
+      class Bar extends Step { }
+    } catch (e) {
       expect(e.toString()).toEqual('Error: Test case title is required.');
     }
   }
+});
+
+test('test @priority', () => {
+  for (const item of ['p0', 'p1', 'p2', 'p3']) {
+    @priority(item as any)
+    class Bar extends Step { }
+    expect(Bar.priority).toEqual(item);
+  }
+
+  for (const item of ['p01', 'p4', 'p00', '00']) {
+    try {
+      @priority(item as any)
+      class Bar extends Step { }
+    } catch (e) {
+      expect(e.toString()).toEqual('Error: Priority value should be in [\'p0\', \'p1\', \'p2\', \'p3\'].');
+    }
+  }
+
+  for (const item of [null, undefined]) {
+  try {
+    @priority(item as any)
+    class Bar extends Step { }
+  } catch (e) {
+    expect(e.toString()).toEqual('Error: Priority value is required.');
+  }
+}
 });
 
 test('test @examples', () => {
@@ -46,9 +73,9 @@ test('test @examples', () => {
       | accountTag     | contactType   | smsMessage   |
       | 'us'           | false         | 1            |
     `
-    run() {}
+    run() { }
   }
-  
+
   expect(Bar.examples).toEqual([{
     accountTag: 'us',
     contactType: false,
@@ -60,12 +87,12 @@ test('test @examples', () => {
     | accountTag | contactType   | smsMessage |
     | ['2']      | {a:undefined} | null       |
   `)
-    run() {}
+    run() { }
   }
-  
+
   expect(Foo.examples).toEqual([{
     accountTag: ['2'],
-    contactType: {a:undefined},
+    contactType: { a: undefined },
     smsMessage: null
   }]);
 
@@ -75,9 +102,9 @@ test('test @examples', () => {
       contactType: 'personal',
       smsMessage: 'aaa'
     }])
-    run() {}
+    run() { }
   }
-  
+
   expect(FooBar.examples).toEqual([{
     accountTag: 'us',
     contactType: 'personal',
@@ -97,19 +124,19 @@ test('test @examples', () => {
     try {
       class FooBar extends Step {
         @examples(item as any)
-        run() {}
+        run() { }
       }
-    } catch(e) {
+    } catch (e) {
       expect(e.toString()).toEqual('Error: "@examples" argument error, it must be an object or a string.');
     }
   }
 });
 
 test('test @beforeEach', () => {
-  const callback = (props: any, context: any, step: any) => {};
+  const callback = (props: any, context: any, step: any) => { };
   @beforeEach(callback)
-  class FooBar<P = {}, C = {}> extends Step<P, C> {}
-  
+  class FooBar<P = {}, C = {}> extends Step<P, C> { }
+
   expect(FooBar.beforeEach).toEqual(callback);
 
   for (const item of [
@@ -123,18 +150,18 @@ test('test @beforeEach', () => {
   ]) {
     try {
       @beforeEach(item as any)
-      class FooBar<P = {}, C = {}> extends Step<P, C> {}
-    } catch(e) {
+      class FooBar<P = {}, C = {}> extends Step<P, C> { }
+    } catch (e) {
       expect(e.toString()).toEqual('Error: "@beforeEach" argument error, it must be a function.');
     }
   }
 });
 
 test('test @afterEach', () => {
-  const callback = (props: any, context: any, step: any) => {};
+  const callback = (props: any, context: any, step: any) => { };
   @afterEach(callback)
-  class FooBar<P = {}, C = {}> extends Step<P, C> {}
-  
+  class FooBar<P = {}, C = {}> extends Step<P, C> { }
+
   expect(FooBar.afterEach).toEqual(callback);
 
   for (const item of [
@@ -148,21 +175,21 @@ test('test @afterEach', () => {
   ]) {
     try {
       @afterEach(item as any)
-      class FooBar<P = {}, C = {}> extends Step<P, C> {}
-    } catch(e) {
+      class FooBar<P = {}, C = {}> extends Step<P, C> { }
+    } catch (e) {
       expect(e.toString()).toEqual('Error: "@afterEach" argument error, it must be a function.');
     }
   }
 });
 
 test('test @plugins', () => {
-  const callback = (props: any, context: any, step: any) => {};
+  const callback = (props: any, context: any, step: any) => { };
   @plugins([{
     beforeEach: callback,
     afterEach: callback,
   }])
-  class FooBar<P = {}, C = {}> extends Step<P, C> {}
-  
+  class FooBar<P = {}, C = {}> extends Step<P, C> { }
+
   expect(FooBar.plugins![0].beforeEach).toEqual(callback);
   expect(FooBar.plugins![0].afterEach).toEqual(callback);
 });
@@ -171,14 +198,14 @@ test('test @plugins', () => {
 test('test @params', () => {
   const callback = (paramsList: any[]) => paramsList;
   @params(callback)
-  class Bar extends Step {}
+  class Bar extends Step { }
 
   expect(Bar.handleParams).toEqual(callback);
   for (const item of [null, undefined, 1, {}, [], true, '', 'foo']) {
     try {
       @params(item as any)
-      class Bar extends Step {}
-    } catch(e) {
+      class Bar extends Step { }
+    } catch (e) {
       expect(e.toString()).toEqual('Error: "@params" argument error, it must be a function.');
     }
   }

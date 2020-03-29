@@ -21,6 +21,8 @@ export type Step<P, C> = StepClass<P, C> | StepFunction<P, C>;
 
 export type Key = string | undefined | null;
 
+export type Priority = 'p0' | 'p1' | 'p2' | 'p3';
+
 export type Children<P, C> = ReadonlyArray<(CriusNode<Step<P, C>, P, C> | ((props: Props<P, C>) => Promise<CriusNode<Step<P, C>, P, C>>) | any)>;
 
 export type Props<P, C> =

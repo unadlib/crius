@@ -1,4 +1,5 @@
 import { Step as BaseStep, Hooks, StepFunction as BaseStepFunction } from 'crius';
+import { Priority } from 'crius/src/step';
 
 export interface BaseContext<P = {}, C = {}> extends Hooks<P, C> {
   title?: string;
@@ -7,6 +8,7 @@ export interface BaseContext<P = {}, C = {}> extends Hooks<P, C> {
 
 export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext<P, C>> {
   static title?: string;
+  static priority?: string;
   static handleParams?(handleParams: any[]): any[];
   static examples?: any[];
   static context?: any;

@@ -3,6 +3,7 @@ import { Props, Context, StepType } from "crius";
 import { isCriusFlow } from 'crius-is';
 import { Step, BaseContext } from "./step";
 import { parserString, compileString } from "./utils";
+import { Priority } from "crius/src/step";
 
 function autorun(_test: Function) {
   return function(_target: Object) {
@@ -145,4 +146,16 @@ function params(handleParams: (testParams: any[]) => any[]) {
   };
 }
 
-export { autorun, title, examples, beforeEach, afterEach, plugins, params };
+function priority(priority: Priority) {
+  if (typeof priority === "undefined" || priority === null) {
+    throw new Error("Priority value is required.");
+  }
+  if (['p0', 'p1', 'p2', 'p3'].indexOf(priority) <= -1) {
+    throw new Error("Priority value should be in ['p0', 'p1', 'p2', 'p3'].");
+  }
+  return function(target: Object) {
+    (target as typeof Step).priority = priority;
+  };
+}
+
+export { autorun, title, examples, beforeEach, afterEach, plugins, params, priority };

@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // vscode variable: https://code.visualstudio.com/docs/editor/variables-reference
+    {
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["${file}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    },
+  ],
+}
