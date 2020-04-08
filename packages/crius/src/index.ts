@@ -1,7 +1,7 @@
-import Step from './stepClass';
-import { Children, Context, Step as StepType, Hooks, Props } from './step';
-import { createFlow, CriusNode }  from './flow';
-import { StepFunction } from './stepFunction';
+import Step from "./stepClass";
+import { Children, Context, Step as StepType, Hooks, Props } from "./step";
+import { createFlow, CriusNode } from "./flow";
+import { StepFunction } from "./stepFunction";
 
 const Crius = {
   Step,
@@ -15,6 +15,9 @@ const Crius = {
  */
 if (global) {
   (global as any).Crius = Crius;
+  if (!(global as any).React) {
+    (global as any).React = { createElement: Crius.createFlow };
+  }
 }
 
 export {
@@ -28,4 +31,4 @@ export {
   StepType,
   Hooks,
   Props,
-}
+};
