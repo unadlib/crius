@@ -14,9 +14,9 @@ const Crius = {
  * Avoid cumbersome file headers.
  */
 if (global) {
-  (global as any).Crius = Crius;
-  if (!(global as any).React) {
-    (global as any).React = { createElement: Crius.createFlow };
+  global.Crius = Crius;
+  if (!global.React) {
+    global.React = { createElement: Crius.createFlow };
   }
 }
 
