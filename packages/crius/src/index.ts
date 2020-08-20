@@ -10,16 +10,15 @@ const Crius = {
 };
 
 /**
- * Todo Check if a global environment is introduced.
  * Avoid cumbersome file headers.
  */
 if (global) {
-  global.Crius = Crius;
-  if (!global.React) {
-    global.React = { createElement: Crius.createFlow };
+  // Todo: Check if a global environment is introduced, and fix type.
+  (global as any).Crius = Crius;
+  if (!(global as any).React) {
+    (global as any).React = { createElement: Crius.createFlow };
   }
 }
-
 export {
   Crius as default,
   Step,
