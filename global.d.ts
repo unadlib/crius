@@ -1,7 +1,6 @@
 declare module NodeJS {
-    interface Global {
-        Crius: any;
-        React: any;
-    }
+  interface Global {
+    Crius: any;
+    React: any;
+  }
 }
-
