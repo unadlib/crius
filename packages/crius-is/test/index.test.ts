@@ -1,4 +1,4 @@
-import is from '../';
+import * as is from '..';
 
 describe('isCriusStepClass', () => {
   test('test target is not a CriusStepClass call `isCriusStepClass`', () => {
