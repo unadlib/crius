@@ -12,11 +12,13 @@ const Crius = {
 /**
  * Avoid cumbersome file headers.
  */
-global.Crius = Crius;
-if (!global.React) {
-  global.React = { createElement: Crius.createFlow };
+if (global) {
+  // Todo: Check if a global environment is introduced, and fix type.
+  (global as any).Crius = Crius;
+  if (!(global as any).React) {
+    (global as any).React = { createElement: Crius.createFlow };
+  }
 }
-
 export {
   Crius as default,
   Step,
