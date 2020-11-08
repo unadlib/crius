@@ -1,6 +1,6 @@
 # crius
 
-[![Travis](https://img.shields.io/travis/unadlib/crius.svg)](https://travis-ci.org/unadlib/crius)
+![Node CI](https://github.com/unadlib/crius/workflows/Node%20CI/badge.svg)
 [![npm](https://img.shields.io/npm/v/crius.svg)](https://www.npmjs.com/package/crius)
 
 A testing tool for behavior-driven development, inspired by [Cucumber](https://github.com/cucumber/cucumber) and [React](https://github.com/facebook/react).
