@@ -51,11 +51,12 @@ Crius.createFlow(Foo, {
 var _jsxFileName = "/fake/path/mock.js";
 Crius.createFlow(Foo, {
   bar: "baz",
+  __self: void 0,
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 1
-  },
-  __self: void 0
+    lineNumber: 1,
+    columnNumber: 1
+  }
 });`
     );
   });

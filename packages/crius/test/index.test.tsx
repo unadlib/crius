@@ -1,23 +1,23 @@
-import { Step, createFlow } from '../src';
+import { Step, createFlow } from "../src";
 
-test('base import Step with JSX', () => {
-  class Foo extends Step { }
+test("base import Step with JSX", () => {
+  class Foo extends Step {}
   class Bar extends Step {
     run() {
-      return <Foo />
+      return <Foo />;
     }
   }
   const bar = <Bar />;
   expect(bar).toEqual({
-    key: 'Bar',
+    key: "Bar",
     props: { children: [] },
     step: Bar,
   });
 });
 
-test('base Step fragment with JSX', () => {
-  class Foo extends Step { }
-  class Bar extends Step { }
+test("base Step fragment with JSX", () => {
+  class Foo extends Step {}
+  const Bar = () => {};
   const bar = (
     <>
       <Bar />
@@ -25,20 +25,20 @@ test('base Step fragment with JSX', () => {
     </>
   );
   expect(bar).toEqual({
-    key: '',
+    key: "",
     props: {
       children: [
         {
-          key: 'Bar',
+          key: "Bar",
           props: { children: [] },
           step: Bar,
         },
         {
-          key: 'Foo',
+          key: "Foo",
           props: { children: [] },
           step: Foo,
-        }
-      ]
+        },
+      ],
     },
     step: undefined,
   });
