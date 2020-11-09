@@ -7,8 +7,8 @@ interface Options<S, P, C> {
   props: Props<P, C>;
 }
 
-// TODU: use 'infer' derivation.
-interface EemptyStep<P = {}, C = {}> { }
+// TODO: use 'infer' derivation.
+interface EmptyStep<P = {}, C = {}> { }
 
 class CriusNode<S, P, C>  {
   public step: S;
@@ -26,7 +26,7 @@ class CriusNode<S, P, C>  {
   }
 }
 
-function createFlow<S extends EemptyStep<P, C>, P = {}, C = {}>(
+function createFlow<S extends EmptyStep<P, C>, P = {}, C = {}>(
   step: S,
   config: Config<P>,
   ...children: Children<P, C>

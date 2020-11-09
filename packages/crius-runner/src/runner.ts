@@ -3,9 +3,7 @@ import { isCriusFlow } from 'crius-is';
 import { runWithLifecycle } from './lifecycle';
 import { handleContext } from './context';
 
-type Key = string | undefined | null;
-
-interface EemptyStep<P = {}, C = {}> { }; // TODO fix type
+interface EmptyStep<P = {}, C = {}> { }; // TODO fix type
 
 async function iterateChildren<S, P, C>(
   children: Children<P, C>,
@@ -53,7 +51,7 @@ async function iterateChildren<S, P, C>(
   }
  * @param CriusNode 
  */
-async function run<S extends EemptyStep<P, C>, P = {}, C = {}>(
+async function run<S extends EmptyStep<P, C>, P = {}, C = {}>(
   {
     step: Step,
     key: Key,
