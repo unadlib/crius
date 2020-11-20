@@ -1,8 +1,3 @@
-import CriusRunner, {
-  run,
-} from './src';
+import CriusRunner, { run, Context } from "./src";
 
-export {
-  CriusRunner as default,
-  run,
-}
+export { CriusRunner as default, run, Context };

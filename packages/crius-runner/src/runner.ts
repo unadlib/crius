@@ -1,23 +1,26 @@
-import { CriusNode, Step as StepClass, Children, Context } from 'crius';
-import { isCriusFlow } from 'crius-is';
-import { runWithLifecycle } from './lifecycle';
-import { handleContext } from './context';
+import { CriusNode, Children, StepFunction, CriusElement } from "crius";
+import {
+  isCriusNode,
+  isCriusStep,
+  isCriusStepClass,
+  isCriusStepFunction,
+} from "crius-is";
+import { runWithLifecycle } from "./lifecycle";
+import { handleContext } from "./context";
 
-interface EmptyStep<P = {}, C = {}> { }; // TODO fix type
-
-async function iterateChildren<S, P, C>(
-  children: Children<P, C>,
-  context?: Context<P, C>
+async function iterateChildren<C>(
+  children: Children,
+  context?: C
 ): Promise<void> {
   for (const child of children) {
-    if (typeof child === 'function') {
-      await child();
-    } else if (isCriusFlow(child)) {
-      await run(child as CriusNode<S, P, C>, context as Context<P, C>);
+    if (isCriusStepFunction(child)) {
+      await child({}, context!);
+    } else if (isCriusNode(child)) {
+      await run(child as CriusNode, context);
     } else if (Array.isArray(child)) {
       await iterateChildren(child, context);
     } else {
-      throw new Error('Unexpected Error Crius Step Type.');
+      throw new Error("Unexpected Error Crius Step Type.");
     }
   }
 }
@@ -51,50 +54,45 @@ async function iterateChildren<S, P, C>(
   }
  * @param CriusNode 
  */
-async function run<S extends EmptyStep<P, C>, P = {}, C = {}>(
+async function run<P = {}, C = {}>(
   {
     step: Step,
-    key: Key,
-    props
-  }: CriusNode<S, P, C>,
-  _context?: Context<P, C>
+    // key: Key,
+    props,
+  }: CriusNode<P, C>,
+  _context?: C
 ) {
-  const context = handleContext<P, C>(_context as Context);
-  if (typeof Step === 'function') {
-    let nextStep;
-    let stepAction;
+  const context = handleContext(_context);
+  if (isCriusStep(Step)) {
+    let nextStep: CriusElement;
     let afterLifecycleAction;
-    if (Step.prototype.isCriusStep) {
-      const step: StepClass = new (Step as any)( // TODO fix type
-        props,
-        context,
-      );
-      await context._beforeEach!(props, context, step);
+    if (isCriusStepClass(Step)) {
+      const step = new Step(props, context);
+      await context.beforeEach?.(props, context, Step);
       [nextStep, afterLifecycleAction] = await runWithLifecycle(step);
-      stepAction = step;
     } else {
-      await context._beforeEach!(props, context, Step as any);       // TODO fix type
+      const step: StepFunction = Step;
+      await context.beforeEach?.(props, context, step);
       nextStep = await Step(props, context);
-      stepAction = Step;
     }
     if (nextStep) {
-      if (typeof nextStep === 'function') {
+      if (typeof nextStep === "function") {
         await nextStep();
-      } else if (isCriusFlow(nextStep)) {
+      } else if (isCriusNode(nextStep)) {
         await run(nextStep, context);
       } else if (Array.isArray(nextStep)) {
         await iterateChildren(nextStep, context);
+      } else {
+        // Ignore other type
       }
     }
-    if (Step.prototype.isCriusStep && typeof afterLifecycleAction === 'function') {
+    if (isCriusStepClass(Step) && typeof afterLifecycleAction === "function") {
       await afterLifecycleAction();
     }
-    await context._afterEach!(props, context, stepAction as any); // TODO fix type
+    await context.afterEach?.(props, context, Step);
   } else if (Array.isArray(props.children)) {
-    await iterateChildren(props.children, context);
+    await iterateChildren(props.children as Children, context);
   }
 }
 
-export {
-  run,
-}
+export { run };

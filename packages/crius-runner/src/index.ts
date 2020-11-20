@@ -1,4 +1,5 @@
 import { run } from './runner';
+import { Context } from './interface';
 
 const CriusRunner = {
   run,
@@ -7,4 +8,5 @@ const CriusRunner = {
 export {
   CriusRunner as default,
   run,
+  Context,
 }

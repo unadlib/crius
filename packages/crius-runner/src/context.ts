@@ -1,37 +1,39 @@
+import { Context } from "./interface";
 
-import { Context, Props, Step } from 'crius';
-
-export function handleContext<P, C>(context: Context): Context {
-  if (toString.call(context) !== '[object Object]') {
-    (context as Context) = {};
+export function handleContext<P = {}, C = {}>(
+  context?: Context<P, C>
+): Context<P, C> {
+  if (toString.call(context) !== "[object Object]") {
+    (context as unknown) = {};
   }
-  if (typeof context._beforeEach !== 'function') {
-    Object.defineProperties(context, {
-      _beforeEach: {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: async function _beforeEach(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>) {
-          if (typeof this.beforeEach === 'function') {
-            await this.beforeEach(props, context, step);
-          }
-        }
-      }
-    })
+  const { beforeEach, afterEach } = context!;
+  if (typeof beforeEach !== "undefined" && typeof beforeEach !== "function") {
+    throw new Error(`'beforeEach' hook in the context must be a function.`);
+  } else if (typeof beforeEach === "function") {
+    try {
+      Object.defineProperties(context, {
+        beforeEach: {
+          configurable: false,
+          enumerable: true,
+          writable: false,
+          value: beforeEach,
+        },
+      });
+    } catch (e) {}
   }
-  if (typeof context._afterEach !== 'function') {
-    Object.defineProperties(context, {
-      _afterEach: {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: async function _afterEach(props: Props<P, C>, context: Context<P, C>, step: Step<P, C>) {
-          if (typeof this.afterEach === 'function') {
-            await this.afterEach(props, context, step);
-          }
-        }
-      },
-    })
+  if (typeof afterEach !== "undefined" && typeof afterEach !== "function") {
+    throw new Error(`'afterEach' hook in the context must be a function.`);
+  } else if (typeof afterEach === "function") {
+    try {
+      Object.defineProperties(context, {
+        afterEach: {
+          configurable: false,
+          enumerable: true,
+          writable: false,
+          value: afterEach,
+        },
+      });
+    } catch (e) {}
   }
-  return context;
-} 
+  return context!;
+}
