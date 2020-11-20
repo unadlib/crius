@@ -1,7 +1,7 @@
 {
   "name": "crius-runner",
   "version": "1.0.0-alpha.14",
-  "description": "Crius runner with Cirus's steps.",
+  "description": "A Crius runner with Crius steps",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",

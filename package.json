@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "description": "A concise JavaScript library for building step processes",
+  "description": "A testing tool for behavior-driven development",
   "main": "index.js",
   "workspaces": [
     "packages/*"

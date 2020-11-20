@@ -5,7 +5,7 @@ interface Log {
   status?: 'start' | 'end' | string;
   time: number;
 }
-// TODO Refactoring & Enhancement
+// TODO: Refactoring & Enhancement
 export const graphParser = (params: Array<Array<Log>>) => {
   const data = params.map(params => params.filter(i => i.status === 'start'));
   let result = `
