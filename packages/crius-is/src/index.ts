@@ -1,20 +1,11 @@
 import { StepClass, StepFunction, Children, StepType, CriusNode } from "crius";
 
 const isCriusStepClass = (target: any): target is StepClass => {
-  return !!(
-    toString.call(target) === "[object Object]" &&
-    target.step &&
-    target.step.prototype &&
-    target.step.prototype.isCriusStep
-  );
+  return !!(typeof target === "function" && target.prototype.isCriusStep);
 };
 
 const isCriusStepFunction = (target: any): target is StepFunction => {
-  return (
-    toString.call(target) === "[object Object]" &&
-    typeof target.step === "function" &&
-    (!target.step.prototype || !target.step.prototype.isCriusStep)
-  );
+  return !!(typeof target === "function" && !target.prototype.isCriusStep);
 };
 
 const isCriusStepFragment = (target: any): target is Children => {
