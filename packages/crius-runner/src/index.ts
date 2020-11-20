@@ -1,12 +1,8 @@
-import { run } from './runner';
-import { Context } from './interface';
+import { run } from "./runner";
+import { Context, Hooks } from "./interface";
 
 const CriusRunner = {
   run,
 };
 
-export {
-  CriusRunner as default,
-  run,
-  Context,
-}
+export { CriusRunner as default, run, Context, Hooks };
