@@ -1,32 +1,41 @@
-import { CriusNode } from './flow';
-import { Step, Props, Context, PickOptional } from './step';
+import { Props, CriusElement } from "./step";
 
-interface StepLifecycle<P, C> {
-  stepWillStart(): void;
-  stepDidEnd(): void;
+interface Step<P = {}> {
+  /**
+   *
+   */
+  stepWillStart?(): Promise<void> | void;
+  /**
+   *
+   */
+  stepDidEnd?(): Promise<void> | void;
+  /**
+   *
+   */
+  defaultProps?: Partial<P>;
 }
 
-interface StepClass<P, C> extends StepLifecycle<P, C> {
-  defaultProps?: PickOptional<P>;
-  props: Props<P, C>;
-  context: Context<P, C>;
-  run(...args: any[]): Promise<CriusNode<Step<P, C>, P, C> | any> | any;
-}
+/**
+ *
+ */
+abstract class Step<P = {}, C = {}> {
+  constructor(public props: Props<P>, public context: C) {}
 
-class StepClass<P = {}, C = {}> {
-  constructor(
-    props: Props<P, C>,
-    context: Context<P, C>
-  ) {
-    this.props = props;
-    this.context = context;
-  }
-
+  /**
+   *
+   */
   get isCriusStep() {
     return true;
   }
+
+  /**
+   *
+   */
+  abstract run(): CriusElement;
 }
 
-export {
-  StepClass as default,
+export interface StepClass<P = {}, C = {}> {
+  new (props: P, context: C): Step<P, C>;
 }
+
+export { Step };

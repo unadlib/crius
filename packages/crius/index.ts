@@ -1,24 +1,22 @@
 import Crius, {
   Step,
+  StepClass,
   createFlow,
   CriusNode,
   StepFunction,
   Children,
-  Context,
   StepType,
-  Hooks,
   Props,
-} from './src';
+} from "./src";
 
 export {
   Crius as default,
   Step,
   createFlow,
+  StepClass,
   CriusNode,
   StepFunction,
   Children,
-  Context,
   StepType,
-  Hooks,
   Props,
-}
+};

@@ -3,9 +3,8 @@ import {
   isCriusStepFunction,
   isCriusStep,
   isCriusNode,
-  isCriusFlow,
   isCriusStepFragment,
-  isCriusStepFlow
+  isCriusFlow,
 } from './src';
 
 const is = {
@@ -13,9 +12,8 @@ const is = {
   isCriusStepFunction,
   isCriusStep,
   isCriusNode,
-  isCriusFlow,
   isCriusStepFragment,
-  isCriusStepFlow
+  isCriusFlow,
 };
 
 export {
@@ -24,7 +22,6 @@ export {
   isCriusStepFunction,
   isCriusStep,
   isCriusNode,
-  isCriusFlow,
   isCriusStepFragment,
-  isCriusStepFlow
+  isCriusFlow,
 }

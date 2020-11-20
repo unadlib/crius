@@ -1,7 +1,9 @@
-import { Step, createFlow } from "../src";
+import { Step } from "../src";
 
 test("base import Step with JSX", () => {
-  class Foo extends Step {}
+  class Foo extends Step {
+    run() {}
+  }
   class Bar extends Step {
     run() {
       return <Foo />;
@@ -16,7 +18,9 @@ test("base import Step with JSX", () => {
 });
 
 test("base Step fragment with JSX", () => {
-  class Foo extends Step {}
+  class Foo extends Step {
+    run() {}
+  }
   const Bar = () => {};
   const bar = (
     <>

@@ -1,5 +1,5 @@
-import Step from "./stepClass";
-import { Children, Context, Step as StepType, Hooks, Props } from "./step";
+import { Step, StepClass } from "./stepClass";
+import { Children, StepType, Props } from "./step";
 import { createFlow, CriusNode } from "./flow";
 import { StepFunction } from "./stepFunction";
 
@@ -24,10 +24,9 @@ export {
   Step,
   createFlow,
   CriusNode,
+  StepClass,
   StepFunction,
   Children,
-  Context,
   StepType,
-  Hooks,
   Props,
 };

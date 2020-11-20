@@ -38,7 +38,7 @@ describe('isCriusStepClass', () => {
         return true
       }
     }
-    expect(is.isCriusNode({
+    expect(is.isCriusStepClass({
       step: Step
     })).toBeTruthy();
   });
@@ -80,6 +80,12 @@ describe('isCriusStepFunction', () => {
       },
       {
         step: fakeStep,
+      },
+      {
+        step: async () => {},
+      },
+      {
+        step: async () => async () => {},
       }
     ]) {
       expect(is.isCriusStepFunction(item)).toBeTruthy();

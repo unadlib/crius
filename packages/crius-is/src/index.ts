@@ -1,67 +1,60 @@
-const isCriusStepClass = (target: any): boolean => {
-  return (
-    toString.call(target) === '[object Object]' &&
+import {
+  StepClass,
+  StepFunction,
+  Children,
+  StepType,
+  CriusNode,
+} from "crius";
+
+const isCriusStepClass = (target: any): target is StepClass => {
+  return !!(
+    toString.call(target) === "[object Object]" &&
     target.step &&
     target.step.prototype &&
     target.step.prototype.isCriusStep
   );
-}
+};
 
-const isCriusStepFunction = (target: any) => {
+const isCriusStepFunction = (target: any): target is StepFunction => {
   return (
-    toString.call(target) === '[object Object]' &&
-    typeof target.step === 'function' && (
-      !target.step.prototype || !target.step.prototype.isCriusStep
-    )
+    toString.call(target) === "[object Object]" &&
+    typeof target.step === "function" &&
+    (!target.step.prototype || !target.step.prototype.isCriusStep)
   );
-}
+};
 
-const isCriusStepFragment =  (target: any) => {
+const isCriusStepFragment = (target: any): target is Children => {
   return (
-    toString.call(target) === '[object Object]' &&
-    target.key === '' &&
+    toString.call(target) === "[object Object]" &&
+    target.key === "" &&
     target.props &&
     Array.isArray(target.props.children) &&
-    (
-      typeof target.step === 'undefined' ||
-      target.step === null
-    )
-  )
-}
-
-const isCriusStep = (target: any)  => {
-  return (
-    isCriusStepClass(target) ||
-    isCriusStepFunction(target)
+    (typeof target.step === "undefined" || target.step === null)
   );
-}
+};
 
-const isCriusStepFlow = (target: any) => {
+const isCriusStep = (target: any): target is StepType => {
+  return isCriusStepClass(target) || isCriusStepFunction(target);
+};
+
+const isCriusNode = (target: any): target is CriusNode => {
   return (
-    toString.call(target) === '[object Object]' &&
-    Object.hasOwnProperty.call(target, 'key') &&
+    toString.call(target) === "[object Object]" &&
+    Object.hasOwnProperty.call(target, "key") &&
     target.props &&
-    Array.isArray(target.props.children) 
-  )
+    Array.isArray(target.props.children)
+  );
 };
 
 const isCriusFlow = (target: any) => {
-  return isCriusStepFlow(target) || isCriusStepFragment(target) ;
+  return isCriusNode(target) || isCriusStepFragment(target);
 };
-
-const isCriusNode = (target: any)  => {
-  return (
-    toString.call(target) === '[object Object]' &&
-    isCriusStep(target)
-  );
-}
 
 export {
   isCriusStepClass,
   isCriusStepFunction,
   isCriusStep,
   isCriusNode,
-  isCriusFlow,
   isCriusStepFragment,
-  isCriusStepFlow
-}
+  isCriusFlow,
+};
