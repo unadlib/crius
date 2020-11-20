@@ -7,6 +7,7 @@ import Crius, {
   Children,
   StepType,
   Props,
+  CriusElement,
 } from "./src";
 
 export {
@@ -19,4 +20,5 @@ export {
   Children,
   StepType,
   Props,
+  CriusElement,
 };

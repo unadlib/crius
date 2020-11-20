@@ -1,12 +1,12 @@
-import * as is from '..';
+import * as is from "..";
 
-describe('isCriusStepClass', () => {
-  test('test target is not a CriusStepClass call `isCriusStepClass`', () => {
+describe("isCriusStepClass", () => {
+  test("test target is not a CriusStepClass call `isCriusStepClass`", () => {
     for (const item of [
       [],
       1,
       false,
-      '1',
+      "1",
       undefined,
       null,
       {
@@ -24,33 +24,35 @@ describe('isCriusStepClass', () => {
       {
         step: class Step {
           get isCriusStep() {
-            return false
+            return false;
           }
-        }
-      }
+        },
+      },
     ]) {
       expect(is.isCriusStepClass(item)).toBeFalsy();
-    } 
+    }
   });
-  test('test target is a CriusStepClass call `isCriusStepClass`', () => {
+  test("test target is a CriusStepClass call `isCriusStepClass`", () => {
     class Step {
       get isCriusStep() {
-        return true
+        return true;
       }
     }
-    expect(is.isCriusStepClass({
-      step: Step
-    })).toBeTruthy();
+    expect(
+      is.isCriusStepClass({
+        step: Step,
+      })
+    ).toBeTruthy();
   });
 });
 
-describe('isCriusStepFunction', () => {
-  test('test target is not CriusStepFunction call `isCriusStepFunction`', () => {
+describe("isCriusStepFunction", () => {
+  test("test target is not CriusStepFunction call `isCriusStepFunction`", () => {
     for (const item of [
       [],
       1,
       false,
-      '1',
+      "1",
       undefined,
       null,
       {
@@ -63,20 +65,18 @@ describe('isCriusStepFunction', () => {
         step: null,
       },
     ]) {
-      // babel parser ES6+ class to function. 
+      // babel parser ES6+ class to function.
       expect(is.isCriusStepFunction(item)).toBeFalsy();
-    } 
+    }
   });
-  test('test target is CriusStepFunction call `isCriusStepFunction`', () => {
+  test("test target is CriusStepFunction call `isCriusStepFunction`", () => {
     function fakeStep() {}
     for (const item of [
       {
         step: () => {},
       },
       {
-        step() {
-
-        },
+        step() {},
       },
       {
         step: fakeStep,
@@ -86,20 +86,20 @@ describe('isCriusStepFunction', () => {
       },
       {
         step: async () => async () => {},
-      }
+      },
     ]) {
       expect(is.isCriusStepFunction(item)).toBeTruthy();
     }
   });
 });
 
-describe('isCriusStepFragment', () => {
-  test('test target is not a CriusStepFragment call `isCriusStepFragment`', () => {
+describe("isCriusStepFragment", () => {
+  test("test target is not a CriusStepFragment call `isCriusStepFragment`", () => {
     for (const item of [
       [],
       1,
       false,
-      '1',
+      "1",
       undefined,
       null,
       {
@@ -117,98 +117,111 @@ describe('isCriusStepFragment', () => {
       {
         step: class Step {
           get isCriusStep() {
-            return false
+            return false;
           }
-        }
+        },
       },
       {
-        key: 'Test',
+        key: "Test",
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {},
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: 1,
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
-          children: '1',
+          children: "1",
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: null,
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: undefined,
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: () => {},
         },
         step: undefined,
-      }
+      },
     ]) {
       expect(is.isCriusStepFragment(item)).toBeFalsy();
-    } 
+    }
   });
-  test('test target is a CriusStepFragment call `isCriusStepFragment`', () => {
+  test("test target is a CriusStepFragment call `isCriusStepFragment`", () => {
     for (const item of [
       {
-        key: '',
+        key: "",
         props: {
           children: [],
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: [1],
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: [() => {}],
         },
         step: undefined,
-      }
+      },
     ]) {
       expect(is.isCriusStepFragment(item)).toBeTruthy();
     }
   });
 });
 
-describe('isCriusStep', () => {
-  test('test target is not a CriusStep call `isCriusStep`', () => {
+describe("isCriusStep", () => {
+  test("test target is not a CriusStep call `isCriusStep`", () => {
+    for (const item of [
+      () => {},
+      async () => {},
+      class Step {
+        get isCriusStep() {
+          return true;
+        }
+      },
+    ]) {
+      expect(is.isCriusStep(item)).toBeFalsy();
+    }
+  });
+  test("test target is not a CriusStep call `isCriusStep`", () => {
     for (const item of [
       [],
       1,
       false,
-      '1',
+      "1",
       undefined,
       null,
       {
@@ -221,11 +234,11 @@ describe('isCriusStep', () => {
         step: null,
       },
       {
-        key: '',
+        key: "",
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           s: [],
         },
@@ -235,50 +248,53 @@ describe('isCriusStep', () => {
       expect(is.isCriusStep(item)).toBeFalsy();
     }
   });
-  test('test target is a CriusStep Flow call `isCriusFlow`', () => {
+});
+
+describe("isCriusNode", () => {
+  test("test target is a CriusStep Flow call `isCriusNode`", () => {
     for (const item of [
       {
-        key: '',
+        key: "",
         props: {
           children: [],
         },
         step: undefined,
       },
       {
-        key: '',
+        key: "",
         props: {
           children: [],
         },
         step: () => {},
       },
       {
-        key: '',
+        key: "",
         props: {
           children: [],
         },
         step: class Step {
           get isCriusStep() {
-            return true
+            return true;
           }
         },
-      }
+      },
+      {
+        key: "Foo",
+        props: {
+          children: [],
+        },
+        step: class Foo {
+          get isCriusStep() {
+            return true;
+          }
+        },
+      },
     ]) {
-      expect(is.isCriusFlow(item)).toBeTruthy();
+      expect(is.isCriusNode(item)).toBeTruthy();
     }
   });
-});
-
-describe('isCriusNode', () => {
-  test('test target is not a CriusNode call `isCriusNode`', () => {
-    for (const item of [
-      [],
-      1,
-      false,
-      '1',
-      undefined,
-      null,
-      {},
-    ]) {
+  test("test target is not a CriusNode call `isCriusNode`", () => {
+    for (const item of [[], 1, false, "1", undefined, null, {}]) {
       expect(is.isCriusNode(item)).toBeFalsy();
     }
   });

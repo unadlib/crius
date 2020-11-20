@@ -1,5 +1,5 @@
 import { Step, StepClass } from "./stepClass";
-import { Children, StepType, Props } from "./step";
+import { Children, StepType, Props, CriusElement } from "./step";
 import { createFlow, CriusNode } from "./flow";
 import { StepFunction } from "./stepFunction";
 
@@ -29,4 +29,5 @@ export {
   Children,
   StepType,
   Props,
+  CriusElement
 };

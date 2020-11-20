@@ -4,8 +4,7 @@ import {
   isCriusStep,
   isCriusNode,
   isCriusStepFragment,
-  isCriusFlow,
-} from './src';
+} from "./src";
 
 const is = {
   isCriusStepClass,
@@ -13,7 +12,6 @@ const is = {
   isCriusStep,
   isCriusNode,
   isCriusStepFragment,
-  isCriusFlow,
 };
 
 export {
@@ -23,5 +21,4 @@ export {
   isCriusStep,
   isCriusNode,
   isCriusStepFragment,
-  isCriusFlow,
-}
+};

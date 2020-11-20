@@ -1,10 +1,4 @@
-import {
-  StepClass,
-  StepFunction,
-  Children,
-  StepType,
-  CriusNode,
-} from "crius";
+import { StepClass, StepFunction, Children, StepType, CriusNode } from "crius";
 
 const isCriusStepClass = (target: any): target is StepClass => {
   return !!(
@@ -46,15 +40,10 @@ const isCriusNode = (target: any): target is CriusNode => {
   );
 };
 
-const isCriusFlow = (target: any) => {
-  return isCriusNode(target) || isCriusStepFragment(target);
-};
-
 export {
   isCriusStepClass,
   isCriusStepFunction,
   isCriusStep,
   isCriusNode,
   isCriusStepFragment,
-  isCriusFlow,
 };
