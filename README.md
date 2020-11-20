@@ -5,6 +5,19 @@
 
 A testing tool for behavior-driven development, inspired by [Cucumber](https://github.com/cucumber/cucumber) and [React](https://github.com/facebook/react).
 
+## Motivation
+
+A typical BDD development process begins with Epics, these Epics are then broken down into User Stories to describe the various features of the application. From User Stories, AC (Acceptance Criteria) will be listed to clearly define the behaviors and specifications of the feature. Because AC precisely defined the behaviors and test conditions for all the features of the application, they are perfect for writing into automated tests.
+
+The emergence of Cucumber in 2008 popularized the use of BDD in software development, which had a lot of influence over other BDD tools the came after Cucumber. The core value of Cucumber is the DSL that provided a way to express behaviors and application features similar to natural languages, including the popular clauses of Given, When, and Then. However, the actual test code is often kept in “steps” files and are language agnostic. The implementation of the test driver relies heavily on string pattern matching to link the feature definitions implicitly to the steps, often leading to performance issues difficulties in managing the steps. As the complexity of the application grows, it is often increasingly difficult to define unique step names due to many steps sharing similar words.
+
+From our years of BDD practice, we had found several shortcomings of Cucumber that we need to address:
+- String Pattern Matching
+- Implicit link between features and steps
+- Lacks simple ways to re-use scenarios or steps
+
+These shortcomings eventually led to the advent of Crius.
+
 > If you want to introduce **BDD** and need good **Step** reusability, **Crius** is the BDD building tool you want. 
 
 - [Features](#features)
@@ -28,7 +41,14 @@ A testing tool for behavior-driven development, inspired by [Cucumber](https://g
 * **Use JavaScript Literals for Examples** - Easily define complex object in examples
 * **Lightweight** - Core source code is less than 17k
 
-## Install
+Compared to Cucumber, Crius offers the following benefits:
+
+- No string pattern matching — An explicit relationship between feature definition and test steps exist via direct reference
+- Syntax highlighting in IDE and Diff tools — Since the feature definitions are written in TSX or JSX
+- Extensible through lifecycle hooks and plugins — So you can customize the test solution to fit the project needs
+- Support static type checking (if using typescript) — Helps you avoid typos and/or type errors with IDE support
+
+## Installation
 
 ```bash
 npm install --seve-dev crius-test
@@ -354,10 +374,6 @@ class CheckingAddTodo extends Step {
   }
 }
 ```
-
-### Concept
-
-![new BDD](bdd.png)
 
 ## Support
 
