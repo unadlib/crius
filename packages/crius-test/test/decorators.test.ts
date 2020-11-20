@@ -8,7 +8,6 @@ import {
   params
 } from '../src/decorators';
 import { Step } from '../src/step';
-import { resolve } from 'dns';
 
 test('test @autorun', async () => {
   const testFn = jest.fn();

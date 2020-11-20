@@ -10,52 +10,34 @@ import {
   afterEach,
   beforeEach,
   plugins,
-  StepFunction
-} from "../";
+  StepFunction,
+} from "../src";
 import { params } from "../src/decorators";
 
 const result: string[] = [];
 @beforeEach((props, context, step) => {
-  result.push(
-    typeof step === "object" ? step.constructor.name : step.name,
-    "beforeEach"
-  );
+  result.push(step.name, "beforeEach");
 })
 @afterEach((props, context, step) => {
-  result.push(
-    typeof step === "object" ? step.constructor.name : step.name,
-    "afterEach"
-  );
+  result.push(step.name, "afterEach");
 })
 @plugins<{}, { s: string }>([
   {
     beforeEach(props, context, step) {
-      result.push(
-        typeof step === "object" ? step.constructor.name : step.name,
-        "plugins beforeEach"
-      );
+      result.push(step.name, "plugins beforeEach");
     },
     afterEach(props, context, step) {
-      result.push(
-        typeof step === "object" ? step.constructor.name : step.name,
-        "plugins afterEach"
-      );
-    }
+      result.push(step.name, "plugins afterEach");
+    },
   },
   {
     beforeEach(props, context, step) {
-      result.push(
-        typeof step === "object" ? step.constructor.name : step.name,
-        "plugins beforeEach"
-      );
+      result.push(step.name, "plugins beforeEach");
     },
     afterEach(props, context, step) {
-      result.push(
-        typeof step === "object" ? step.constructor.name : step.name,
-        "plugins afterEach"
-      );
-    }
-  }
+      result.push(step.name, "plugins afterEach");
+    },
+  },
 ])
 class Step<P = {}, C = {}> extends BaseStep<
   P,
@@ -66,7 +48,7 @@ class Step<P = {}, C = {}> extends BaseStep<
       s: "1",
       get a() {
         return 2;
-      }
+      },
     };
   }
 }
@@ -248,15 +230,15 @@ class SendSMS1 extends Step {
       "Scenario",
       "plugins afterEach",
       "Scenario",
-      "afterEach"
+      "afterEach",
     ]);
   }
 
-  @examples`
+  @(examples`
     | accountTag     | contactType   | smsMessage |
     | 'us'           | 'personal'    | 'aaa'      |
     | 'us_1'         | 'personal_1'  | 'aaa_1'    |
-  `
+  `)
   run() {
     return (
       <Scenario desc="user enter entrypoint" action={EntryPoint}>
@@ -301,7 +283,7 @@ class TextSmsMessage extends Step<{ text?: string }, { inputText: string }> {
 }
 
 TextSmsMessage.prototype.defaultProps = {
-  text: "TextSmsMessageProps"
+  text: "TextSmsMessageProps",
 };
 
 class CheckSmsMessage extends Step<{}, { inputText: string }> {
@@ -333,10 +315,10 @@ const Login: StepFunction = (props, context) => {
 @autorun(test)
 @title("run pure AC text")
 class Test extends Step {
-  @examples`
+  @(examples`
     | smsMessage |
     | 'testFoo'  |
-  `
+  `)
   run() {
     return (
       <Scenario desc="user enter entrypoint">
@@ -359,10 +341,10 @@ autorun(test)(() => (
 @autorun(test)
 @title("run pure AC text")
 class TestSkip extends Step {
-  @examples`
+  @(examples`
     | smsMessage |
     | 'testFoo'  |
-  `
+  `)
   run() {
     return (
       <Scenario desc="user enter entrypoint">
@@ -396,22 +378,38 @@ autorun(test)(() => (
 ));
 
 const A1 = () => {
-  expect('A1').toEqual('A1');
-}
+  expect("A1").toEqual("A1");
+};
 
 @autorun(test)
-@title('test action with flow')
+@title("test action with flow")
 class TestWithFlow extends Step {
-  @examples`
+  @(examples`
     | smsMessage   |
     | 777          |
-  `
+  `)
   run() {
     return (
-      <Scenario desc="user enter entrypoint" action={<Entry1 url={'foobar.com'} />}>
-        <Given desc="user navigate to compose text page" action={<><Navigate1 /></>} />
-        <When desc="user type ${smsMessage} in input field" action={<Type1 {...this.context.example} />} />
-        <Then desc="user should see that input field text is ${smsMessage}" action={<CheckText1 />} />
+      <Scenario
+        desc="user enter entrypoint"
+        action={<Entry1 url={"foobar.com"} />}
+      >
+        <Given
+          desc="user navigate to compose text page"
+          action={
+            <>
+              <Navigate1 />
+            </>
+          }
+        />
+        <When
+          desc="user type ${smsMessage} in input field"
+          action={<Type1 {...this.context.example} />}
+        />
+        <Then
+          desc="user should see that input field text is ${smsMessage}"
+          action={<CheckText1 />}
+        />
       </Scenario>
     );
   }
@@ -424,16 +422,19 @@ const Entry1: StepFunction<{ url: string }> = (porps) => {
 };
 
 const Navigate1 = () => {
-  flowArr.push('Navigate1');
+  flowArr.push("Navigate1");
 };
 
-const Type1: StepFunction<{ smsMessage: number }>  = ({ smsMessage }) => {
+const Type1: StepFunction<{ smsMessage: number }> = ({ smsMessage }) => {
   flowArr.push(`Type1 ${smsMessage}`);
-}
+};
 
 const CheckText1: StepFunction = (_, { example }) => {
   flowArr.push(`CheckText1 ${example.smsMessage}`);
   expect(flowArr).toEqual([
-    'foobar.com', 'Navigate1', 'Type1 777', 'CheckText1 777'
+    "foobar.com",
+    "Navigate1",
+    "Type1 777",
+    "CheckText1 777",
   ]);
-}
+};

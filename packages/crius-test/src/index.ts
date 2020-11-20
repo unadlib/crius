@@ -1,4 +1,8 @@
 export {
+  StepType
+} from 'crius';
+
+export {
   Scenario,
   Given,
   When,

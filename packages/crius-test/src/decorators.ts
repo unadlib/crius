@@ -1,12 +1,14 @@
-import { run } from "crius-runner";
-import { Props, Context, StepType } from "crius";
-import { isCriusFlow } from 'crius-is';
+import { run, Context } from "crius-runner";
+import { Props, StepType } from "crius";
+import { isCriusNode } from "crius-is";
 import { Step, BaseContext } from "./step";
 import { parserString, compileString } from "./utils";
 
 function autorun(_test: Function) {
-  return function(_target: Object) {
-    const target = (isCriusFlow(_target) ? () => target : _target) as typeof Step;
+  return function (_target: Object) {
+    const target = (isCriusNode(_target)
+      ? () => target
+      : _target) as typeof Step;
     // TODO support callback(assert) for tape and ava: (t) => {}
     if (typeof target.examples === "undefined" || target.examples === null) {
       target.examples = [{}];
@@ -43,7 +45,7 @@ function autorun(_test: Function) {
           if (typeof target.afterEach === "function") {
             await target.afterEach(props, context, step);
           }
-        }
+        },
       };
       Object.defineProperties(
         baseContext,
@@ -54,7 +56,7 @@ function autorun(_test: Function) {
           {
             key: target.name,
             props: { children: [] },
-            step: target
+            step: target,
           },
           baseContext
         );
@@ -67,13 +69,13 @@ function title(title: string) {
   if (typeof title === "undefined" || title === null) {
     throw new Error("Test case title is required.");
   }
-  return function(target: Object) {
+  return function (target: Object) {
     (target as typeof Step).title = title;
   };
 }
 
 function examples(params: TemplateStringsArray | object[] | string | string[]) {
-  return function(
+  return function (
     target: Object,
     name: string,
     descriptor: TypedPropertyDescriptor<any>
@@ -102,7 +104,7 @@ function examples(params: TemplateStringsArray | object[] | string | string[]) {
 }
 
 type HookCallback<P, C> = (
-  props: Props<P, C>,
+  props: Props<P>,
   context: Context<P, C>,
   step: StepType<P, C>
 ) => void;
@@ -111,7 +113,7 @@ function beforeEach<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
   if (typeof hookCallback !== "function") {
     throw new Error('"@beforeEach" argument error, it must be a function.');
   }
-  return function(target: typeof Step) {
+  return function (target: typeof Step) {
     target.beforeEach = hookCallback;
   };
 }
@@ -120,7 +122,7 @@ function afterEach<P = {}, C = {}>(hookCallback: HookCallback<P, C>) {
   if (typeof hookCallback !== "function") {
     throw new Error('"@afterEach" argument error, it must be a function.');
   }
-  return function(target: typeof Step) {
+  return function (target: typeof Step) {
     target.afterEach = hookCallback;
   };
 }
@@ -131,7 +133,7 @@ export type Plugins<P = {}, C = {}> = {
 };
 
 function plugins<P = {}, C = {}>(plugins: Array<Plugins<P, C>>) {
-  return function(target: typeof Step) {
+  return function (target: typeof Step) {
     target.plugins = plugins;
   };
 }
@@ -140,7 +142,7 @@ function params(handleParams: (testParams: any[]) => any[]) {
   if (typeof handleParams !== "function") {
     throw new Error('"@params" argument error, it must be a function.');
   }
-  return function(target: Object) {
+  return function (target: Object) {
     (target as typeof Step).handleParams = handleParams;
   };
 }

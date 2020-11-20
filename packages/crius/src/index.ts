@@ -19,6 +19,7 @@ if (global) {
     (global as any).React = { createElement: Crius.createFlow };
   }
 }
+
 export {
   Crius as default,
   Step,
@@ -29,5 +30,5 @@ export {
   Children,
   StepType,
   Props,
-  CriusElement
+  CriusElement,
 };

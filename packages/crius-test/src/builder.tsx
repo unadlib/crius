@@ -1,10 +1,11 @@
-import { isCriusFlow } from "crius-is";
+import { isCriusNode } from "crius-is";
+import { StepType, CriusNode } from "crius";
 import { Step } from "./step";
 import { compileString } from "./utils";
 
 interface BuilderProps {
   desc: string;
-  action?: any; // TODO fix jsx element type error.
+  action?: StepType | CriusNode;
 }
 
 class Builder<P = {}, C = {}> extends Step<P & BuilderProps, C> {
@@ -23,7 +24,7 @@ class Builder<P = {}, C = {}> extends Step<P & BuilderProps, C> {
     }
   }
 
-  get __isBuilder() {
+  static get __isBuilder() {
     return true;
   }
 
@@ -37,9 +38,13 @@ class Builder<P = {}, C = {}> extends Step<P & BuilderProps, C> {
         `The action of Step with desc '${this.props.desc}' is 'undefined'.`
       );
     }
+    let StepAction: StepType = () => {};
+    if (!isCriusNode(Action)) {
+      StepAction = Action! as StepType;
+    }
     return (
       <>
-        {isCriusFlow(Action) ? Action : <Action />}
+        {isCriusNode(Action) ? Action : <StepAction />}
         {this.props.children}
       </>
     );

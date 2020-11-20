@@ -16,4 +16,5 @@ export {
   params,  
   compileString,
   BaseContext,
+  StepType,
 } from './src';
