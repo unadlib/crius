@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-crius",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.15",
   "description": "Babel preset for all Crius plugins.",
   "main": "dist/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "crius-runner",
-  "version": "1.0.0-alpha.14",
+  "version": "1.0.0-alpha.15",
   "description": "A Crius runner with Crius steps",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -11,8 +11,8 @@
   "author": "unadlib",
   "license": "MIT",
   "dependencies": {
-    "crius": "^1.0.0-alpha.14",
-    "crius-is": "^1.0.0-alpha.11"
+    "crius": "^1.0.0-alpha.15",
+    "crius-is": "^1.0.0-alpha.15"
   },
   "peerDependencies": {
     "crius": "^1.0.0-alpha.1"

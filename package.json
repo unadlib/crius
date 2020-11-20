@@ -26,7 +26,8 @@
     "commit": "yarn git-cz",
     "start:example": "lerna run start --scope=crius-example",
     "test:example": "yarn test packages/crius-example/test/index.test.tsx",
-    "publish": "lerna publish"
+    "update:version": "lerna version --amend --no-git-tag-version",
+    "publish": "lerna exec --no-private --no-bail -- npm publish"
   },
   "repository": {
     "type": "git",
