@@ -16,9 +16,7 @@ From our years of BDD practice, we had found several shortcomings of Cucumber th
 - Implicit link between features and steps
 - Lacks simple ways to re-use scenarios or steps
 
-These shortcomings eventually led to the advent of Crius.
-
-> If you want to introduce **BDD** and need good **Step** reusability, **Crius** is the BDD building tool you want. 
+**These shortcomings eventually led to the advent of Crius.**
 
 - [Features](#features)
 - [Install](#install)
@@ -41,7 +39,7 @@ These shortcomings eventually led to the advent of Crius.
 * **Use JavaScript Literals for Examples** - Easily define complex object in examples
 * **Lightweight** - Core source code is less than 17k
 
-Compared to Cucumber, Crius offers the following benefits:
+> Compared to Cucumber, Crius offers the following benefits:
 
 - No string pattern matching — An explicit relationship between feature definition and test steps exist via direct reference
 - Syntax highlighting in IDE and Diff tools — Since the feature definitions are written in TSX or JSX
