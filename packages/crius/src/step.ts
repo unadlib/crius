@@ -4,7 +4,8 @@ import { StepFunction } from "./stepFunction";
 
 export type StepType<P = {}, C = {}> = StepClass<P, C> | StepFunction<P, C>;
 
-type Element = void | CriusNode | (() => any | Promise<any>) | Children;
+// type Element = void | CriusNode | (() => any | Promise<any>) | Children;
+type Element = any;
 
 export type CriusElement = Promise<Element> | Element;
 
