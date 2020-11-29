@@ -5,7 +5,7 @@ import { compileString } from "./utils";
 
 interface BuilderProps {
   desc: string;
-  action?: StepType<any, any> | CriusNode<any, any>;
+  action?: StepType<any, any> | CriusNode<any, any> | (StepType<any, any> | CriusNode<any, any>)[];
 }
 
 class Builder<P = {}, C = {}> extends Step<P & BuilderProps, C> {

@@ -252,7 +252,7 @@ class SendSMS1 extends Step {
         />
         <Then
           desc="user should see that input field text is ${smsMessage}"
-          action={CheckSmsMessage}
+          action={<CheckSmsMessage s={"1"} />}
         />
       </Scenario>
     );
@@ -286,11 +286,9 @@ TextSmsMessage.prototype.defaultProps = {
   text: "TextSmsMessageProps",
 };
 
-class CheckSmsMessage extends Step<{}, { inputText: string }> {
-  run() {
-    result.push(`run CheckSmsMessage ${this.context.inputText}`);
-  }
-}
+const CheckSmsMessage: StepFunction<{ s: string }, { inputText: string }> = (porps, context) => {
+  result.push(`run CheckSmsMessage ${context.inputText}`);
+};
 
 class Prepare extends Step {
   run() {
@@ -438,3 +436,26 @@ const CheckText1: StepFunction = (_, { example }) => {
     "CheckText1 777",
   ]);
 };
+
+
+const Foo: StepFunction<{ s: string }, { inputText: string }> = (porps, context) => {
+  //
+};
+
+@autorun(test.skip)
+@title("run pure AC text")
+class Test1 extends Step {
+  @(examples`
+    | smsMessage |
+    | 'testFoo'  |
+  `)
+  run() {
+    return (
+      <Scenario desc="user enter entrypoint">
+        <Given desc="user navigate to compose text page" />
+        <When desc="user type ${smsMessage} in input field" />
+        <Then desc="user should see that input field text is ${smsMessage}" />
+      </Scenario>
+    );
+  }
+}
