@@ -378,6 +378,8 @@ class CheckingAddTodo extends Step {
 * Jest
 * Mocha
 * Jasmine
+* Tape (use `setHook`)
+* Ava (use `setHook`)
 
 ## License
 MIT

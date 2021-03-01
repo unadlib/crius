@@ -147,3 +147,41 @@ test("runner deep step with JSX", async () => {
   await run(<Bar bar="bar" />);
   expect(result).toEqual(["bar", "foo", "fooBar0", "fooBar1"]);
 });
+
+test("runner deep step with function child", async () => {
+  const result: string[] = [];
+  const FooBar: StepFunction<{ fooBar: string }> = (props) =>
+    void result.push(props.fooBar);
+  class Foo extends Crius.Step<{ foo: string }> {
+    async run() {
+      await new Promise((resolve) => setTimeout(resolve));
+      result.push(this.props.foo);
+      return this.props.children;
+    }
+  }
+
+  const FooBar0 = (options: { value?: string }) =>
+    result.push(options.value ?? "fooBar0");
+  class Bar extends Crius.Step<{ bar: string }> {
+    async run() {
+      await new Promise((resolve) => setTimeout(resolve));
+      result.push(this.props.bar);
+      return (
+        <Foo foo="foo">
+          {async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            return <FooBar0 value="test" />;
+          }}
+          {
+            await (async () => {
+              return <FooBar0 />;
+            })()
+          }
+          <FooBar fooBar="fooBar1" />
+        </Foo>
+      );
+    }
+  }
+  await run(<Bar bar="bar" />);
+  expect(result).toEqual(["bar", "foo", "test", "fooBar0", "fooBar1"]);
+});

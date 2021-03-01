@@ -14,7 +14,10 @@ async function iterateChildren<C>(
 ): Promise<void> {
   for (const child of children) {
     if (isCriusStepFunction(child)) {
-      await child({}, context!);
+      const result = await child({}, context!);
+      if (isCriusNode(result)) {
+        await run(result as CriusNode, context);
+      }
     } else if (isCriusNode(child)) {
       await run(child as CriusNode, context);
     } else if (Array.isArray(child)) {

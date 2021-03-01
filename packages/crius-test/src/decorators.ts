@@ -4,12 +4,19 @@ import { isCriusNode } from "crius-is";
 import { Step, BaseContext } from "./step";
 import { parserString, compileString } from "./utils";
 
+type Hook = (...args: any) => any;
+
+let hook: Hook;
+
+function setHook(fn: Hook) {
+  hook = fn;
+}
+
 function autorun(_test: Function) {
   return function (_target: Object) {
     const target = (isCriusNode(_target)
       ? () => target
       : _target) as typeof Step;
-    // TODO support callback(assert) for tape and ava: (t) => {}
     if (typeof target.examples === "undefined" || target.examples === null) {
       target.examples = [{}];
     }
@@ -51,7 +58,8 @@ function autorun(_test: Function) {
         baseContext,
         Object.getOwnPropertyDescriptors(target.context || {})
       );
-      _test(title, async () => {
+      _test(title, async (...args: any) => {
+        hook?.(...args);
         await run(
           {
             key: target.name,
@@ -147,4 +155,13 @@ function params(handleParams: (testParams: any[]) => any[]) {
   };
 }
 
-export { autorun, title, examples, beforeEach, afterEach, plugins, params };
+export {
+  autorun,
+  title,
+  examples,
+  beforeEach,
+  afterEach,
+  plugins,
+  params,
+  setHook,
+};
