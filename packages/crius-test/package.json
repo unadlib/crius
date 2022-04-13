@@ -1,6 +1,6 @@
 {
   "name": "crius-test",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A new generation testing tools for BDD",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -19,8 +19,8 @@
   "author": "unadlib",
   "license": "MIT",
   "dependencies": {
-    "crius": "^1.2.0",
-    "crius-is": "^1.2.0",
-    "crius-runner": "^1.2.0"
+    "crius": "^1.2.1",
+    "crius-is": "^1.2.1",
+    "crius-runner": "^1.2.1"
   }
 }

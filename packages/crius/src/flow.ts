@@ -25,7 +25,7 @@ const checkStepClass = <P, C>(
   if (typeof step !== "function") {
     return false;
   }
-  return !!step.prototype.isCriusStep;
+  return step.prototype && !!step.prototype.isCriusStep;
 };
 
 function createFlow<P extends {}, C extends {}>(
