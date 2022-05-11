@@ -115,7 +115,7 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 }
 ```
 
-If you use `@babel/preset-typescript`, you should enable `isTSX: true`.
+If you use `@babel/preset-typescript`, you should enable `isTSX: true`, and set `"jsx": "preserve"` for tsconfig.
 
 ## Examples
 
