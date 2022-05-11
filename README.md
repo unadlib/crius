@@ -115,6 +115,8 @@ If you use jasmine, you can add the following config in `jasmine.json`:
 }
 ```
 
+If you use `@babel/preset-typescript`, you should enable `isTSX: true`.
+
 ## Examples
 
 [Using `crius-test` for initialized the project with `create-react-app`](https://github.com/unadlib/crius-react-example)
