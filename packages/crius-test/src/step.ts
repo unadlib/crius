@@ -17,6 +17,10 @@ export class Step<P = {}, C = {}> extends BaseStep<P, C & BaseContext<P, C>> {
   static afterEach?(...args: any[]): void;
   static plugins?: any[];
   run() {}
+
+  get example() {
+    return this.context.example;
+  }
 }
 export interface StepFunction<P = {}, C = {}>
   extends BaseStepFunction<P, C & BaseContext<P, C>> {}
